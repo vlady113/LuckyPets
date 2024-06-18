@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/principal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#92736F"
+        android:elevation="4dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <ImageView
+            android:id="@+id/menuAtras"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left"
+            android:onClick="volverAtras"
+            android:paddingRight="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:text="@string/latest_ads"
+            android:textColor="#DAC9C7"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/menuAjustes"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="right"
+            android:paddingRight="20dp"
+            android:src="@drawable/baseline_menu_2" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/EditText_MyBalance_Now"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:editable="false"
+                android:focusable="true"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="00.00"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <SearchView
+                android:layout_width="415dp"
+                android:layout_height="63dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="Buscar"
+                android:padding="16dp"
+                android:searchIcon="@drawable/search_icon"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTarjetasGuardadas"
+                android:layout_width="match_parent"
+                android:layout_height="680dp"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="#92736F"
+        app:srcCompat="@drawable/add_box"
+        android:scaleType="fitCenter"
+        android:padding="10dp"
+        android:contentDescription="Botón flotante"/>
+
+</RelativeLayout>

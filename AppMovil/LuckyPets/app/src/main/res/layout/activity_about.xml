@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#92736F"
+        android:elevation="4dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <ImageView
+            android:id="@+id/menuAtras"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left"
+            android:onClick="volverAtras"
+            android:paddingRight="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:text="@string/about"
+            android:textColor="#DAC9C7"
+            android:textSize="30sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:background="#D9C8C6"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:text="Esta aplicación ha sido desarrollada por: "
+            android:textColor="#92736F"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:text="Vladyslav Golovatyi Tsymbal"
+            android:textColor="#92736F"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="352dp"
+            android:layout_marginTop="230dp"
+            android:contentDescription="ogo_3_clear"
+            android:src="@drawable/logo_3_clear" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:text="© 2024 IES Miguel Herrero Pereda.\nTodos los derechos han sido reservados."
+            android:textColor="#92736F"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

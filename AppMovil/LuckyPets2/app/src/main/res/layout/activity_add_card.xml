@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#92736F">
+
+            <ImageView
+                android:id="@+id/menuAtras"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="left"
+                android:onClick="volverAtras"
+                android:paddingRight="10dp"
+                android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="40dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:text="@string/add_card"
+                android:textColor="#DAC9C7"
+                android:textSize="30dp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Número de la tarjeta:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="30dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_NumTarjeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Titular de la tarjeta:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_TitularTarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Fecha de expiración:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_FechaExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="año / mes / día"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Emisor de la tarjeta / Tipo:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/Spinner_TarjetaTipo"
+                    android:layout_width="221dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="CVV:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_TarjetaCVV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnGuardarTarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:background="@drawable/background_view_green"
+                    android:text="Guardar tarjeta"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp"
+                    android:onClick="guardarCambiosDatos"/>
+
+                <Button
+                    android:id="@+id/btnCancelarCambiosTarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/background_view_red"
+                    android:text="Cancelar"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp"
+                    android:onClick="cancelarCambiosDatos"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:padding="32dp"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="241dp"
+        android:contentDescription="logo_claro"
+        app:srcCompat="@drawable/logo_claro" />
+
+    <EditText
+        android:id="@+id/EditText_Usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/baseline_email"
+        android:drawablePadding="15dp"
+        android:hint="@string/username_hint"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/EditText_Contrasenia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/cerrar"
+        android:drawablePadding="15dp"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRecordarme"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/remember_me"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/theme1"
+        android:text="@string/login_button"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textViewOlvideContr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/forgot_password"
+        android:textAlignment="center"
+        android:textColor="@color/theme2"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_confirm_code_reset"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#92736F">
+
+        <ImageView
+            android:id="@+id/menuAtras"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left"
+            android:onClick="volverAtras"
+            android:paddingRight="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:text="@string/confirm_code_reset"
+            android:textColor="#DAC9C7"
+            android:textSize="30dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/merriweather_bold"
+            android:padding="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Introduzca el código que le hemos enviado al corréo electrónico:"
+            android:textColor="#92736F"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/EditText_RestablecerCodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_view_2"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:hint="_ _ _ _ _ _ _ _ _"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:textColor="#DAC9C7"
+            android:textColorHint="#DAC9C7"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnConfirmarCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_view_2"
+            android:onClick="confirmarCodigo"
+            android:text="Confirmar código"
+            android:textColor="#DAC9C7"
+            android:textSize="16sp" />
+
+
+
+    </LinearLayout>
+</RelativeLayout>

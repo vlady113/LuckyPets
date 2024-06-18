@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+            <ImageView
+                android:id="@+id/menuAtras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingRight="20dp"
+                android:onClick="volverAtras"
+                android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:text="@string/ayuda"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Texto de bienvenida -->
+
+        <!-- Título "Mis incidencias" -->
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="16dp"
+            android:text="Bienvenido a la aplicación de seguimiento de incidencias. A continuación, te presentamos una guía básica para su uso."
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textMisIncidencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textWelcome"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="1. Mis incidencias:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción de resumen de incidencias -->
+        <TextView
+            android:id="@+id/textResumenIncidencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textMisIncidencias"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- En esta sección, podrás ver el resumen de tus incidencias, clasificadas en:"
+            android:textSize="14sp" />
+
+        <!-- Descripción de incidencias abiertas -->
+        <TextView
+            android:id="@+id/textIncidenciasAbiertas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textResumenIncidencias"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Abiertas: Número de incidencias que has reportado y aún no han sido resueltas."
+            android:textSize="14sp" />
+
+        <!-- Descripción de incidencias indicadas -->
+        <TextView
+            android:id="@+id/textIncidenciasIndicadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textIncidenciasAbiertas"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Indicidentias: Número de incidencias que has reportado y han sido marcadas como indicidentias (incidencias no urgentes)."
+            android:textSize="14sp" />
+
+        <!-- Descripción de últimas incidencias -->
+        <TextView
+            android:id="@+id/textUltimasIncidencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textIncidenciasIndicadas"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Últimas incidencias: Listado de las últimas 10 incidencias reportadas."
+            android:textSize="14sp" />
+
+        <!-- Título "Reportar una incidencia" -->
+        <TextView
+            android:id="@+id/textReportarIncidencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textUltimasIncidencias"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="2. Reportar una incidencia:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción de cómo reportar una incidencia -->
+        <TextView
+            android:id="@+id/textReportarIncidenciaDesc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textReportarIncidencia"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Para reportar una nueva incidencia, haz clic en el botón '+'."
+            android:textSize="14sp" />
+
+        <!-- Segunda parte de la descripción de cómo reportar una incidencia -->
+        <TextView
+            android:id="@+id/textReportarIncidenciaDesc2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textReportarIncidenciaDesc1"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Se abrirá un formulario para que proporciones los detalles de la incidencia, como categoría, descripción, prioridad y ubicación."
+            android:textSize="14sp" />
+
+        <!-- Tercera parte de la descripción de cómo reportar una incidencia -->
+        <TextView
+            android:id="@+id/textReportarIncidenciaDesc3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textReportarIncidenciaDesc2"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Una vez completado el formulario, haz clic en 'Enviar' para crear la incidencia."
+            android:textSize="14sp" />
+
+        <!-- Título "Ver incidencias" -->
+        <TextView
+            android:id="@+id/textVerIncidencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textReportarIncidenciaDesc3"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="3. Ver incidencias:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción de cómo ver incidencias -->
+        <TextView
+            android:id="@+id/textVerIncidenciasDesc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textVerIncidencias"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Para ver el detalle de una incidencia, haz clic en el número o título de la incidencia en la lista."
+            android:textSize="14sp" />
+
+        <!-- Segunda parte de la descripción de cómo ver incidencias -->
+        <TextView
+            android:id="@+id/textVerIncidenciasDesc2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textVerIncidenciasDesc1"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Se mostrará una pantalla con los detalles de la incidencia, su estado, comentarios y acciones disponibles."
+            android:textSize="14sp" />
+
+        <!-- Título "Filtrar incidencias" -->
+        <TextView
+            android:id="@+id/textFiltrarIncidencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textVerIncidenciasDesc2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="4. Filtrar incidencias:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción de cómo filtrar incidencias -->
+        <TextView
+            android:id="@+id/textFiltrarIncidenciasDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textFiltrarIncidencias"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Puedes filtrar las incidencias por categoría, prioridad, estado y fecha utilizando los filtros proporcionados en la parte superior de la pantalla."
+            android:textSize="14sp" />
+
+        <!-- Título "Actualizar una incidencia" -->
+        <TextView
+            android:id="@+id/textActualizarIncidencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textFiltrarIncidenciasDesc"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="5. Actualizar una incidencia:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Descripción de cómo actualizar una incidencia -->
+        <TextView
+            android:id="@+id/textActualizarIncidenciaDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textActualizarIncidencia"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Si tienes permisos para actualizar una incidencia, podrás cambiar su estado, añadir comentarios o asignarla a otro usuario."
+            android:textSize="14sp" />
+
+        <!-- Descripción adicional de cómo actualizar una incidencia -->
+        <TextView
+            android:id="@+id/textActualizarIncidenciaDesc2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textActualizarIncidenciaDesc"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="- Para actualizar una incidencia, abre la incidencia y realiza los cambios deseados en la pantalla de detalles."
+            android:textSize="14sp" />
+
+        <!-- Descripción adicional de cómo actualizar una incidencia -->
+        <TextView
+            android:id="@+id/textActualizarIncidenciaDesc3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textActualizarIncidenciaDesc2"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="80dp"
+            android:text="- Haz clic en 'Guardar' para actualizar la incidencia."
+            android:textSize="14sp" />
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Principal">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddIncidencias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="@string/mis_incidencias"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+                <ImageView
+                    android:id="@+id/menuAjustes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/baseline_menu_24" />
+
+                <ImageView
+                    android:id="@+id/menuNotificaciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/baseline_add_alert_24" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@string/resumen_incidencias"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.185"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.147" />
+
+            <Button
+                android:id="@+id/btnIncidenciasTotales"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/black"
+                android:clickable="false"
+                android:text="@string/indicencias_totales"
+                android:textSize="20dp"
+                android:textStyle="normal" />
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/btnAbiertas"
+                        android:layout_width="117dp"
+                        android:layout_height="59dp"
+                        android:backgroundTint="@color/colorEnAbierto"
+                        android:text="@string/_12_nabiertas" />
+
+                    <Button
+                        android:id="@+id/btnAsignadas"
+                        android:layout_width="117dp"
+                        android:layout_height="59dp"
+                        android:backgroundTint="@color/colorAsignado"
+                        android:text="@string/_12_nasignadas" />
+
+                    <Button
+                        android:id="@+id/btnEnProceso"
+                        android:layout_width="120dp"
+                        android:layout_height="59dp"
+                        android:backgroundTint="@color/colorEnProceso"
+                        android:text="@string/_12_nen_proceso" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="45dp">
+
+                    <Button
+                        android:id="@+id/btnResueltas"
+                        android:layout_width="117dp"
+                        android:layout_height="59dp"
+                        android:backgroundTint="@color/colorResuelto"
+                        android:text="@string/_12_nresueltas" />
+
+                    <Button
+                        android:id="@+id/btnCerradas"
+                        android:layout_width="117dp"
+                        android:layout_height="59dp"
+                        android:backgroundTint="@color/colorCerrado"
+                        android:text="@string/_12_ncerradas" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@string/ultimas_incidencias"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIncidencias"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

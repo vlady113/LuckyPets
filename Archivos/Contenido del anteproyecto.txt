@@ -1,0 +1,8 @@
+Nombre del alumno o alumnos que lo desarrollan.
+Nombre del proyecto.
+
+El porque de la elección del proyecto.
+Qué problema resuelve el proyectyo.
+Qué tiene de innovación.
+Qué aplicaciones se prentenden desarrollar.
+Opcionalmente: Que tecnologías se van a usar.
