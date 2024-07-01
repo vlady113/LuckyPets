@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tarjetabancaria")
 public class TarjetaBancaria implements Serializable {
@@ -33,6 +35,7 @@ public class TarjetaBancaria implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "UserID")
+    @JsonIgnore
     private Usuarios usuario;
 
     public TarjetaBancaria() {

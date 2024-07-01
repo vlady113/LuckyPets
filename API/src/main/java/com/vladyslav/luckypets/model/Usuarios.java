@@ -208,4 +208,13 @@ public class Usuarios implements Serializable {
 	public void setEsAdministrador(boolean esAdministrador) {
 		this.esAdministrador = esAdministrador;
 	}
+	
+    public List<TarjetaBancaria> getTarjetasBancarias() {
+        return tarjetasBancarias;
+    }
+
+    public void setTarjetasBancarias(List<TarjetaBancaria> tarjetasBancarias) {
+        this.tarjetasBancarias = tarjetasBancarias;
+    }
+    
 }

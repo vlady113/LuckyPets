@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,6 @@ import retrofit2.Response
 class MyBalanceActivity : AppCompatActivity() {
 
     private lateinit var email: String
-    private var userID: Long = 0L
     private lateinit var balanceEditText: EditText
     private lateinit var balanceAddEditText: EditText
     private lateinit var spinner: Spinner
@@ -38,13 +38,17 @@ class MyBalanceActivity : AppCompatActivity() {
         }
 
         email = intent.getStringExtra("email") ?: ""
-        userID = intent.getLongExtra("userID", 0L)
         balanceEditText = findViewById(R.id.EditText_Balance_Now)
         balanceAddEditText = findViewById(R.id.EditText_Balance_Add)
         spinner = findViewById(R.id.Spinner_EligeTarjeta)
 
+        findViewById<ImageView>(R.id.menuAtras).setOnClickListener {
+            volverAtras()
+        }
+
         if (email.isNotEmpty()) {
             cargarSaldoUsuario()
+            cargarTarjetasUsuario()
         } else {
             Toast.makeText(this, "Error: No se proporcionó correo electrónico.", Toast.LENGTH_LONG).show()
             Log.e("MyBalanceActivity", "Correo electrónico no proporcionado en el Intent")
@@ -83,46 +87,19 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun cargarTarjetasUsuario() {
-        RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
-            override fun onResponse(call: Call<Users>, response: Response<Users>) {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancaria>> {
+            override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
                 if (response.isSuccessful) {
-                    val usuario = response.body()
-                    Log.d("MyBalanceActivity", "Usuario encontrado: $usuario")
-                    usuario?.userID?.let { userID ->
-                        Log.d("MyBalanceActivity", "Usuario ID: $userID")
-                        if (userID != 0L) {
-                            RetrofitBuilder.api.getTarjetasByUserId(userID).enqueue(object : Callback<List<TarjetaBancaria>> {
-                                override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
-                                    if (response.isSuccessful) {
-                                        val tarjetas = response.body() ?: emptyList()
-                                        Log.d("MyBalanceActivity", "Tarjetas encontradas: $tarjetas")
-                                        setupSpinner(tarjetas)
-                                    } else {
-                                        Log.e("MyBalanceActivity", "Error al cargar tarjetas: ${response.message()}")
-                                        Toast.makeText(this@MyBalanceActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
-                                    Log.e("MyBalanceActivity", "Error de red: ${t.localizedMessage}")
-                                    Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
-                                }
-                            })
-                        } else {
-                            Log.e("MyBalanceActivity", "User ID is 0")
-                            Toast.makeText(this@MyBalanceActivity, "Error: ID de usuario es 0", Toast.LENGTH_SHORT).show()
-                        }
-                    } ?: run {
-                        Log.e("MyBalanceActivity", "User ID is null")
-                        Toast.makeText(this@MyBalanceActivity, "Error: ID de usuario es nulo", Toast.LENGTH_SHORT).show()
-                    }
+                    val tarjetas = response.body() ?: emptyList()
+                    Log.d("MyBalanceActivity", "Tarjetas encontradas: $tarjetas")
+                    setupSpinner(tarjetas)
                 } else {
-                    Log.e("MyBalanceActivity", "Error al obtener usuario: ${response.message()}")
-                    Toast.makeText(this@MyBalanceActivity, "Error al obtener usuario: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Log.e("MyBalanceActivity", "Error al cargar tarjetas: ${response.message()}")
+                    Toast.makeText(this@MyBalanceActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<Users>, t: Throwable) {
+            override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
                 Log.e("MyBalanceActivity", "Error de red: ${t.localizedMessage}")
                 Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
@@ -200,21 +177,18 @@ class MyBalanceActivity : AppCompatActivity() {
     fun addTarjeta(view: View?) {
         val intent = Intent(this, AddCardActivity::class.java)
         intent.putExtra("email", email)
-        intent.putExtra("userID", userID)
         startActivity(intent)
     }
 
     fun verTarjeta(view: View?) {
         val intent = Intent(this, ShowCardActivity::class.java)
         intent.putExtra("email", email)
-        intent.putExtra("userID", userID)
         startActivity(intent)
     }
 
-    fun volverAtras(view: View?) {
+    private fun volverAtras() {
         val intent = Intent(this, PrincipalActivity::class.java)
         intent.putExtra("email", email)
-        intent.putExtra("userID", userID)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()

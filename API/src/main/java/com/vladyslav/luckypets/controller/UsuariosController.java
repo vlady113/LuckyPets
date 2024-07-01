@@ -1,6 +1,7 @@
 package com.vladyslav.luckypets.controller;
 
 import com.vladyslav.config.EmailTemplate;
+import com.vladyslav.luckypets.model.TarjetaBancaria;
 import com.vladyslav.luckypets.model.Usuarios;
 import com.vladyslav.luckypets.service.EmailService;
 import com.vladyslav.luckypets.service.UsuariosService;
@@ -78,6 +79,17 @@ public class UsuariosController {
         Optional<Usuarios> usuario = usuariosService.findByEmail(email);
         if (usuario.isPresent()) {
             return ResponseEntity.ok(usuario.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    
+    @GetMapping("/tarjetas/email/{email}")
+    public ResponseEntity<List<TarjetaBancaria>> getTarjetasByEmail(@PathVariable String email) {
+        Optional<Usuarios> usuario = usuariosService.findByEmail(email);
+        if (usuario.isPresent()) {
+            List<TarjetaBancaria> tarjetas = usuario.get().getTarjetasBancarias();
+            return ResponseEntity.ok(tarjetas);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
