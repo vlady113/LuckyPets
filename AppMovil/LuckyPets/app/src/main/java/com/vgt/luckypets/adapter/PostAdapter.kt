@@ -1,22 +1,28 @@
 package com.vgt.luckypets.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vgt.luckypets.R
+import com.vgt.luckypets.activity.PrincipalActivity
 import com.vgt.luckypets.model.Post
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class PostAdapter(private val context: Context, private val postsList: List<Post>) :
-    RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(
+    private val context: Context,
+    private val postsList: List<Post>,
+    private val clickListener: (Post) -> Unit
+) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false)
@@ -28,15 +34,19 @@ class PostAdapter(private val context: Context, private val postsList: List<Post
 
         Log.d("PostAdapter", "Binding post: $post")
 
-        holder.txtProvincia.text = "Provincia: ${post.usuario.provincia}"
-        holder.txtDuracion.text = "Duración: ${calculateDuration(post.fechaInicio, post.fechaFin)}"
-        holder.txtDescripcion.text = "Descripción: ${post.descripcion}"
+        holder.txtProvincia.text = post.usuario.provincia
+        holder.txtDuracion.text = calculateDuration(post.fechaInicio, post.fechaFin)
+        holder.txtDescripcion.text = post.descripcion
 
         val fotoUrl = post.fotoAnuncio ?: ""
         Glide.with(context)
             .load(fotoUrl)
             .placeholder(R.drawable.placeholder_image)
             .into(holder.imgPost)
+
+        holder.itemView.setOnClickListener {
+            clickListener(post)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -67,4 +77,5 @@ class PostAdapter(private val context: Context, private val postsList: List<Post
             "Duración desconocida"
         }
     }
+
 }
