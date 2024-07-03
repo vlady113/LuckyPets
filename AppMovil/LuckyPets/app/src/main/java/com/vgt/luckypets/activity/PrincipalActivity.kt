@@ -159,9 +159,6 @@ private fun showPopupMenu(view: View) {
         showAboutActivity()
         popupWindow.dismiss()
     }
-    popupView.findViewById<TextView>(R.id.action_help).setOnClickListener {
-        popupWindow.dismiss()
-    }
     popupView.findViewById<TextView>(R.id.logOut).setOnClickListener {
         Toast.makeText(this, "Se ha cerrado sesión", Toast.LENGTH_SHORT).show()
         popupWindow.dismiss()

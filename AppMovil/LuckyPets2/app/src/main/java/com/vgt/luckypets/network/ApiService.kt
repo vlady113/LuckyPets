@@ -55,6 +55,10 @@ interface ApiService {
     @GET("images/card-logos")
     fun getCardLogos(): Call<Map<String, String>>
 
+    // Método para obtener tarjetas por email
+    @GET("usuarios/tarjetas/email/{email}")
+    fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancaria>>
+
     // Método para verificar si una tarjeta ya está registrada
     @GET("tarjetas/{numeroTarjeta}")
     fun getTarjetaByNumero(@Path("numeroTarjeta") numeroTarjeta: Long): Call<TarjetaBancaria>
@@ -74,4 +78,6 @@ interface ApiService {
     // Método para obtener todos los anuncios
     @GET("anuncios")
     fun getPosts(): Call<List<Post>>
+
+
 }

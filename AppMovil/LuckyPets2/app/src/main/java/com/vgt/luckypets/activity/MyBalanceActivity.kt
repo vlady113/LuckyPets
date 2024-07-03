@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,8 +42,13 @@ class MyBalanceActivity : AppCompatActivity() {
         balanceAddEditText = findViewById(R.id.EditText_Balance_Add)
         spinner = findViewById(R.id.Spinner_EligeTarjeta)
 
+        findViewById<ImageView>(R.id.menuAtras).setOnClickListener {
+            volverAtras()
+        }
+
         if (email.isNotEmpty()) {
             cargarSaldoUsuario()
+            cargarTarjetasUsuario()
         } else {
             Toast.makeText(this, "Error: No se proporcionó correo electrónico.", Toast.LENGTH_LONG).show()
             Log.e("MyBalanceActivity", "Correo electrónico no proporcionado en el Intent")
@@ -81,40 +87,20 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun cargarTarjetasUsuario() {
-        RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
-            override fun onResponse(call: Call<Users>, response: Response<Users>) {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancaria>> {
+            override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
                 if (response.isSuccessful) {
-                    val usuario = response.body()
-                    Log.d("MyBalanceActivity", "Usuario encontrado: $usuario")
-                    usuario?.userID?.let { userID ->
-                        RetrofitBuilder.api.getTarjetasByUserId(userID).enqueue(object : Callback<List<TarjetaBancaria>> {
-                            override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
-                                if (response.isSuccessful) {
-                                    val tarjetas = response.body() ?: emptyList()
-                                    Log.d("MyBalanceActivity", "Tarjetas encontradas: $tarjetas")
-                                    setupSpinner(tarjetas)
-                                } else {
-                                    Log.e("MyBalanceActivity", "Error loading tarjetas: ${response.message()}")
-                                    Toast.makeText(this@MyBalanceActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-
-                            override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
-                                Log.e("MyBalanceActivity", "Network error: ${t.localizedMessage}")
-                                Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
-                            }
-                        })
-                    } ?: run {
-                        Log.e("MyBalanceActivity", "User ID is null")
-                    }
+                    val tarjetas = response.body() ?: emptyList()
+                    Log.d("MyBalanceActivity", "Tarjetas encontradas: $tarjetas")
+                    setupSpinner(tarjetas)
                 } else {
-                    Log.e("MyBalanceActivity", "Error obtaining user: ${response.message()}")
-                    Toast.makeText(this@MyBalanceActivity, "Error al obtener usuario: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Log.e("MyBalanceActivity", "Error al cargar tarjetas: ${response.message()}")
+                    Toast.makeText(this@MyBalanceActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<Users>, t: Throwable) {
-                Log.e("MyBalanceActivity", "Network error: ${t.localizedMessage}")
+            override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
+                Log.e("MyBalanceActivity", "Error de red: ${t.localizedMessage}")
                 Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -200,8 +186,9 @@ class MyBalanceActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun volverAtras(view: View?) {
+    private fun volverAtras() {
         val intent = Intent(this, PrincipalActivity::class.java)
+        intent.putExtra("email", email)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()

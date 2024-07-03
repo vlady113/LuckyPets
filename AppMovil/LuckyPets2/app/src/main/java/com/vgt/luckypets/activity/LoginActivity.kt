@@ -49,6 +49,7 @@ class LoginActivity : ComponentActivity() {
             user?.let {
                 val intent = Intent(this, PrincipalActivity::class.java)
                 intent.putExtra("email", it.email)
+                intent.putExtra("userID", it.userId)
                 Log.d("LoginActivity", "Enviando email: ${it.email}")
                 startActivity(intent)
                 finish()

@@ -6,10 +6,10 @@ import java.io.Serializable
 data class Post(
     @SerializedName("anuncioID")
     val anuncioID: Long,
-    @SerializedName("mascotaID")
-    val mascotaID: Long,
-    @SerializedName("userID")
-    val userID: Long, // Asegúrate de que esto esté correctamente mapeado
+    @SerializedName("mascota")
+    val mascota: Pets,
+    @SerializedName("usuario")
+    val usuario: Users,
     @SerializedName("fechaInicio")
     val fechaInicio: String,
     @SerializedName("fechaFin")

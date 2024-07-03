@@ -7,47 +7,49 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.vgt.luckypets.OnStartDragListener
 import com.vgt.luckypets.R
 import com.vgt.luckypets.model.TarjetaBancaria
 
 class CardAdapter(
-    private var tarjetas: MutableList<TarjetaBancaria>,
+    private val tarjetas: MutableList<TarjetaBancaria>,
     private val cardLogos: Map<String, String>,
-    private val deleteAction: (TarjetaBancaria) -> Unit,
-    private val startDragListener: (RecyclerView.ViewHolder) -> Unit
-) : RecyclerView.Adapter<CardAdapter.TarjetaViewHolder>(), ItemTouchHelperAdapter {
+    private val onDeleteClick: (TarjetaBancaria) -> Unit,
+    private val dragStartListener: OnStartDragListener // Añadir este parámetro
+) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    class TarjetaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imgEmisorTarjeta: ImageView = view.findViewById(R.id.imgEmisorTarjeta)
-        val txtPropietarioTarjeta: TextView = view.findViewById(R.id.txtPropietarioTarjeta)
-        val txtNumCard: TextView = view.findViewById(R.id.txtNumCard)
-        val btnEliminarIncidencia: ImageView = view.findViewById(R.id.btnEliminarIncidencia)
-        val btnMoverTarjeta: ImageView = view.findViewById(R.id.btnMoverTarjeta)
+    inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val txtPropietarioTarjeta: TextView = itemView.findViewById(R.id.txtPropietarioTarjeta)
+        val txtNumCard: TextView = itemView.findViewById(R.id.txtNumCard)
+        val imgEmisorTarjeta: ImageView = itemView.findViewById(R.id.imgEmisorTarjeta)
+        val btnEliminarIncidencia: ImageView = itemView.findViewById(R.id.btnEliminarIncidencia)
+        val btnMoverTarjeta: ImageView = itemView.findViewById(R.id.btnMoverTarjeta)
+
+        init {
+            btnMoverTarjeta.setOnTouchListener { _, _ ->
+                dragStartListener.onStartDrag(this)
+                false
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TarjetaViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
-        return TarjetaViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
+        return CardViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TarjetaViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val tarjeta = tarjetas[position]
         holder.txtPropietarioTarjeta.text = tarjeta.titularTarjeta
         holder.txtNumCard.text = "**** **** **** ${tarjeta.numeroTarjeta.toString().takeLast(4)}"
 
-        val logoUrl = cardLogos[tarjeta.emisorTarjeta] ?: cardLogos["Others"]
-        Glide.with(holder.imgEmisorTarjeta.context)
+        val logoUrl = cardLogos[tarjeta.emisorTarjeta] ?: ""
+        Glide.with(holder.itemView.context)
             .load(logoUrl)
             .into(holder.imgEmisorTarjeta)
 
         holder.btnEliminarIncidencia.setOnClickListener {
-            deleteAction(tarjeta)
-        }
-
-        holder.btnMoverTarjeta.setOnTouchListener { _, _ ->
-            startDragListener(holder)
-            false
+            onDeleteClick(tarjeta)
         }
     }
 
@@ -63,15 +65,9 @@ class CardAdapter(
         }
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        val fromTarjeta = tarjetas.removeAt(fromPosition)
-        tarjetas.add(toPosition, fromTarjeta)
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        val tarjeta = tarjetas.removeAt(fromPosition)
+        tarjetas.add(toPosition, tarjeta)
         notifyItemMoved(fromPosition, toPosition)
-        return true
-    }
-
-    override fun onItemDismiss(position: Int) {
-        tarjetas.removeAt(position)
-        notifyItemRemoved(position)
     }
 }

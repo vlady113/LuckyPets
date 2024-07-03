@@ -11,19 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vgt.luckypets.R
 import com.vgt.luckypets.model.Post
-import com.vgt.luckypets.model.Users
-import com.vgt.luckypets.network.RetrofitBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 class PostAdapter(private val context: Context, private val postsList: List<Post>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-
-    private val usersCache = mutableMapOf<Long, Users?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false)
@@ -35,41 +28,11 @@ class PostAdapter(private val context: Context, private val postsList: List<Post
 
         Log.d("PostAdapter", "Binding post: $post")
 
-        if (post.userID == 0L) {
-            Log.e("PostAdapter", "Invalid userID for post: ${post.anuncioID}")
-            holder.txtProvincia.text = "Provincia: Desconocida"
-        } else {
-            if (usersCache.containsKey(post.userID)) {
-                val user = usersCache[post.userID]
-                Log.d("PostAdapter", "User found in cache: $user")
-                holder.txtProvincia.text = "Provincia: ${user?.provincia ?: "Desconocida"}"
-            } else {
-                Log.d("PostAdapter", "Fetching user data for userID: ${post.userID}")
-                RetrofitBuilder.api.getUserById(post.userID).enqueue(object : Callback<Users> {
-                    override fun onResponse(call: Call<Users>, response: Response<Users>) {
-                        if (response.isSuccessful) {
-                            val user = response.body()
-                            usersCache[post.userID] = user
-                            Log.d("PostAdapter", "User data fetched: $user")
-                            holder.txtProvincia.text = "Provincia: ${user?.provincia ?: "Desconocida"}"
-                        } else {
-                            Log.e("PostAdapter", "Error fetching user data: ${response.code()} - ${response.message()}")
-                            holder.txtProvincia.text = "Provincia: Desconocida"
-                        }
-                    }
-
-                    override fun onFailure(call: Call<Users>, t: Throwable) {
-                        Log.e("PostAdapter", "Failed to fetch user data: ${t.localizedMessage}", t)
-                        holder.txtProvincia.text = "Provincia: Desconocida"
-                    }
-                })
-            }
-        }
-
+        holder.txtProvincia.text = "Provincia: ${post.usuario.provincia}"
         holder.txtDuracion.text = "Duración: ${calculateDuration(post.fechaInicio, post.fechaFin)}"
         holder.txtDescripcion.text = "Descripción: ${post.descripcion}"
 
-        val fotoUrl = post.fotoAnuncio?.let { java.lang.String(it) } ?: ""
+        val fotoUrl = post.fotoAnuncio ?: ""
         Glide.with(context)
             .load(fotoUrl)
             .placeholder(R.drawable.placeholder_image)
@@ -105,4 +68,3 @@ class PostAdapter(private val context: Context, private val postsList: List<Post
         }
     }
 }
-
