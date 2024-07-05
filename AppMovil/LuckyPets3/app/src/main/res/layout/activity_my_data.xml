@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#92736F">
+
+            <ImageView
+                android:id="@+id/menuAtras"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="left"
+                android:onClick="volverAtras"
+                android:paddingRight="10dp"
+                android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:text="@string/my_data"
+                android:textColor="#DAC9C7"
+                android:textSize="30dp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="DNI:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="30dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_DNI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Nombre:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_Nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Apellidos:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_Apellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Dirección:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_Direccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Provincia:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_Provincia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Código postal:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_CodigoPostal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:padding="8dp"
+                    android:text="Teléfono:"
+                    android:textColor="#92736F"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EditText_Telefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="_ _ _ _ _ _ _ _ _"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp" />
+
+
+                <Button
+                    android:id="@+id/btnGuardarCambiosDatos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/background_view_green"
+                    android:text="Guardar cambios"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp"
+                    android:onClick="guardarCambiosDatos"/>
+
+                <Button
+                    android:id="@+id/btnCancelarCambiosDatos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/background_view_red"
+                    android:text="Cancelar"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp"
+                    android:onClick="cancelarCambiosDatos"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</ScrollView>

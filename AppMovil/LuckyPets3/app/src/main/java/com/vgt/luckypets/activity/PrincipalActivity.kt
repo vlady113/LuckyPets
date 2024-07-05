@@ -2,8 +2,6 @@ package com.vgt.luckypets.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -81,16 +79,6 @@ class PrincipalActivity : AppCompatActivity() {
             adapter = postAdapter
         }
 
-        // Configurar EditText para buscar
-        val searchEditText = findViewById<EditText>(R.id.searchEditText)
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                postAdapter.filter(s.toString())
-            }
-        })
-
         // Cargar los posts
         fetchPosts()
     }
@@ -128,7 +116,7 @@ class PrincipalActivity : AppCompatActivity() {
                     if (posts != null && posts.isNotEmpty()) {
                         postsList.clear()
                         postsList.addAll(posts)
-                        postAdapter.updateData(posts)
+                        postAdapter.notifyDataSetChanged()
                         Log.d("PrincipalActivity", "Posts cargados correctamente: $posts")
                     } else {
                         Log.d("PrincipalActivity", "No se encontraron anuncios.")
@@ -265,6 +253,6 @@ class PrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
-        finish()
+        finish() // Opcional, solo en caso de querer eliminar esta actividad del stack
     }
 }

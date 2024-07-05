@@ -45,55 +45,53 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <EditText
-            android:id="@+id/EditText_MyBalance_Now"
-            android:layout_width="145dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_view_2"
-            android:drawablePadding="15dp"
-            android:editable="false"
-            android:focusable="true"
-            android:fontFamily="@font/merriweather_bold"
-            android:hint="00.00"
-            android:padding="16dp"
-            android:textColor="#DAC9C7"
-            android:textColorHint="#DAC9C7"
-            android:textSize="20sp" />
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_view_2"
-            android:drawablePadding="15dp"
-            android:fontFamily="@font/merriweather_bold"
-            android:hint="Buscar provincia..."
-            android:padding="16dp"
-            android:singleLine="true"
-            android:textColor="#DAC9C7"
-            android:textColorHint="#DAC9C7"
-            android:textSize="20sp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:drawableStart="@drawable/search_icon" />
+            <EditText
+                android:id="@+id/EditText_MyBalance_Now"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:editable="false"
+                android:focusable="true"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="00.00"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTarjetasGuardadas"
-            android:layout_width="match_parent"
-            android:layout_height="680dp"
-            android:layout_margin="10dp"/>
-    </LinearLayout>
+            <SearchView
+                android:layout_width="415dp"
+                android:layout_height="63dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="Buscar"
+                android:padding="16dp"
+                android:searchIcon="@drawable/search_icon"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTarjetasGuardadas"
+                android:layout_width="match_parent"
+                android:layout_height="680dp"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

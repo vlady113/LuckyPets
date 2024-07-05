@@ -1,28 +1,28 @@
 package com.vgt.luckypets.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vgt.luckypets.R
+import com.vgt.luckypets.activity.PrincipalActivity
 import com.vgt.luckypets.model.Post
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.Locale
 
 class PostAdapter(
     private val context: Context,
-    private var postsList: List<Post>,
+    private val postsList: List<Post>,
     private val clickListener: (Post) -> Unit
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-
-    private var originalPostsList: List<Post> = postsList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false)
@@ -78,20 +78,4 @@ class PostAdapter(
         }
     }
 
-    fun filter(query: String) {
-        postsList = if (query.isEmpty()) {
-            originalPostsList
-        } else {
-            originalPostsList.filter { post ->
-                post.usuario.provincia.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))
-            }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun updateData(newPostsList: List<Post>) {
-        originalPostsList = newPostsList
-        postsList = newPostsList
-        notifyDataSetChanged()
-    }
 }

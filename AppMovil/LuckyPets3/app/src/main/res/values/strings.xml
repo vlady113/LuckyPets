@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">LuckyPets</string>
+    <string name="email_hint">E-Mail</string>
+    <string name="example_email_hint">ejemplo@correo.com</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="remember_me">Recordarme</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="forgot_password">¿Has olvidado tu contraseña?</string>
+    <string name="logo_2">logo_2</string>
+    <string name="register">¿No tienes cuenta? Registrate ahora</string>
+    <string name="register_new_user">¡Registro de un nuevo usuario!</string>
+    <string name="reset_password">Restablezca su contraseña</string>
+    <string name="latest_ads">Últimos anuncios</string>
+    <string name="my_data">Mis datos personales</string>
+    <string name="confirm_code_reset">Confirmar código de restablecimiento</string>
+    <string name="set_new_password">Establecer nueva contraseña</string>">
+    <string name="about">Acerca de ..."</string>
+    <string name="change_email">Cambiar correo electrónico</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="my_balance">Mi Saldo CR</string>
+    <string name="add_card">Añadir tarjeta de débito / crédito</string>
+    <string name="show_card">Mis tarjetas</string>
+    <string name="add_balance">Añadir Saldo CR</string>
+    <string name="details_post">Detalles del anuncio</string>
+    <string-array name="card_types_array">
+        <item>Visa</item>
+        <item>MasterCard</item>
+        <item>AmericanExpress</item>
+        <item>Otros</item>
+    </string-array>
+
+
+</resources>
