@@ -1,0 +1,167 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_new_post"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAC9C7">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#92736F">
+
+        <ImageView
+            android:id="@+id/menuAtras"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left"
+            android:onClick="volverAtras"
+            android:layout_marginLeft="20dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:text="@string/new_post"
+            android:textColor="#DAC9C7"
+            android:textSize="30dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
+                android:text="Imágen:"
+                android:textColor="#92736F"
+                android:layout_marginTop="30dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imgNewPost"
+                android:layout_width="156dp"
+                android:layout_height="106dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:contentDescription="Imagen del nuevo anuncio"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
+                android:text="Provincia:"
+                android:textColor="#92736F"
+                android:layout_marginTop="30dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/EditText_Provincia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="_ _ _ _ _ _ _ _ _"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
+                android:text="Duración:"
+                android:textColor="#92736F"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/EditText_Duracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="_ _ _ _ _ _ _ _ _"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
+                android:text="Descripción:"
+                android:textColor="#92736F"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/EditText_Descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint=""
+                android:padding="16dp"
+                android:singleLine="false"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnPublicarAnuncio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/background_view_green"
+                android:onClick="publicarAnuncio"
+                android:text="Publicar anuncio"
+                android:textColor="#DAC9C7"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnCancelarPublicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/background_view_red"
+                android:onClick="cancelarPublicacion"
+                android:text="Cancelar"
+                android:textColor="#DAC9C7"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

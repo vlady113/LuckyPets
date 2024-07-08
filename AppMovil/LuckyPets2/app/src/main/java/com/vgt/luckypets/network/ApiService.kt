@@ -12,8 +12,9 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-
 interface ApiService {
+
+    // --- Métodos relacionados con usuarios ---
 
     // Método para iniciar sesión
     @POST("usuarios/login")
@@ -39,13 +40,15 @@ interface ApiService {
     @GET("usuarios/{id}")
     fun getUserById(@Path("id") userId: Long): Call<Users>
 
-    // Método para obtener todos los usuarios
+    // Método para obtener un usuario por correo electrónico
     @GET("usuarios/email/{email}")
     fun getUsuarioByEmail(@Path("email") email: String): Call<Users>
 
     // Método para actualizar un usuario
     @PUT("usuarios/email/{email}")
     fun updateUsuario(@Path("email") email: String, @Body usuario: Users): Call<Users>
+
+    // --- Métodos relacionados con tarjetas bancarias ---
 
     // Método para registrar una nueva tarjeta bancaria
     @POST("tarjetas")
@@ -55,21 +58,23 @@ interface ApiService {
     @GET("images/card-logos")
     fun getCardLogos(): Call<Map<String, String>>
 
-    // Método para obtener tarjetas por email
+    // Método para obtener tarjetas por correo electrónico
     @GET("usuarios/tarjetas/email/{email}")
     fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancaria>>
 
-    // Método para verificar si una tarjeta ya está registrada
+    // Método para verificar si una tarjeta ya está registrada por número de tarjeta
     @GET("tarjetas/{numeroTarjeta}")
     fun getTarjetaByNumero(@Path("numeroTarjeta") numeroTarjeta: Long): Call<TarjetaBancaria>
 
-    // Método para obtener tarjetas por userID
+    // Método para obtener tarjetas por ID de usuario
     @GET("tarjetas/usuario/{userID}")
     fun getTarjetasByUserId(@Path("userID") userID: Long): Call<List<TarjetaBancaria>>
 
-    // Método para eliminar tarjeta por id
+    // Método para eliminar una tarjeta por ID
     @DELETE("tarjetas/{id}")
     fun deleteTarjeta(@Path("id") id: Long): Call<Void>
+
+    // --- Métodos relacionados con anuncios ---
 
     // Método para obtener un anuncio por ID
     @GET("anuncios/{id}")
@@ -78,6 +83,4 @@ interface ApiService {
     // Método para obtener todos los anuncios
     @GET("anuncios")
     fun getPosts(): Call<List<Post>>
-
-
 }
