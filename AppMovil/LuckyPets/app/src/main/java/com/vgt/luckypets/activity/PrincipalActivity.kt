@@ -91,6 +91,13 @@ class PrincipalActivity : AppCompatActivity() {
             }
         })
 
+        // Configurar FloatingActionButton
+        val fab = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            val intent = Intent(this, NewPostActivity::class.java)
+            startActivity(intent)
+        }
+
         // Cargar los posts
         fetchPosts()
     }
@@ -120,7 +127,6 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     private fun fetchPosts() {
-        Log.d("PrincipalActivity", "Fetching posts...")
         RetrofitBuilder.api.getPosts().enqueue(object : Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if (response.isSuccessful) {

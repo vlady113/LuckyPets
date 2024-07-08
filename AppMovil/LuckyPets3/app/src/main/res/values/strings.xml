@@ -22,6 +22,7 @@
     <string name="show_card">Mis tarjetas</string>
     <string name="add_balance">Añadir Saldo CR</string>
     <string name="details_post">Detalles del anuncio</string>
+    <string name="new_post">Nuevo anuncio</string>
     <string-array name="card_types_array">
         <item>Visa</item>
         <item>MasterCard</item>
