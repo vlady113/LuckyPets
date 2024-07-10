@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.vgt.luckypets.R
 import com.vgt.luckypets.adapter.PostAdapter
 import com.vgt.luckypets.databinding.ActivityPrincipalBinding
@@ -38,6 +39,7 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var balanceEditText: EditText
     private lateinit var postAdapter: PostAdapter
     private lateinit var postsList: MutableList<Post>
+    private lateinit var user: Users
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +93,12 @@ class PrincipalActivity : AppCompatActivity() {
             }
         })
 
+        // Configurar FloatingActionButton
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            checkUserDataAndProceed()
+        }
+
         // Cargar los posts
         fetchPosts()
     }
@@ -120,7 +128,6 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     private fun fetchPosts() {
-        Log.d("PrincipalActivity", "Fetching posts...")
         RetrofitBuilder.api.getPosts().enqueue(object : Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if (response.isSuccessful) {
@@ -259,6 +266,41 @@ class PrincipalActivity : AppCompatActivity() {
             Log.e("PrincipalActivity", "Error parsing dates: $startDate, $endDate", e)
             "Duración desconocida"
         }
+    }
+
+    private fun checkUserDataAndProceed() {
+        RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
+            override fun onResponse(call: Call<Users>, response: Response<Users>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    if (user != null && areUserDataComplete(user)) {
+                        val intent = Intent(this@PrincipalActivity, NewPostActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@PrincipalActivity, "Por favor, complete sus datos antes de publicar un anuncio.", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@PrincipalActivity, MyDataActivity::class.java)
+                        intent.putExtra("email", email)
+                        startActivity(intent)
+                    }
+                } else {
+                    Toast.makeText(this@PrincipalActivity, "Error al verificar datos del usuario.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Users>, t: Throwable) {
+                Toast.makeText(this@PrincipalActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun areUserDataComplete(user: Users): Boolean {
+        return user.dni?.isNotEmpty() == true &&
+                user.nombre?.isNotEmpty() == true &&
+                user.apellidos?.isNotEmpty() == true &&
+                user.direccion?.isNotEmpty() == true &&
+                user.provincia?.isNotEmpty() == true &&
+                user.codigoPostal?.isNotEmpty() == true &&
+                user.telefono?.isNotEmpty() == true
     }
 
     fun volverAtras(view: View?) {
