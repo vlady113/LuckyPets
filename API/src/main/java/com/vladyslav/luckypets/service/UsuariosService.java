@@ -17,7 +17,7 @@ public class UsuariosService {
     public List<Usuarios> findAll() {
         return usuariosRepository.findAll();
     }
-    
+
     public Optional<Usuarios> findById(Long id) {
         return usuariosRepository.findById(id);
     }
@@ -31,6 +31,6 @@ public class UsuariosService {
     }
 
     public void deleteById(Long id) {
-        usuariosRepository.deleteById(id); 
+        usuariosRepository.deleteById(id);
     }
 }

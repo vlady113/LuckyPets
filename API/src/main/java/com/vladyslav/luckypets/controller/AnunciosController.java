@@ -1,7 +1,9 @@
 package com.vladyslav.luckypets.controller;
 
 import com.vladyslav.luckypets.model.Anuncios;
+import com.vladyslav.luckypets.model.Usuarios;
 import com.vladyslav.luckypets.service.AnunciosService;
+import com.vladyslav.luckypets.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class AnunciosController {
     @Autowired
     private AnunciosService anunciosService;
 
+    @Autowired
+    private UsuariosService usuariosService;
+
     @GetMapping
     public List<Anuncios> getAllAnuncios() {
         return anunciosService.findAll();
@@ -28,8 +33,19 @@ public class AnunciosController {
     }
 
     @PostMapping
-    public Anuncios createAnuncio(@RequestBody Anuncios anuncio) {
-        return anunciosService.save(anuncio);
+    public ResponseEntity<Anuncios> createAnuncio(@RequestBody Anuncios anuncio) {
+        Usuarios usuario = anuncio.getUsuario();
+        if (usuario != null) {
+            Optional<Usuarios> existingUsuario = usuariosService.findByEmail(usuario.getEmail());
+            if (existingUsuario.isPresent()) {
+                anuncio.setUsuario(existingUsuario.get());
+            } else {
+                Usuarios savedUsuario = usuariosService.save(usuario);
+                anuncio.setUsuario(savedUsuario);
+            }
+        }
+        Anuncios savedAnuncio = anunciosService.save(anuncio);
+        return ResponseEntity.ok(savedAnuncio);
     }
 
     @PutMapping("/{id}")
@@ -37,7 +53,6 @@ public class AnunciosController {
         Optional<Anuncios> optionalAnuncio = anunciosService.findById(id);
         if (optionalAnuncio.isPresent()) {
             Anuncios anuncio = optionalAnuncio.get();
-            anuncio.setMascota(anuncioDetails.getMascota());
             anuncio.setUsuario(anuncioDetails.getUsuario());
             anuncio.setFechaInicio(anuncioDetails.getFechaInicio());
             anuncio.setFechaFin(anuncioDetails.getFechaFin());

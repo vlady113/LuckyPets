@@ -1,5 +1,6 @@
 package com.vgt.luckypets.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class MyBalanceActivity : AppCompatActivity() {
     private lateinit var balanceAddEditText: EditText
     private lateinit var spinner: Spinner
     private var tarjetasDisponibles: List<TarjetaBancaria> = emptyList()
+    private var initialBalance: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +69,8 @@ class MyBalanceActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 if (response.isSuccessful) {
                     response.body()?.let { usuario ->
-                        balanceEditText.setText(String.format("%.2f CR", usuario.saldoCR))
+                        initialBalance = usuario.saldoCR
+                        balanceEditText.setText(String.format("%.2f CR", initialBalance))
                         Log.d("MyBalanceActivity", "Saldo del usuario cargado correctamente")
                     } ?: run {
                         Toast.makeText(this@MyBalanceActivity, "Error al cargar datos: Respuesta vacía", Toast.LENGTH_SHORT).show()
@@ -187,10 +190,13 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun volverAtras() {
-        val intent = Intent(this, PrincipalActivity::class.java)
-        intent.putExtra("email", email)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(intent)
+        val currentBalance = balanceEditText.text.toString().toDoubleOrNull() ?: initialBalance
+        val intent = Intent()
+        if (currentBalance != initialBalance) {
+            intent.putExtra("new_balance", currentBalance)
+        }
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
 }

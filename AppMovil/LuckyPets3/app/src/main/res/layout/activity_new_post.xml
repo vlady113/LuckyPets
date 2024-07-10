@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Imágen:"
+                android:text="Selecciona una imagen:"
                 android:textColor="#92736F"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp" />
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Provincia:"
+                android:text="Introduce provincia:"
                 android:textColor="#92736F"
                 android:layout_marginTop="30dp"
                 android:textSize="16sp" />
@@ -94,32 +94,113 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Duración:"
+                android:text="Introduce fecha y hora Inicio:"
                 android:textColor="#92736F"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/EditText_Duracion"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/background_view_2"
-                android:drawablePadding="15dp"
-                android:fontFamily="@font/merriweather_bold"
-                android:hint="_ _ _ _ _ _ _ _ _"
-                android:padding="16dp"
-                android:singleLine="true"
-                android:textColor="#DAC9C7"
-                android:textColorHint="#DAC9C7"
-                android:textSize="20sp" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/EditText_Fecha_Inicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="Día/Mes/Año"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="showDatePickerInicio" />
+
+                <EditText
+                    android:id="@+id/EditText_Hora_Inicio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="Horas:Minutos"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="showTimePickerInicio" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Descripción:"
+                android:text="Introduce fecha y hora Fin:"
+                android:textColor="#92736F"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/EditText_Fecha_Fin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="Día/Mes/Año"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="showDatePickerFin" />
+
+                <EditText
+                    android:id="@+id/EditText_Hora_Fin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/background_view_2"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="Horas:Minutos"
+                    android:padding="16dp"
+                    android:singleLine="true"
+                    android:textColor="#DAC9C7"
+                    android:textColorHint="#DAC9C7"
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="showTimePickerFin" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
+                android:text="Escribe una breve descripción:"
                 android:textColor="#92736F"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp" />
@@ -140,6 +221,18 @@
                 android:textColor="#DAC9C7"
                 android:textColorHint="#DAC9C7"
                 android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxAceptarCoste"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/background2"
+                android:minHeight="48dp"
+                android:text="* Aceptar el coste (15 CR) por la publicación."
+                android:textColor="@color/background2"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnPublicarAnuncio"

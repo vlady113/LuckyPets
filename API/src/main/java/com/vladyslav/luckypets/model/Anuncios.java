@@ -17,10 +17,6 @@ public class Anuncios implements Serializable {
     private Long anuncioID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MascotaID", nullable = false)
-    private Mascotas mascota;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", nullable = false)
     private Usuarios usuario;
 
@@ -74,9 +70,8 @@ public class Anuncios implements Serializable {
 
     public Anuncios() {}
 
-    public Anuncios(Long anuncioID, Mascotas mascota, Usuarios usuario, LocalDateTime fechaInicio, LocalDateTime fechaFin, String descripcion, EstadoAnuncio estado, Double costoCR, byte[] fotoAnuncio) {
+    public Anuncios(Long anuncioID, Usuarios usuario, LocalDateTime fechaInicio, LocalDateTime fechaFin, String descripcion, EstadoAnuncio estado, Double costoCR, byte[] fotoAnuncio) {
         this.anuncioID = anuncioID;
-        this.mascota = mascota;
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -92,14 +87,6 @@ public class Anuncios implements Serializable {
 
     public void setAnuncioID(Long anuncioID) {
         this.anuncioID = anuncioID;
-    }
-
-    public Mascotas getMascota() {
-        return mascota;
-    }
-
-    public void setMascota(Mascotas mascota) {
-        this.mascota = mascota;
     }
 
     public Usuarios getUsuario() {

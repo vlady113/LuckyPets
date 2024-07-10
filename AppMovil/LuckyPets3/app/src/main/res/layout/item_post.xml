@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -15,86 +16,81 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imgPost"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:contentDescription="Imagen del anuncio"
                 android:scaleType="centerCrop"
-                android:layout_marginRight="10dp" />
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/placeholder_image" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_bold"
-                        android:text="Provincia: "
-                        android:textColor="#DAC9C7"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/txtProvincia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_regular"
-                        android:textColor="#DAC9C7"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="Provincia: "
+                    android:layout_marginTop="10dp"
+                    android:textColor="#DAC9C7"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtProvincia"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_bold"
-                        android:text="Duración: "
-                        android:textColor="#DAC9C7"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/txtDuracion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_regular"
-                        android:textColor="#DAC9C7"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:fontFamily="@font/merriweather_regular"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_bold"
-                        android:text="Descripción: "
-                        android:textColor="#DAC9C7"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/txtDescripcion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/merriweather_regular"
-                        android:textColor="#DAC9C7"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="Duración: "
+                    android:textColor="#DAC9C7"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtDuracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_regular"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="Descripción: "
+                    android:textColor="#DAC9C7"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtDescripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_regular"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

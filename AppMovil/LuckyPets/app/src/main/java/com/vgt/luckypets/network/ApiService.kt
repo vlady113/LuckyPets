@@ -83,4 +83,8 @@ interface ApiService {
     // Método para obtener todos los anuncios
     @GET("anuncios")
     fun getPosts(): Call<List<Post>>
+
+    // Método para crear un nuevo anuncio
+    @POST("anuncios")
+    fun createPost(@Body newPost: Post): Call<Post>
 }

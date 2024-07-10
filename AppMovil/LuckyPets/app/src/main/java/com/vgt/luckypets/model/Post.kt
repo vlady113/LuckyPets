@@ -6,8 +6,6 @@ import java.io.Serializable
 data class Post(
     @SerializedName("anuncioID")
     val anuncioID: Long,
-    @SerializedName("mascota")
-    val mascota: Pets,
     @SerializedName("usuario")
     val usuario: Users,
     @SerializedName("fechaInicio")

@@ -1,5 +1,6 @@
 package com.vgt.luckypets.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.vgt.luckypets.R
 import com.vgt.luckypets.adapter.PostAdapter
 import com.vgt.luckypets.databinding.ActivityPrincipalBinding
@@ -38,6 +40,11 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var balanceEditText: EditText
     private lateinit var postAdapter: PostAdapter
     private lateinit var postsList: MutableList<Post>
+    private lateinit var user: Users
+
+    companion object {
+        private const val REQUEST_CODE_BALANCE = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,10 +99,9 @@ class PrincipalActivity : AppCompatActivity() {
         })
 
         // Configurar FloatingActionButton
-        val fab = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab)
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this, NewPostActivity::class.java)
-            startActivity(intent)
+            checkUserDataAndProceed()
         }
 
         // Cargar los posts
@@ -194,7 +200,7 @@ class PrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, MyBalanceActivity::class.java)
         intent.putExtra("email", email)
         intent.putExtra("userID", userID)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE_BALANCE)
     }
 
     private fun showMyDataActivity() {
@@ -267,10 +273,71 @@ class PrincipalActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkUserDataAndProceed() {
+        RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
+            override fun onResponse(call: Call<Users>, response: Response<Users>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    if (user != null) {
+                        if (areUserDataComplete(user)) {
+                            if (user.saldoCR >= 100) {
+                                val intent = Intent(this@PrincipalActivity, NewPostActivity::class.java)
+                                intent.putExtra("email", email)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this@PrincipalActivity, "Saldo insuficiente para publicar un anuncio.", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this@PrincipalActivity, MyBalanceActivity::class.java)
+                                intent.putExtra("email", email)
+                                startActivity(intent)
+                            }
+                        } else {
+                            Toast.makeText(this@PrincipalActivity, "Por favor, complete sus datos antes de publicar un anuncio.", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@PrincipalActivity, MyDataActivity::class.java)
+                            intent.putExtra("email", email)
+                            startActivity(intent)
+                        }
+                    } else {
+                        Toast.makeText(this@PrincipalActivity, "Error al verificar datos del usuario.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this@PrincipalActivity, "Error al verificar datos del usuario.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Users>, t: Throwable) {
+                Toast.makeText(this@PrincipalActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun areUserDataComplete(user: Users): Boolean {
+        return user.dni?.isNotEmpty() == true &&
+                user.nombre?.isNotEmpty() == true &&
+                user.apellidos?.isNotEmpty() == true &&
+                user.direccion?.isNotEmpty() == true &&
+                user.provincia?.isNotEmpty() == true &&
+                user.codigoPostal?.isNotEmpty() == true &&
+                user.telefono?.isNotEmpty() == true
+    }
+
     fun volverAtras(view: View?) {
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_BALANCE && resultCode == Activity.RESULT_OK) {
+            val newBalance = data?.getDoubleExtra("new_balance", -1.0)
+            if (newBalance != null && newBalance != -1.0) {
+                balanceEditText.setText(String.format("%.2f CR", newBalance))
+                findViewById<EditText>(R.id.EditText_MyBalance_Now).setText(String.format("%.2f CR", newBalance))
+            }
+        }
+    }
+
+
+
 }

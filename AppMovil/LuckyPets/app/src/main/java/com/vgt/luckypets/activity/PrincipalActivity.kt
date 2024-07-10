@@ -1,5 +1,6 @@
 package com.vgt.luckypets.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -40,6 +41,10 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var postAdapter: PostAdapter
     private lateinit var postsList: MutableList<Post>
     private lateinit var user: Users
+
+    companion object {
+        private const val REQUEST_CODE_BALANCE = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,7 +200,7 @@ class PrincipalActivity : AppCompatActivity() {
         val intent = Intent(this, MyBalanceActivity::class.java)
         intent.putExtra("email", email)
         intent.putExtra("userID", userID)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE_BALANCE)
     }
 
     private fun showMyDataActivity() {
@@ -273,14 +278,26 @@ class PrincipalActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 if (response.isSuccessful) {
                     val user = response.body()
-                    if (user != null && areUserDataComplete(user)) {
-                        val intent = Intent(this@PrincipalActivity, NewPostActivity::class.java)
-                        startActivity(intent)
+                    if (user != null) {
+                        if (areUserDataComplete(user)) {
+                            if (user.saldoCR >= 100) {
+                                val intent = Intent(this@PrincipalActivity, NewPostActivity::class.java)
+                                intent.putExtra("email", email)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this@PrincipalActivity, "Saldo insuficiente para publicar un anuncio.", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this@PrincipalActivity, MyBalanceActivity::class.java)
+                                intent.putExtra("email", email)
+                                startActivity(intent)
+                            }
+                        } else {
+                            Toast.makeText(this@PrincipalActivity, "Por favor, complete sus datos antes de publicar un anuncio.", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@PrincipalActivity, MyDataActivity::class.java)
+                            intent.putExtra("email", email)
+                            startActivity(intent)
+                        }
                     } else {
-                        Toast.makeText(this@PrincipalActivity, "Por favor, complete sus datos antes de publicar un anuncio.", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@PrincipalActivity, MyDataActivity::class.java)
-                        intent.putExtra("email", email)
-                        startActivity(intent)
+                        Toast.makeText(this@PrincipalActivity, "Error al verificar datos del usuario.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this@PrincipalActivity, "Error al verificar datos del usuario.", Toast.LENGTH_SHORT).show()
@@ -309,4 +326,18 @@ class PrincipalActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_BALANCE && resultCode == Activity.RESULT_OK) {
+            val newBalance = data?.getDoubleExtra("new_balance", -1.0)
+            if (newBalance != null && newBalance != -1.0) {
+                balanceEditText.setText(String.format("%.2f CR", newBalance))
+                findViewById<EditText>(R.id.EditText_MyBalance_Now).setText(String.format("%.2f CR", newBalance))
+            }
+        }
+    }
+
+
+
 }
