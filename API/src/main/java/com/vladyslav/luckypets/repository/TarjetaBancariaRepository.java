@@ -10,5 +10,4 @@ public interface TarjetaBancariaRepository extends JpaRepository<TarjetaBancaria
     Optional<TarjetaBancaria> findByNumeroTarjeta(Long numeroTarjeta);
 
     List<TarjetaBancaria> findByUsuario_UserID(Long userID);
-    
 }

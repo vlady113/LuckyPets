@@ -116,12 +116,15 @@
                     android:background="@drawable/background_view_2"
                     android:drawablePadding="15dp"
                     android:fontFamily="@font/merriweather_bold"
-                    android:hint="año / mes / día"
+                    android:hint="Día / Mes / Año"
                     android:padding="16dp"
                     android:singleLine="true"
                     android:textColor="#DAC9C7"
                     android:textColorHint="#DAC9C7"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="showDatePickerExp" />
 
                 <TextView
                     android:layout_width="match_parent"

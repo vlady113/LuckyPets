@@ -44,11 +44,39 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <LinearLayout
+                android:id="@+id/layoutEliminarAnuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtEliminarAnuncio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Eliminar anuncio"
+                    android:textColor="#92736F"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/btnEliminarAnuncio"
+                    android:layout_width="34dp"
+                    android:layout_height="43dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/delete_logo" />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/imgPost"
                 android:layout_width="match_parent"
                 android:layout_height="269dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:contentDescription="Imagen del anuncio"
                 android:scaleType="centerCrop"

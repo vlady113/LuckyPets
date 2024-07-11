@@ -20,10 +20,11 @@ class CardAdapter(
     private val tarjetas: MutableList<TarjetaBancaria>,
     private val cardLogos: Map<String, String>,
     private val onDeleteClick: (TarjetaBancaria) -> Unit,
-    private val dragStartListener: OnStartDragListener // Añadir este parámetro
+    private val dragStartListener: OnStartDragListener
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("CardPositions", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("CardPositions", Context.MODE_PRIVATE)
 
     init {
         // Cargar posiciones guardadas al iniciar el adaptador
@@ -67,6 +68,12 @@ class CardAdapter(
 
     override fun getItemCount(): Int {
         return tarjetas.size
+    }
+
+    fun addItem(tarjeta: TarjetaBancaria) {
+        tarjetas.add(tarjeta)
+        notifyItemInserted(tarjetas.size - 1)
+        savePositions()
     }
 
     fun removeItem(tarjeta: TarjetaBancaria) {

@@ -1,9 +1,13 @@
 package com.vgt.luckypets.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +48,13 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
             Toast.makeText(this, "Error: No se proporcionó correo electrónico.", Toast.LENGTH_LONG).show()
             Log.e("ShowCardActivity", "Correo electrónico no proporcionado en el Intent")
             finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (email.isNotEmpty()) {
+            loadTarjetas()
         }
     }
 
@@ -90,7 +101,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
     private fun setupRecyclerView(tarjetas: List<TarjetaBancaria>) {
         if (tarjetas.isNotEmpty()) {
             adapter = CardAdapter(this, tarjetas.toMutableList(), cardLogos, { tarjeta ->
-                deleteTarjeta(tarjeta)
+                showDeleteConfirmationDialog(tarjeta)
             }, this)
             recyclerView.adapter = adapter
 
@@ -100,6 +111,20 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
         } else {
             Toast.makeText(this@ShowCardActivity, "No se encontraron tarjetas para el usuario.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showDeleteConfirmationDialog(tarjeta: TarjetaBancaria) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Está seguro de que desea eliminar esta tarjeta bancaria?")
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            deleteTarjeta(tarjeta)
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     private fun deleteTarjeta(tarjeta: TarjetaBancaria) {
@@ -129,5 +154,27 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
 
     private fun volverAtras() {
         finish()
+    }
+
+    companion object {
+        private const val ADD_CARD_REQUEST_CODE = 1
+    }
+
+    fun addTarjeta(view: View?) {
+        val intent = Intent(this, AddCardActivity::class.java)
+        intent.putExtra("email", email)
+        startActivityForResult(intent, ADD_CARD_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.getSerializableExtra("new_card")?.let { newCard ->
+                if (newCard is TarjetaBancaria) {
+                    adapter.addItem(newCard)
+                    recyclerView.scrollToPosition(adapter.itemCount - 1)
+                }
+            }
+        }
     }
 }

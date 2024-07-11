@@ -1,5 +1,7 @@
 package com.vgt.luckypets.activity
 
+import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,12 +18,14 @@ import com.vgt.luckypets.model.Users
 import com.vgt.luckypets.network.RetrofitBuilder
 import com.google.gson.Gson
 import com.vgt.luckypets.R
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.util.*
 
 class AddCardActivity : AppCompatActivity() {
 
@@ -77,6 +81,20 @@ class AddCardActivity : AppCompatActivity() {
         })
     }
 
+    fun showDatePickerExp(view: View) {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                fechaExpEditText.setText(String.format("%02d/%02d/%d", dayOfMonth, month + 1, year))
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
     fun volverAtras(view: View?) {
         val intent = Intent(this, MyBalanceActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
@@ -99,11 +117,11 @@ class AddCardActivity : AppCompatActivity() {
 
         val fechaExp: LocalDate
         try {
-            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
-            fechaExp = LocalDate.parse(fechaExpStr, formatter)
+            val inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            fechaExp = LocalDate.parse(fechaExpStr, inputFormatter)
             Log.d("AddCardActivity", "Fecha de expiración parseada correctamente: $fechaExp")
         } catch (e: DateTimeParseException) {
-            Toast.makeText(this, "Formato de fecha inválido. Use año / mes / día.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Formato de fecha inválido. Use día / mes / año.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -145,27 +163,35 @@ class AddCardActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 if (response.isSuccessful) {
                     response.body()?.let { usuario ->
-                        val tarjeta = TarjetaBancaria(
+                        if (usuario.email != email) {
+                            Log.e("AddCardActivity", "Email del usuario no coincide: esperado $email, recibido ${usuario.email}")
+                            Toast.makeText(this@AddCardActivity, "Error: email del usuario no coincide.", Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                        val tarjetaDTO = TarjetaBancariaDTO(
                             numeroTarjeta = numTarjeta,
-                            fechaCaducidad = fechaExp.toString(),
+                            fechaCaducidad = fechaExp.toString(), // Fecha en formato ISO
                             titularTarjeta = titularTarjeta,
                             emisorTarjeta = tarjetaTipo,
                             cvv = tarjetaCVC,
-                            imgTarjeta = cardLogos[tarjetaTipo] ?: cardLogos["Others"] ?: "",
-                            usuario = usuario
+                            imgTarjeta = cardLogos[tarjetaTipo] ?: cardLogos["Otros"] ?: "",
+                            usuarioEmail = email
                         )
-                        Log.d("AddCardActivity", "Tarjeta a enviar: $tarjeta")
+                        Log.d("AddCardActivity", "Tarjeta DTO a enviar: $tarjetaDTO")
 
                         // Convertir la tarjeta a JSON para verificar la estructura
                         val gson = Gson()
-                        val tarjetaJson = gson.toJson(tarjeta)
-                        Log.d("AddCardActivity", "Tarjeta JSON: $tarjetaJson")
+                        val tarjetaJson = gson.toJson(tarjetaDTO)
+                        Log.d("AddCardActivity", "Tarjeta DTO JSON: $tarjetaJson")
 
-                        RetrofitBuilder.api.createTarjeta(tarjeta).enqueue(object : Callback<TarjetaBancaria> {
+                        RetrofitBuilder.api.createTarjeta(tarjetaDTO).enqueue(object : Callback<TarjetaBancaria> {
                             override fun onResponse(call: Call<TarjetaBancaria>, response: Response<TarjetaBancaria>) {
                                 if (response.isSuccessful) {
+                                    val resultIntent = Intent()
+                                    resultIntent.putExtra("new_card", response.body())
+                                    setResult(Activity.RESULT_OK, resultIntent)
                                     Toast.makeText(this@AddCardActivity, "¡Tarjeta guardada exitosamente!", Toast.LENGTH_SHORT).show()
-                                    volverAtras(null)
+                                    finish()
                                 } else {
                                     val errorBody = response.errorBody()?.string()
                                     Log.e("AddCardActivity", "Error al guardar la tarjeta: ${response.message()}, cuerpo de error en Android: $errorBody")
@@ -178,6 +204,8 @@ class AddCardActivity : AppCompatActivity() {
                                 Toast.makeText(this@AddCardActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                             }
                         })
+                    } ?: run {
+                        Toast.makeText(this@AddCardActivity, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     val errorBody = response.errorBody()?.string()
@@ -196,4 +224,5 @@ class AddCardActivity : AppCompatActivity() {
     fun cancelarCambiosDatos(view: View?) {
         volverAtras(null)
     }
+
 }

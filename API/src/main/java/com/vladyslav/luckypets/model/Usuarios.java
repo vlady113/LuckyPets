@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,10 +61,10 @@ public class Usuarios implements Serializable {
 
     @Column(name = "codigo_expiry", nullable = true)
     private LocalDateTime codigo_expiry;  // Campo para la fecha de expiración
-    
+
     @Column(name = "es_administrador", nullable = false)
     private boolean esAdministrador;
-    
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TarjetaBancaria> tarjetasBancarias;
 
@@ -73,23 +72,23 @@ public class Usuarios implements Serializable {
     }
 
     public Usuarios(String dni, String nombre, String apellidos, String email, String password,
-			String direccion, String provincia, String codigoPostal, String telefono, LocalDate fechaRegistro,
-			Double saldoCR, boolean esAdministrador) {
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.email = email;
-		this.password = password;
-		this.direccion = direccion;
-		this.provincia = provincia;
-		this.codigoPostal = codigoPostal;
-		this.telefono = telefono;
-		this.fechaRegistro = fechaRegistro;
-		this.saldoCR = saldoCR;
-		this.esAdministrador = esAdministrador;
-	}
+                    String direccion, String provincia, String codigoPostal, String telefono, LocalDate fechaRegistro,
+                    Double saldoCR, boolean esAdministrador) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.password = password;
+        this.direccion = direccion;
+        this.provincia = provincia;
+        this.codigoPostal = codigoPostal;
+        this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
+        this.saldoCR = saldoCR;
+        this.esAdministrador = esAdministrador;
+    }
 
-	public Long getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
@@ -201,14 +200,14 @@ public class Usuarios implements Serializable {
         this.codigo_expiry = codigo_expiry;
     }
 
-	public boolean isEsAdministrador() {
-		return esAdministrador;
-	}
+    public boolean isEsAdministrador() {
+        return esAdministrador;
+    }
 
-	public void setEsAdministrador(boolean esAdministrador) {
-		this.esAdministrador = esAdministrador;
-	}
-	
+    public void setEsAdministrador(boolean esAdministrador) {
+        this.esAdministrador = esAdministrador;
+    }
+
     public List<TarjetaBancaria> getTarjetasBancarias() {
         return tarjetasBancarias;
     }
@@ -216,5 +215,4 @@ public class Usuarios implements Serializable {
     public void setTarjetasBancarias(List<TarjetaBancaria> tarjetasBancarias) {
         this.tarjetasBancarias = tarjetasBancarias;
     }
-    
 }

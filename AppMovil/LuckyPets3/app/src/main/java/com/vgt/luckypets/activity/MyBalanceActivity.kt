@@ -127,7 +127,7 @@ class MyBalanceActivity : AppCompatActivity() {
             return
         }
 
-        val cantidadStr = balanceAddEditText.text.toString().trim()
+        val cantidadStr = balanceAddEditText.text.toString().trim().replace(",", ".")
         if (cantidadStr.isEmpty()) {
             Toast.makeText(this, "Por favor, introduzca una cantidad válida.", Toast.LENGTH_SHORT).show()
             return
@@ -190,7 +190,8 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun volverAtras() {
-        val currentBalance = balanceEditText.text.toString().toDoubleOrNull() ?: initialBalance
+        val currentBalanceStr = balanceEditText.text.toString().replace(" CR", "").trim().replace(",", ".")
+        val currentBalance = currentBalanceStr.toDoubleOrNull() ?: initialBalance
         val intent = Intent()
         if (currentBalance != initialBalance) {
             intent.putExtra("new_balance", currentBalance)
@@ -198,5 +199,4 @@ class MyBalanceActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
-
 }

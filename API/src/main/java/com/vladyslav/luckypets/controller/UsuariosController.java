@@ -83,7 +83,7 @@ public class UsuariosController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    
+
     @GetMapping("/tarjetas/email/{email}")
     public ResponseEntity<List<TarjetaBancaria>> getTarjetasByEmail(@PathVariable String email) {
         Optional<Usuarios> usuario = usuariosService.findByEmail(email);

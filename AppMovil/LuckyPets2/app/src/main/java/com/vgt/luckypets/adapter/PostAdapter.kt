@@ -1,6 +1,8 @@
 package com.vgt.luckypets.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.vgt.luckypets.R
 import com.vgt.luckypets.model.Post
+import java.io.ByteArrayInputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -38,11 +40,15 @@ class PostAdapter(
         holder.txtDuracion.text = calculateDuration(post.fechaInicio, post.fechaFin)
         holder.txtDescripcion.text = post.descripcion
 
-        val fotoUrl = post.fotoAnuncio ?: ""
-        Glide.with(context)
-            .load(fotoUrl)
-            .placeholder(R.drawable.placeholder_image)
-            .into(holder.imgPost)
+        val fotoBase64 = post.fotoAnuncio
+        if (!fotoBase64.isNullOrEmpty()) {
+            val imageBytes = Base64.decode(fotoBase64, Base64.DEFAULT)
+            val inputStream = ByteArrayInputStream(imageBytes)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            holder.imgPost.setImageBitmap(bitmap)
+        } else {
+            holder.imgPost.setImageResource(R.drawable.placeholder_image)
+        }
 
         holder.itemView.setOnClickListener {
             clickListener(post)
