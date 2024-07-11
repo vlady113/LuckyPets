@@ -11,7 +11,7 @@ class ItemTouchHelperCallback(private val adapter: CardAdapter) : ItemTouchHelpe
         viewHolder: RecyclerView.ViewHolder
     ): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = 0 // No permitir swipe para eliminar
+        val swipeFlags = 0
         return makeMovementFlags(dragFlags, swipeFlags)
     }
 
@@ -29,7 +29,7 @@ class ItemTouchHelperCallback(private val adapter: CardAdapter) : ItemTouchHelpe
     }
 
     override fun isLongPressDragEnabled(): Boolean {
-        return false // Botón de mover para iniciar el arrastre
+        return false
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {

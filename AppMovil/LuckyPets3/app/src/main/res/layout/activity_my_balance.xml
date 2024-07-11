@@ -125,7 +125,7 @@
             android:id="@+id/btnAddTarjeta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="190dp"
+            android:layout_marginTop="170dp"
             android:background="@drawable/background_view_2"
             android:onClick="addTarjeta"
             android:text="Añadir tarjeta de débito / crédito"
