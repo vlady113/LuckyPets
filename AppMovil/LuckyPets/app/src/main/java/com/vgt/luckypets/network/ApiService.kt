@@ -70,6 +70,10 @@ interface ApiService {
     @GET("tarjetas/usuario/{userID}")
     fun getTarjetasByUserId(@Path("userID") userID: Long): Call<List<TarjetaBancaria>>
 
+    // Método para actualizar las posiciones de las tarjetas en la base de datos
+    @PUT("tarjetas/updatePositions")
+    fun updateTarjetas(@Body tarjetas: List<TarjetaBancaria>): Call<Void>
+
     // Método para eliminar una tarjeta por ID
     @DELETE("tarjetas/{id}")
     fun deleteTarjeta(@Path("id") id: Long): Call<Void>

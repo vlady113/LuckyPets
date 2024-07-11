@@ -67,6 +67,14 @@ public class TarjetaBancariaController {
         TarjetaBancaria savedTarjeta = tarjetaBancariaService.save(tarjeta);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTarjeta);
     }
+    
+    @PutMapping("/updatePositions")
+    public ResponseEntity<Void> updateTarjetas(@RequestBody List<TarjetaBancaria> tarjetas) {
+        for (TarjetaBancaria tarjeta : tarjetas) {
+            tarjetaBancariaService.save(tarjeta);
+        }
+        return ResponseEntity.ok().build();
+    }
 
     @PutMapping("/{numeroTarjeta}")
     public ResponseEntity<TarjetaBancaria> updateTarjeta(@PathVariable Long numeroTarjeta,

@@ -89,7 +89,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
 
     private fun setupRecyclerView(tarjetas: List<TarjetaBancaria>) {
         if (tarjetas.isNotEmpty()) {
-            adapter = CardAdapter(tarjetas.toMutableList(), cardLogos, { tarjeta ->
+            adapter = CardAdapter(this, tarjetas.toMutableList(), cardLogos, { tarjeta ->
                 deleteTarjeta(tarjeta)
             }, this)
             recyclerView.adapter = adapter

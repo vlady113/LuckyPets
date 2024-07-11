@@ -23,7 +23,9 @@ public class AnunciosController {
 
     @GetMapping
     public List<Anuncios> getAllAnuncios() {
-        return anunciosService.findAll();
+        List<Anuncios> anuncios = anunciosService.findAll();
+        anuncios.sort((a1, a2) -> a2.getFechaInicio().compareTo(a1.getFechaInicio()));
+        return anuncios;
     }
 
     @GetMapping("/{id}")
