@@ -251,6 +251,7 @@ class PrincipalActivity : AppCompatActivity() {
             putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
             putExtra("post_descripcion", post.descripcion)
             putExtra("post_foto", post.fotoAnuncio)
+            putExtra("post_owner_email", post.usuario.email)
         }
         startActivity(intent)
     }
