@@ -2,13 +2,14 @@ package com.vgt.luckypets.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.time.LocalDate
 
 data class TarjetaBancariaDTO(
+    @SerializedName("id")
+    val id: Long? = null,
     @SerializedName("numeroTarjeta")
     val numeroTarjeta: Long,
     @SerializedName("fechaCaducidad")
-    val fechaCaducidad: String, // Usar String para simplificar la serialización
+    val fechaCaducidad: String,
     @SerializedName("titularTarjeta")
     val titularTarjeta: String,
     @SerializedName("emisorTarjeta")

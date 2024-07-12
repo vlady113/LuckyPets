@@ -16,7 +16,7 @@ import com.vgt.luckypets.ItemTouchHelperCallback
 import com.vgt.luckypets.OnStartDragListener
 import com.vgt.luckypets.R
 import com.vgt.luckypets.adapter.CardAdapter
-import com.vgt.luckypets.model.TarjetaBancaria
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import com.vgt.luckypets.network.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,26 +79,26 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
     }
 
     private fun loadTarjetas() {
-        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancaria>> {
-            override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
                 if (response.isSuccessful) {
                     val tarjetas = response.body() ?: emptyList()
                     Log.d("ShowCardActivity", "Tarjetas encontradas: $tarjetas")
                     setupRecyclerView(tarjetas)
                 } else {
-                    Log.e("ShowCardActivity", "Error al cargar tarjetas: ${response.message()}")
-                    Toast.makeText(this@ShowCardActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Log.e("ShowCardActivity", "Error al cargar tarjetas: ${response.code()} - ${response.message()} - ${response.errorBody()?.string()}")
+                    Toast.makeText(this@ShowCardActivity, "Error al cargar tarjetas: ${response.code()} - ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
-                Log.e("ShowCardActivity", "Error de red: ${t.localizedMessage}")
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
+                Log.e("ShowCardActivity", "Error de red: ${t.localizedMessage}", t)
                 Toast.makeText(this@ShowCardActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun setupRecyclerView(tarjetas: List<TarjetaBancaria>) {
+    private fun setupRecyclerView(tarjetas: List<TarjetaBancariaDTO>) {
         if (tarjetas.isNotEmpty()) {
             adapter = CardAdapter(this, tarjetas.toMutableList(), cardLogos, { tarjeta ->
                 showDeleteConfirmationDialog(tarjeta)
@@ -113,7 +113,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
         }
     }
 
-    private fun showDeleteConfirmationDialog(tarjeta: TarjetaBancaria) {
+    private fun showDeleteConfirmationDialog(tarjeta: TarjetaBancariaDTO) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Confirmar eliminación")
         builder.setMessage("¿Está seguro de que desea eliminar esta tarjeta bancaria?")
@@ -127,7 +127,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
         builder.show()
     }
 
-    private fun deleteTarjeta(tarjeta: TarjetaBancaria) {
+    private fun deleteTarjeta(tarjeta: TarjetaBancariaDTO) {
         tarjeta.id?.let { id ->
             RetrofitBuilder.api.deleteTarjeta(id).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -170,7 +170,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.getSerializableExtra("new_card")?.let { newCard ->
-                if (newCard is TarjetaBancaria) {
+                if (newCard is TarjetaBancariaDTO) {
                     adapter.addItem(newCard)
                     recyclerView.scrollToPosition(adapter.itemCount - 1)
                 }
