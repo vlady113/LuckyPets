@@ -339,6 +339,4 @@ class PrincipalActivity : AppCompatActivity() {
         }
     }
 
-
-
 }

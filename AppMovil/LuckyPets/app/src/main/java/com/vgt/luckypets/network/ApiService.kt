@@ -92,4 +92,9 @@ interface ApiService {
     // Método para crear un nuevo anuncio
     @POST("anuncios")
     fun createPost(@Body newPost: Post): Call<Post>
+
+    // Método para eliminar un anuncio
+    @DELETE("anuncios/{id}")
+    fun deleteAnuncio(@Path("id") id: Long): Call<Void>
+
 }
