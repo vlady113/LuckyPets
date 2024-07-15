@@ -4,7 +4,6 @@ import com.vladyslav.luckypets.model.TarjetaBancaria;
 import com.vladyslav.luckypets.model.Usuarios;
 import com.vladyslav.luckypets.service.TarjetaBancariaService;
 import com.vladyslav.luckypets.service.UsuariosService;
-
 import DTO.TarjetaBancariaDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,20 +88,20 @@ public class TarjetaBancariaController {
             // Asignar la URL completa de la imagen
             String imgTarjeta;
             switch (tarjetaDTO.getEmisorTarjeta().toLowerCase()) {
-                case "visa":
-                    imgTarjeta = "http://10.0.2.2:8080/images/visa_logo.png";
+                case "Visa":
+                    imgTarjeta = "http://10.0.2.2:8080/api/resources/images/visa_logo.png";
                     break;
-                case "mastercard":
-                    imgTarjeta = "http://10.0.2.2:8080/images/mc_logo.png";
+                case "MasterCard":
+                    imgTarjeta = "http://10.0.2.2:8080/api/resources/images/mc_logo.png";
                     break;
-                case "americanexpress":
-                    imgTarjeta = "http://10.0.2.2:8080/images/ae_logo.png";
+                case "AmericanExpress":
+                    imgTarjeta = "http://10.0.2.2:8080/api/resources/images/ae_logo.png";
                     break;
-                case "otros":
-                    imgTarjeta = "http://10.0.2.2:8080/images/otros_logo.png";
+                case "Otros":
+                    imgTarjeta = "http://10.0.2.2:8080/api/resources/images/otros_logo.png";
                     break;
                 default:
-                    imgTarjeta = "http://10.0.2.2:8080/images/otros_logo.png";
+                    imgTarjeta = "http://10.0.2.2:8080/api/resources/images/otros_logo.png";
             }
 
             TarjetaBancaria tarjeta = new TarjetaBancaria(
@@ -166,4 +165,5 @@ public class TarjetaBancariaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
 }

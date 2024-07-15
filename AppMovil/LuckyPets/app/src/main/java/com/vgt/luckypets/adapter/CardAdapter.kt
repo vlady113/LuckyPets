@@ -59,6 +59,7 @@ class CardAdapter(
         val logoUrl = tarjeta.imgTarjeta
         Glide.with(holder.itemView.context)
             .load(logoUrl)
+            .placeholder(R.drawable.placeholder_image_2)
             .into(holder.imgEmisorTarjeta)
 
         holder.btnEliminarIncidencia.setOnClickListener {
@@ -118,4 +119,5 @@ class CardAdapter(
             notifyDataSetChanged()
         }
     }
+    
 }
