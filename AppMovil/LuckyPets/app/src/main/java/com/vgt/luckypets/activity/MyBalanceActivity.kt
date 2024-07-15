@@ -57,13 +57,6 @@ class MyBalanceActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (email.isNotEmpty()) {
-            cargarTarjetasUsuario()
-        }
-    }
-
     private fun cargarSaldoUsuario() {
         RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
@@ -180,13 +173,25 @@ class MyBalanceActivity : AppCompatActivity() {
     fun addTarjeta(view: View?) {
         val intent = Intent(this, AddCardActivity::class.java)
         intent.putExtra("email", email)
-        startActivity(intent)
+        startActivityForResult(intent, ADD_CARD_REQUEST_CODE)
     }
 
     fun verTarjeta(view: View?) {
         val intent = Intent(this, ShowCardActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.getSerializableExtra("new_card")?.let { newCard ->
+                if (newCard is TarjetaBancariaDTO) {
+                    tarjetasDisponibles = tarjetasDisponibles.toMutableList().apply { add(newCard) }
+                    setupSpinner(tarjetasDisponibles)
+                }
+            }
+        }
     }
 
     private fun volverAtras() {
@@ -199,4 +204,9 @@ class MyBalanceActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
+    companion object {
+        private const val ADD_CARD_REQUEST_CODE = 1
+    }
+
 }

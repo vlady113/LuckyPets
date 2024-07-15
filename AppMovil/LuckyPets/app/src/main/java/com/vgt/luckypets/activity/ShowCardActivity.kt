@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,10 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
 
         findViewById<ImageView>(R.id.menuAtras).setOnClickListener {
             volverAtras()
+        }
+
+        findViewById<ImageView>(R.id.actualizarDatosTarjetas).setOnClickListener {
+            actualizarTarjetas()
         }
 
         if (email.isNotEmpty()) {
@@ -134,6 +140,7 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
                     if (response.isSuccessful) {
                         Toast.makeText(this@ShowCardActivity, "Tarjeta eliminada", Toast.LENGTH_SHORT).show()
                         adapter.removeItem(tarjeta)
+                        actualizarTarjetas() // Recargar las tarjetas y actualizar el spinner
                     } else {
                         Toast.makeText(this@ShowCardActivity, "Error al eliminar tarjeta: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
@@ -156,6 +163,48 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
         finish()
     }
 
+    private fun actualizarTarjetas() {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
+                if (response.isSuccessful) {
+                    val tarjetas = response.body() ?: emptyList()
+                    adapter.updateItems(tarjetas)
+                    Toast.makeText(this@ShowCardActivity, "Lista de tarjetas actualizada", Toast.LENGTH_SHORT).show()
+                    updateSpinner() // Método para actualizar el spinner
+                } else {
+                    Toast.makeText(this@ShowCardActivity, "Error al actualizar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
+                Toast.makeText(this@ShowCardActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun updateSpinner() {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
+                if (response.isSuccessful) {
+                    val tarjetas = response.body() ?: emptyList()
+                    val spinnerAdapter = ArrayAdapter(
+                        this@ShowCardActivity,
+                        R.layout.spinner_item_selected,
+                        tarjetas.map { "**** **** **** ${it.numeroTarjeta.toString().takeLast(4)}" }
+                    )
+                    spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+                    findViewById<Spinner>(R.id.Spinner_TarjetaTipo).adapter = spinnerAdapter
+                } else {
+                    Toast.makeText(this@ShowCardActivity, "Error al cargar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
+                Toast.makeText(this@ShowCardActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     companion object {
         private const val ADD_CARD_REQUEST_CODE = 1
     }
@@ -173,8 +222,10 @@ class ShowCardActivity : AppCompatActivity(), OnStartDragListener {
                 if (newCard is TarjetaBancariaDTO) {
                     adapter.addItem(newCard)
                     recyclerView.scrollToPosition(adapter.itemCount - 1)
+                    updateSpinner() // Actualizar el spinner
                 }
             }
         }
     }
+
 }

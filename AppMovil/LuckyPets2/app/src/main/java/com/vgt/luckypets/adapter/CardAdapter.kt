@@ -11,19 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vgt.luckypets.OnStartDragListener
 import com.vgt.luckypets.R
-import com.vgt.luckypets.model.TarjetaBancaria
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class CardAdapter(
     private val context: Context,
-    private val tarjetas: MutableList<TarjetaBancaria>,
+    private val tarjetas: MutableList<TarjetaBancariaDTO>,
     private val cardLogos: Map<String, String>,
-    private val onDeleteClick: (TarjetaBancaria) -> Unit,
-    private val dragStartListener: OnStartDragListener // Añadir este parámetro
+    private val onDeleteClick: (TarjetaBancariaDTO) -> Unit,
+    private val dragStartListener: OnStartDragListener
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("CardPositions", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("CardPositions", Context.MODE_PRIVATE)
 
     init {
         // Cargar posiciones guardadas al iniciar el adaptador
@@ -69,7 +70,13 @@ class CardAdapter(
         return tarjetas.size
     }
 
-    fun removeItem(tarjeta: TarjetaBancaria) {
+    fun addItem(tarjeta: TarjetaBancariaDTO) {
+        tarjetas.add(tarjeta)
+        notifyItemInserted(tarjetas.size - 1)
+        savePositions()
+    }
+
+    fun removeItem(tarjeta: TarjetaBancariaDTO) {
         val position = tarjetas.indexOf(tarjeta)
         if (position != -1) {
             tarjetas.removeAt(position)
@@ -97,8 +104,8 @@ class CardAdapter(
         val gson = Gson()
         val json = sharedPreferences.getString("positions", null)
         if (json != null) {
-            val type = object : TypeToken<MutableList<TarjetaBancaria>>() {}.type
-            val savedTarjetas: MutableList<TarjetaBancaria> = gson.fromJson(json, type)
+            val type = object : TypeToken<MutableList<TarjetaBancariaDTO>>() {}.type
+            val savedTarjetas: MutableList<TarjetaBancariaDTO> = gson.fromJson(json, type)
             tarjetas.clear()
             tarjetas.addAll(savedTarjetas)
             notifyDataSetChanged()

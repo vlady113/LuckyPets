@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/show_card"
     android:layout_width="match_parent"
@@ -32,9 +31,20 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/merriweather_bold"
-                android:text="@string/show_card"
+                android:text="Mis Tarjetas"
                 android:textColor="#DAC9C7"
                 android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/actualizarDatosTarjetas"
+                android:layout_width="59dp"
+                android:layout_height="54dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/autorenew_logo"
+                android:contentDescription="Actualizar datos tarjetas"
+                android:clickable="true"
+                android:focusable="true" />
         </androidx.appcompat.widget.Toolbar>
 
     </RelativeLayout>
@@ -52,7 +62,12 @@
             android:layout_height="749dp"
             android:layout_margin="10dp" />
 
+        <Spinner
+            android:id="@+id/Spinner_TarjetaTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
     </LinearLayout>
-
 
 </RelativeLayout>

@@ -86,13 +86,32 @@ public class TarjetaBancariaController {
 
             Usuarios usuario = usuarioOpt.get();
 
+            // Asignar la URL completa de la imagen
+            String imgTarjeta;
+            switch (tarjetaDTO.getEmisorTarjeta().toLowerCase()) {
+                case "visa":
+                    imgTarjeta = "http://10.0.2.2:8080/images/visa_logo.png";
+                    break;
+                case "mastercard":
+                    imgTarjeta = "http://10.0.2.2:8080/images/mc_logo.png";
+                    break;
+                case "americanexpress":
+                    imgTarjeta = "http://10.0.2.2:8080/images/ae_logo.png";
+                    break;
+                case "otros":
+                    imgTarjeta = "http://10.0.2.2:8080/images/otros_logo.png";
+                    break;
+                default:
+                    imgTarjeta = "http://10.0.2.2:8080/images/otros_logo.png";
+            }
+
             TarjetaBancaria tarjeta = new TarjetaBancaria(
                 tarjetaDTO.getNumeroTarjeta(),
                 tarjetaDTO.getFechaCaducidad(),
                 tarjetaDTO.getTitularTarjeta(),
                 tarjetaDTO.getEmisorTarjeta(),
                 tarjetaDTO.getCvv(),
-                tarjetaDTO.getImgTarjeta(),
+                imgTarjeta,
                 usuario
             );
 

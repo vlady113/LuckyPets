@@ -3,6 +3,7 @@ package com.vgt.luckypets.network
 import com.vgt.luckypets.model.LoginResponse
 import com.vgt.luckypets.model.Post
 import com.vgt.luckypets.model.TarjetaBancaria
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import com.vgt.luckypets.model.Users
 import retrofit2.Call
 import retrofit2.http.Body
@@ -52,7 +53,7 @@ interface ApiService {
 
     // Método para registrar una nueva tarjeta bancaria
     @POST("tarjetas")
-    fun createTarjeta(@Body tarjeta: TarjetaBancaria): Call<TarjetaBancaria>
+    fun createTarjeta(@Body tarjeta: TarjetaBancariaDTO): Call<TarjetaBancaria>
 
     // Método para obtener imágenes de tarjetas bancarias
     @GET("images/card-logos")
@@ -60,7 +61,7 @@ interface ApiService {
 
     // Método para obtener tarjetas por correo electrónico
     @GET("usuarios/tarjetas/email/{email}")
-    fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancaria>>
+    fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancariaDTO>>
 
     // Método para verificar si una tarjeta ya está registrada por número de tarjeta
     @GET("tarjetas/{numeroTarjeta}")
@@ -91,4 +92,9 @@ interface ApiService {
     // Método para crear un nuevo anuncio
     @POST("anuncios")
     fun createPost(@Body newPost: Post): Call<Post>
+
+    // Método para eliminar un anuncio
+    @DELETE("anuncios/{id}")
+    fun deleteAnuncio(@Path("id") id: Long): Call<Void>
+
 }

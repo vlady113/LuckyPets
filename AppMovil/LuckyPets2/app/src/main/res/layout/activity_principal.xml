@@ -45,67 +45,93 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/EditText_MyBalance_Now"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_view_2"
+        android:drawablePadding="15dp"
+        android:editable="false"
+        android:focusable="true"
+        android:fontFamily="@font/merriweather_bold"
+        android:hint="00.00"
+        android:padding="16dp"
+        android:textColor="#DAC9C7"
+        android:textColorHint="#DAC9C7"
+        android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/EditText_MyBalance_Now"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_view_2"
-            android:drawablePadding="15dp"
-            android:editable="false"
-            android:focusable="true"
-            android:fontFamily="@font/merriweather_bold"
-            android:hint="00.00"
-            android:padding="16dp"
-            android:textColor="#DAC9C7"
-            android:textColorHint="#DAC9C7"
-            android:textSize="20sp" />
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_below="@id/EditText_MyBalance_Now"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_view_2"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:fontFamily="@font/merriweather_bold"
+        android:hint="Buscar provincia..."
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textColor="#DAC9C7"
+        android:textColorHint="#DAC9C7"
+        android:textSize="20sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:drawableStart="@drawable/search_icon" />
 
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_view_2"
-            android:drawablePadding="15dp"
-            android:fontFamily="@font/merriweather_bold"
-            android:hint="Buscar provincia..."
-            android:padding="16dp"
-            android:singleLine="true"
-            android:textColor="#DAC9C7"
-            android:textColorHint="#DAC9C7"
-            android:textSize="20sp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:drawableStart="@drawable/search_icon" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchEditText">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTarjetasGuardadas"
             android:layout_width="match_parent"
-            android:layout_height="587dp"
-            android:layout_margin="10dp" />
-    </LinearLayout>
+            android:layout_height="607dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/actualizarDatos"
+        android:layout_width="59dp"
+        android:layout_height="54dp"
+        android:layout_below="@id/searchEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="30dp"
+        android:layout_marginEnd="26dp"
+        android:src="@drawable/autorenew_logo"
+        android:contentDescription="Actualizar datos"
+        android:clickable="true"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="-43dp"
         android:backgroundTint="#92736F"
-        app:srcCompat="@drawable/add_box"
-        android:scaleType="fitCenter"
+        android:contentDescription="Botón flotante"
         android:padding="10dp"
-        android:contentDescription="Botón flotante"/>
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/add_box" />
 
 </RelativeLayout>

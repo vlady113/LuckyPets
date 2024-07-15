@@ -56,7 +56,7 @@ class CardAdapter(
         holder.txtPropietarioTarjeta.text = tarjeta.titularTarjeta
         holder.txtNumCard.text = "**** **** **** ${tarjeta.numeroTarjeta.toString().takeLast(4)}"
 
-        val logoUrl = cardLogos[tarjeta.emisorTarjeta] ?: ""
+        val logoUrl = tarjeta.imgTarjeta
         Glide.with(holder.itemView.context)
             .load(logoUrl)
             .into(holder.imgEmisorTarjeta)
@@ -89,6 +89,13 @@ class CardAdapter(
         val tarjeta = tarjetas.removeAt(fromPosition)
         tarjetas.add(toPosition, tarjeta)
         notifyItemMoved(fromPosition, toPosition)
+        savePositions()
+    }
+
+    fun updateItems(newTarjetas: List<TarjetaBancariaDTO>) {
+        tarjetas.clear()
+        tarjetas.addAll(newTarjetas)
+        notifyDataSetChanged()
         savePositions()
     }
 

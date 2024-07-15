@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vgt.luckypets.R
-import com.vgt.luckypets.model.TarjetaBancaria
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import com.vgt.luckypets.model.Users
 import com.vgt.luckypets.network.RetrofitBuilder
 import retrofit2.Call
@@ -27,7 +27,7 @@ class MyBalanceActivity : AppCompatActivity() {
     private lateinit var balanceEditText: EditText
     private lateinit var balanceAddEditText: EditText
     private lateinit var spinner: Spinner
-    private var tarjetasDisponibles: List<TarjetaBancaria> = emptyList()
+    private var tarjetasDisponibles: List<TarjetaBancariaDTO> = emptyList()
     private var initialBalance: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,8 +90,8 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun cargarTarjetasUsuario() {
-        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancaria>> {
-            override fun onResponse(call: Call<List<TarjetaBancaria>>, response: Response<List<TarjetaBancaria>>) {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
                 if (response.isSuccessful) {
                     val tarjetas = response.body() ?: emptyList()
                     Log.d("MyBalanceActivity", "Tarjetas encontradas: $tarjetas")
@@ -102,14 +102,14 @@ class MyBalanceActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<TarjetaBancaria>>, t: Throwable) {
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
                 Log.e("MyBalanceActivity", "Error de red: ${t.localizedMessage}")
                 Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun setupSpinner(tarjetas: List<TarjetaBancaria>) {
+    private fun setupSpinner(tarjetas: List<TarjetaBancariaDTO>) {
         tarjetasDisponibles = tarjetas
         val cardNumbers = if (tarjetas.isNotEmpty()) {
             tarjetas.map { "**** **** **** ${it.numeroTarjeta.toString().takeLast(4)}" }
@@ -127,7 +127,7 @@ class MyBalanceActivity : AppCompatActivity() {
             return
         }
 
-        val cantidadStr = balanceAddEditText.text.toString().trim()
+        val cantidadStr = balanceAddEditText.text.toString().trim().replace(",", ".")
         if (cantidadStr.isEmpty()) {
             Toast.makeText(this, "Por favor, introduzca una cantidad válida.", Toast.LENGTH_SHORT).show()
             return
@@ -190,7 +190,8 @@ class MyBalanceActivity : AppCompatActivity() {
     }
 
     private fun volverAtras() {
-        val currentBalance = balanceEditText.text.toString().toDoubleOrNull() ?: initialBalance
+        val currentBalanceStr = balanceEditText.text.toString().replace(" CR", "").trim().replace(",", ".")
+        val currentBalance = currentBalanceStr.toDoubleOrNull() ?: initialBalance
         val intent = Intent()
         if (currentBalance != initialBalance) {
             intent.putExtra("new_balance", currentBalance)
@@ -198,5 +199,4 @@ class MyBalanceActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
-
 }

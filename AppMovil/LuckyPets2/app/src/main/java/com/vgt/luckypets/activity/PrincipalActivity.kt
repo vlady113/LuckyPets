@@ -32,6 +32,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
+
 class PrincipalActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrincipalBinding
@@ -40,10 +41,10 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var balanceEditText: EditText
     private lateinit var postAdapter: PostAdapter
     private lateinit var postsList: MutableList<Post>
-    private lateinit var user: Users
 
     companion object {
         private const val REQUEST_CODE_BALANCE = 1001
+        private const val REQUEST_CODE_POST = 1002
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +105,12 @@ class PrincipalActivity : AppCompatActivity() {
             checkUserDataAndProceed()
         }
 
+        // Configurar ImageView para actualizar datos
+        val actualizarDatos = findViewById<ImageView>(R.id.actualizarDatos)
+        actualizarDatos.setOnClickListener {
+            refreshPosts()
+        }
+
         // Cargar los posts
         fetchPosts()
     }
@@ -156,6 +163,11 @@ class PrincipalActivity : AppCompatActivity() {
                 Log.e("PrincipalActivity", "Error de red: ${t.localizedMessage}", t)
             }
         })
+    }
+
+    private fun refreshPosts() {
+        fetchPosts()
+        Toast.makeText(this, "Datos actualizados", Toast.LENGTH_SHORT).show()
     }
 
     private fun showPopupMenu(view: View) {
@@ -253,7 +265,7 @@ class PrincipalActivity : AppCompatActivity() {
             putExtra("post_foto", post.fotoAnuncio)
             putExtra("post_owner_email", post.usuario.email)
         }
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE_POST)
     }
 
     private fun calculateDuration(startDate: String, endDate: String): String {
@@ -336,9 +348,12 @@ class PrincipalActivity : AppCompatActivity() {
                 balanceEditText.setText(String.format("%.2f CR", newBalance))
                 findViewById<EditText>(R.id.EditText_MyBalance_Now).setText(String.format("%.2f CR", newBalance))
             }
+        } else if (requestCode == REQUEST_CODE_POST && resultCode == Activity.RESULT_OK) {
+            val deletedPostId = data?.getLongExtra("deleted_post_id", -1L)
+            if (deletedPostId != null && deletedPostId != -1L) {
+                postsList.removeAll { it.anuncioID == deletedPostId }
+                postAdapter.notifyDataSetChanged()
+            }
         }
     }
-
-
-
 }
