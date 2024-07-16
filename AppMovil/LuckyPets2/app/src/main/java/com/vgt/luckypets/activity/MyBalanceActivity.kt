@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -48,19 +49,16 @@ class MyBalanceActivity : AppCompatActivity() {
             volverAtras()
         }
 
+        findViewById<Button>(R.id.btnVerTarjeta).setOnClickListener {
+            verTarjeta(it)
+        }
+
         if (email.isNotEmpty()) {
             cargarSaldoUsuario()
             cargarTarjetasUsuario()
         } else {
             Toast.makeText(this, "Error: No se proporcionó correo electrónico.", Toast.LENGTH_LONG).show()
             Log.e("MyBalanceActivity", "Correo electrónico no proporcionado en el Intent")
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (email.isNotEmpty()) {
-            cargarTarjetasUsuario()
         }
     }
 
@@ -180,13 +178,42 @@ class MyBalanceActivity : AppCompatActivity() {
     fun addTarjeta(view: View?) {
         val intent = Intent(this, AddCardActivity::class.java)
         intent.putExtra("email", email)
-        startActivity(intent)
+        startActivityForResult(intent, ADD_CARD_REQUEST_CODE)
     }
 
     fun verTarjeta(view: View?) {
         val intent = Intent(this, ShowCardActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
+    }
+
+    private fun actualizarTarjetas() {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
+                if (response.isSuccessful) {
+                    val tarjetas = response.body() ?: emptyList()
+                    setupSpinner(tarjetas)
+                } else {
+                    Toast.makeText(this@MyBalanceActivity, "Error al actualizar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
+                Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.getSerializableExtra("new_card")?.let { newCard ->
+                if (newCard is TarjetaBancariaDTO) {
+                    tarjetasDisponibles = tarjetasDisponibles.toMutableList().apply { add(newCard) }
+                    setupSpinner(tarjetasDisponibles)
+                }
+            }
+        }
     }
 
     private fun volverAtras() {
@@ -199,4 +226,9 @@ class MyBalanceActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
+    companion object {
+        private const val ADD_CARD_REQUEST_CODE = 1
+    }
+
 }

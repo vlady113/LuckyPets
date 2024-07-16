@@ -32,7 +32,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-
 class PrincipalActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrincipalBinding
@@ -167,6 +166,7 @@ class PrincipalActivity : AppCompatActivity() {
 
     private fun refreshPosts() {
         fetchPosts()
+        fetchUserBalance() // Añadir esta línea para refrescar el saldo
         Toast.makeText(this, "Datos actualizados", Toast.LENGTH_SHORT).show()
     }
 
@@ -356,4 +356,5 @@ class PrincipalActivity : AppCompatActivity() {
             }
         }
     }
+
 }

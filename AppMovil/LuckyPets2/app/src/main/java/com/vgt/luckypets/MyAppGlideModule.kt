@@ -8,4 +8,5 @@ class MyAppGlideModule : AppGlideModule() {
     override fun isManifestParsingEnabled(): Boolean {
         return false
     }
+
 }

@@ -38,7 +38,6 @@ class PostAdapter(
 
         holder.txtProvincia.text = post.usuario.provincia
         holder.txtDuracion.text = calculateDuration(post.fechaInicio, post.fechaFin)
-        holder.txtDescripcion.text = post.descripcion
 
         val fotoBase64 = post.fotoAnuncio
         if (!fotoBase64.isNullOrEmpty()) {
@@ -63,7 +62,6 @@ class PostAdapter(
         val imgPost: ImageView = itemView.findViewById(R.id.imgPost)
         val txtProvincia: TextView = itemView.findViewById(R.id.txtProvincia)
         val txtDuracion: TextView = itemView.findViewById(R.id.txtDuracion)
-        val txtDescripcion: TextView = itemView.findViewById(R.id.txtDescripcion)
     }
 
     private fun calculateDuration(startDate: String, endDate: String): String {

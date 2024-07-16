@@ -60,7 +60,7 @@ interface ApiService {
     fun getCardLogos(): Call<Map<String, String>>
 
     // Método para obtener tarjetas por correo electrónico
-    @GET("usuarios/tarjetas/email/{email}")
+    @GET("tarjetas/usuario/{email}")
     fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancariaDTO>>
 
     // Método para verificar si una tarjeta ya está registrada por número de tarjeta
