@@ -188,7 +188,7 @@ class AddCardActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<TarjetaBancaria>, response: Response<TarjetaBancaria>) {
                                 if (response.isSuccessful) {
                                     val resultIntent = Intent()
-                                    resultIntent.putExtra("new_card", response.body())
+                                    resultIntent.putExtra("new_card", tarjetaDTO)
                                     setResult(Activity.RESULT_OK, resultIntent)
                                     Toast.makeText(this@AddCardActivity, "¡Tarjeta guardada exitosamente!", Toast.LENGTH_SHORT).show()
                                     finish()

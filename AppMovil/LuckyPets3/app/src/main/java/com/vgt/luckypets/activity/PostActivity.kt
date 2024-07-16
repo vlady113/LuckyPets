@@ -1,5 +1,6 @@
 package com.vgt.luckypets.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -8,16 +9,22 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vgt.luckypets.R
+import com.vgt.luckypets.network.RetrofitBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayInputStream
 
 class PostActivity : AppCompatActivity() {
 
     private lateinit var currentUserEmail: String
     private lateinit var postOwnerEmail: String
+    private var postId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +38,12 @@ class PostActivity : AppCompatActivity() {
 
         currentUserEmail = getCurrentUserEmail()
         postOwnerEmail = intent.getStringExtra("post_owner_email") ?: ""
+        postId = intent.getLongExtra("post_id", 0L)
 
         val layoutEliminarAnuncio = findViewById<LinearLayout>(R.id.layoutEliminarAnuncio)
         if (currentUserEmail == postOwnerEmail) {
             layoutEliminarAnuncio.visibility = View.VISIBLE
+            layoutEliminarAnuncio.setOnClickListener { showConfirmationDialog() }
         } else {
             layoutEliminarAnuncio.visibility = View.GONE
         }
@@ -59,15 +68,47 @@ class PostActivity : AppCompatActivity() {
     }
 
     private fun getCurrentUserEmail(): String {
-        // Lógica para obtener el correo electrónico del usuario actual, por ejemplo, desde SharedPreferences
         val sharedPreferences = getSharedPreferences("login_prefs", MODE_PRIVATE)
         return sharedPreferences.getString("email", "") ?: ""
     }
 
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar eliminación")
+        builder.setMessage("¿Está seguro de que desea eliminar este anuncio?")
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            eliminarAnuncio()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private fun eliminarAnuncio() {
+        RetrofitBuilder.api.deleteAnuncio(postId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@PostActivity, "Anuncio eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    val resultIntent = Intent()
+                    resultIntent.putExtra("deleted_post_id", postId)
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
+                } else {
+                    Toast.makeText(this@PostActivity, "Error al eliminar el anuncio", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     fun volverAtras(view: View?) {
-        val intent = Intent(this, PrincipalActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(intent)
+        val intent = Intent()
+        setResult(RESULT_CANCELED, intent)
         finish()
     }
 }

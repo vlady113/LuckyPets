@@ -56,9 +56,10 @@ class CardAdapter(
         holder.txtPropietarioTarjeta.text = tarjeta.titularTarjeta
         holder.txtNumCard.text = "**** **** **** ${tarjeta.numeroTarjeta.toString().takeLast(4)}"
 
-        val logoUrl = cardLogos[tarjeta.emisorTarjeta] ?: ""
+        val logoUrl = tarjeta.imgTarjeta
         Glide.with(holder.itemView.context)
             .load(logoUrl)
+            .placeholder(R.drawable.placeholder_image_2)
             .into(holder.imgEmisorTarjeta)
 
         holder.btnEliminarIncidencia.setOnClickListener {
@@ -92,6 +93,13 @@ class CardAdapter(
         savePositions()
     }
 
+    fun updateItems(newTarjetas: List<TarjetaBancariaDTO>) {
+        tarjetas.clear()
+        tarjetas.addAll(newTarjetas)
+        notifyDataSetChanged()
+        savePositions()
+    }
+
     private fun savePositions() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
@@ -111,4 +119,5 @@ class CardAdapter(
             notifyDataSetChanged()
         }
     }
+    
 }

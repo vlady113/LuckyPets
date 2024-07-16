@@ -87,7 +87,7 @@ public class TarjetaBancariaController {
 
             // Asignar la URL completa de la imagen
             String imgTarjeta;
-            switch (tarjetaDTO.getEmisorTarjeta().toLowerCase()) {
+            switch (tarjetaDTO.getEmisorTarjeta()) {
                 case "Visa":
                     imgTarjeta = "http://10.0.2.2:8080/api/resources/images/visa_logo.png";
                     break;

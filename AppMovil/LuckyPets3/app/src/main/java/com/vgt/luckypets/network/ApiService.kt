@@ -60,7 +60,7 @@ interface ApiService {
     fun getCardLogos(): Call<Map<String, String>>
 
     // Método para obtener tarjetas por correo electrónico
-    @GET("usuarios/tarjetas/email/{email}")
+    @GET("tarjetas/usuario/{email}")
     fun getTarjetasByEmail(@Path("email") email: String): Call<List<TarjetaBancariaDTO>>
 
     // Método para verificar si una tarjeta ya está registrada por número de tarjeta
@@ -92,4 +92,9 @@ interface ApiService {
     // Método para crear un nuevo anuncio
     @POST("anuncios")
     fun createPost(@Body newPost: Post): Call<Post>
+
+    // Método para eliminar un anuncio
+    @DELETE("anuncios/{id}")
+    fun deleteAnuncio(@Path("id") id: Long): Call<Void>
+
 }
