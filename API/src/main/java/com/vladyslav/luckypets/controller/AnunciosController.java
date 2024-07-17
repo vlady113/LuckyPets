@@ -25,13 +25,21 @@ public class AnunciosController {
     public List<Anuncios> getAllAnuncios() {
         List<Anuncios> anuncios = anunciosService.findAll();
         anuncios.sort((a1, a2) -> a2.getFechaInicio().compareTo(a1.getFechaInicio()));
+        anuncios.forEach(anuncio -> anuncio.getUsuario().setPassword(null)); // Remover el password del JSON
         return anuncios;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Anuncios> getAnuncioById(@PathVariable Long id) {
         Optional<Anuncios> anuncio = anunciosService.findById(id);
-        return anuncio.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (anuncio.isPresent()) {
+            Anuncios foundAnuncio = anuncio.get();
+            String telefono = foundAnuncio.getUsuario().getTelefono();  // Acceder al teléfono del usuario
+            foundAnuncio.getUsuario().setPassword(null); // Remover el password del JSON
+            return ResponseEntity.ok(foundAnuncio);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
@@ -74,4 +82,5 @@ public class AnunciosController {
         anunciosService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    
 }

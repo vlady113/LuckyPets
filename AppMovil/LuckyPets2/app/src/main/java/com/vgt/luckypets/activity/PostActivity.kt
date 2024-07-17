@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vgt.luckypets.R
+import com.vgt.luckypets.model.Post
 import com.vgt.luckypets.network.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +56,7 @@ class PostActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.txtProvincia).text = provincia
         findViewById<TextView>(R.id.txtDuracion).text = duracion
+        findViewById<TextView>(R.id.txtTelefonoPost).text = getPostOwnerPhone()
         findViewById<TextView>(R.id.txtDescripcion).text = descripcion
 
         val imgPost = findViewById<ImageView>(R.id.imgPost)
@@ -70,6 +72,11 @@ class PostActivity : AppCompatActivity() {
     private fun getCurrentUserEmail(): String {
         val sharedPreferences = getSharedPreferences("login_prefs", MODE_PRIVATE)
         return sharedPreferences.getString("email", "") ?: ""
+    }
+
+    private fun getPostOwnerPhone(): String {
+        val post = intent.getSerializableExtra("post") as? Post
+        return post?.usuario?.telefono ?: "No disponible"
     }
 
     private fun showConfirmationDialog() {
@@ -111,4 +118,5 @@ class PostActivity : AppCompatActivity() {
         setResult(RESULT_CANCELED, intent)
         finish()
     }
+
 }

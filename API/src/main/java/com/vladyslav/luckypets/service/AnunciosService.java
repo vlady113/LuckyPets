@@ -21,29 +21,13 @@ public class AnunciosService {
 
     public List<Anuncios> findAll() {
         List<Anuncios> anuncios = anunciosRepository.findAll();
-        anuncios.forEach(anuncio -> {
-            Usuarios usuario = anuncio.getUsuario();
-            if (usuario != null && usuario.getUserID() != null) {
-                Usuarios completeUser = usuariosRepository.findById(usuario.getUserID()).orElse(null);
-                if (completeUser != null) {
-                    anuncio.setUsuario(completeUser);
-                }
-            }
-        });
+        anuncios.forEach(this::populateCompleteUser);
         return anuncios;
     }
 
     public Optional<Anuncios> findById(Long id) {
         Optional<Anuncios> anuncio = anunciosRepository.findById(id);
-        anuncio.ifPresent(a -> {
-            Usuarios usuario = a.getUsuario();
-            if (usuario != null && usuario.getUserID() != null) {
-                Usuarios completeUser = usuariosRepository.findById(usuario.getUserID()).orElse(null);
-                if (completeUser != null) {
-                    a.setUsuario(completeUser);
-                }
-            }
-        });
+        anuncio.ifPresent(this::populateCompleteUser);
         return anuncio;
     }
 
@@ -60,4 +44,15 @@ public class AnunciosService {
     public void deleteById(Long id) {
         anunciosRepository.deleteById(id);
     }
+
+    private void populateCompleteUser(Anuncios anuncio) {
+        Usuarios usuario = anuncio.getUsuario();
+        if (usuario != null && usuario.getUserID() != null) {
+            Usuarios completeUser = usuariosRepository.findById(usuario.getUserID()).orElse(null);
+            if (completeUser != null) {
+                anuncio.setUsuario(completeUser);
+            }
+        }
+    }
+    
 }

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
@@ -13,12 +14,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.vgt.luckypets.R
 import com.vgt.luckypets.model.TarjetaBancaria
+import com.vgt.luckypets.model.TarjetaBancariaDTO
 import com.vgt.luckypets.model.Users
 import com.vgt.luckypets.network.RetrofitBuilder
 import com.google.gson.Gson
-import com.vgt.luckypets.R
-import com.vgt.luckypets.model.TarjetaBancariaDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,6 +61,15 @@ class AddCardActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             tarjetaTipoSpinner.adapter = adapter
+        }
+
+        tarjetaTipoSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedCardType = parent.getItemAtPosition(position).toString()
+                // No se necesita actualizar la imagen aquí
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         loadCardLogos()
@@ -224,5 +234,4 @@ class AddCardActivity : AppCompatActivity() {
     fun cancelarCambiosDatos(view: View?) {
         volverAtras(null)
     }
-
 }

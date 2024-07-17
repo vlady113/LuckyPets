@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -46,6 +47,10 @@ class MyBalanceActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.menuAtras).setOnClickListener {
             volverAtras()
+        }
+
+        findViewById<Button>(R.id.btnVerTarjeta).setOnClickListener {
+            verTarjeta(it)
         }
 
         if (email.isNotEmpty()) {
@@ -180,6 +185,23 @@ class MyBalanceActivity : AppCompatActivity() {
         val intent = Intent(this, ShowCardActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
+    }
+
+    private fun actualizarTarjetas() {
+        RetrofitBuilder.api.getTarjetasByEmail(email).enqueue(object : Callback<List<TarjetaBancariaDTO>> {
+            override fun onResponse(call: Call<List<TarjetaBancariaDTO>>, response: Response<List<TarjetaBancariaDTO>>) {
+                if (response.isSuccessful) {
+                    val tarjetas = response.body() ?: emptyList()
+                    setupSpinner(tarjetas)
+                } else {
+                    Toast.makeText(this@MyBalanceActivity, "Error al actualizar tarjetas: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TarjetaBancariaDTO>>, t: Throwable) {
+                Toast.makeText(this@MyBalanceActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

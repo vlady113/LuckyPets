@@ -16,7 +16,7 @@ public class Anuncios implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long anuncioID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserID", nullable = false)
     private Usuarios usuario;
 
@@ -144,4 +144,5 @@ public class Anuncios implements Serializable {
     public void setFotoAnuncio(byte[] fotoAnuncio) {
         this.fotoAnuncio = fotoAnuncio;
     }
+    
 }
