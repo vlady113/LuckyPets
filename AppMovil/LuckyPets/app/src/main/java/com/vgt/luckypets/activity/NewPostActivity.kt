@@ -43,6 +43,7 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var editTextFechaFin: EditText
     private lateinit var editTextHoraFin: EditText
     private lateinit var editTextDescripcion: EditText
+    private lateinit var editTextCostePublicacion: EditText
     private lateinit var user: Users
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,7 @@ class NewPostActivity : AppCompatActivity() {
         editTextFechaFin = findViewById(R.id.EditText_Fecha_Fin)
         editTextHoraFin = findViewById(R.id.EditText_Hora_Fin)
         editTextDescripcion = findViewById(R.id.EditText_Descripcion)
+        editTextCostePublicacion = findViewById(R.id.EditText_CostePublicacion)
 
         Glide.with(this)
             .load(R.drawable.placeholder_image_2)
@@ -188,7 +190,7 @@ class NewPostActivity : AppCompatActivity() {
             return
         }
 
-        if (selectedImageUri == null || editTextProvincia.text.isEmpty() || editTextFechaInicio.text.isEmpty() || editTextHoraInicio.text.isEmpty() || editTextFechaFin.text.isEmpty() || editTextHoraFin.text.isEmpty() || editTextDescripcion.text.isEmpty()) {
+        if (selectedImageUri == null || editTextProvincia.text.isEmpty() || editTextFechaInicio.text.isEmpty() || editTextHoraInicio.text.isEmpty() || editTextFechaFin.text.isEmpty() || editTextHoraFin.text.isEmpty() || editTextDescripcion.text.isEmpty() || editTextCostePublicacion.text.isEmpty()) {
             Toast.makeText(this, "Todos los campos deben estar completos, incluida una foto.", Toast.LENGTH_LONG).show()
             return
         }
@@ -216,7 +218,8 @@ class NewPostActivity : AppCompatActivity() {
             return
         }
 
-        if (user.saldoCR < 15) {
+        val costoPublicacion = editTextCostePublicacion.text.toString().toDoubleOrNull()
+        if (costoPublicacion == null || user.saldoCR < costoPublicacion) {
             Toast.makeText(this, "Saldo insuficiente para publicar el anuncio.", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MyBalanceActivity::class.java)
             intent.putExtra("email", email)
@@ -224,7 +227,7 @@ class NewPostActivity : AppCompatActivity() {
             return
         }
 
-        val newBalance = user.saldoCR - 15
+        val newBalance = user.saldoCR - costoPublicacion
         user.saldoCR = newBalance
 
         RetrofitBuilder.api.updateUsuario(user.email, user).enqueue(object : Callback<Users> {
@@ -237,7 +240,7 @@ class NewPostActivity : AppCompatActivity() {
                         fechaFin = fechaFin.toString(),
                         descripcion = editTextDescripcion.text.toString(),
                         estado = Post.EstadoAnuncio.PENDIENTE,
-                        costoCR = 15.0,
+                        costoCR = costoPublicacion,
                         fotoAnuncio = base64Image
                     )
                     RetrofitBuilder.api.createPost(newPost).enqueue(object : Callback<Post> {

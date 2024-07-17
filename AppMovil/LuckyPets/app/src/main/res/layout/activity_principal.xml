@@ -61,8 +61,8 @@
         android:fontFamily="@font/merriweather_bold"
         android:hint="00.00"
         android:padding="16dp"
-        android:textColor="#DAC9C7"
-        android:textColorHint="#DAC9C7"
+        android:textColor="#17A4EA"
+        android:textColorHint="#17A4EA"
         android:textSize="20sp" />
 
     <EditText

@@ -54,11 +54,13 @@ class PostActivity : AppCompatActivity() {
         val duracion = intent.getStringExtra("post_duracion")
         val descripcion = intent.getStringExtra("post_descripcion")
         val fotoBase64 = intent.getStringExtra("post_foto")
+        val coste = intent.getDoubleExtra("post_coste", 0.0)
 
         findViewById<TextView>(R.id.txtProvincia).text = provincia
         findViewById<TextView>(R.id.txtDuracion).text = duracion
         findViewById<TextView>(R.id.txtTelefonoPost).text = getPostOwnerPhone()
         findViewById<TextView>(R.id.txtDescripcion).text = descripcion
+        findViewById<TextView>(R.id.txtCoste).text = "$coste CR"
 
         val imgPost = findViewById<ImageView>(R.id.imgPost)
 

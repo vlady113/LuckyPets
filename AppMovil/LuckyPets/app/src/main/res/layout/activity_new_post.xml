@@ -200,6 +200,31 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
+                android:text="Introduce coste por publicación CR:"
+                android:textColor="#92736F"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/EditText_CostePublicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_view_2"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:hint="0000.00"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="#DAC9C7"
+                android:textColorHint="#DAC9C7"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather_bold"
+                android:padding="8dp"
                 android:text="Escribe una breve descripción:"
                 android:textColor="#92736F"
                 android:layout_marginTop="10dp"
