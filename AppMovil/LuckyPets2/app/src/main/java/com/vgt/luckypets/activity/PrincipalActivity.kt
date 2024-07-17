@@ -2,6 +2,7 @@ package com.vgt.luckypets.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -144,9 +145,11 @@ class PrincipalActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val posts = response.body()
                     if (posts != null && posts.isNotEmpty()) {
+                        // Filtramos los posts para que solo incluya aquellos con estado "pendiente"
+                        val pendingPosts = posts.filter { it.estado == Post.EstadoAnuncio.PENDIENTE }
                         postsList.clear()
-                        postsList.addAll(posts)
-                        postAdapter.updateData(posts)
+                        postsList.addAll(pendingPosts)
+                        postAdapter.updateData(pendingPosts)
                         Log.d("PrincipalActivity", "Posts cargados correctamente: $posts")
                     } else {
                         Log.d("PrincipalActivity", "No se encontraron anuncios.")
@@ -182,20 +185,24 @@ class PrincipalActivity : AppCompatActivity() {
         )
 
         // Configurar el contenido del popup
+        popupView.findViewById<TextView>(R.id.action_my_reservations).setOnClickListener {
+            showMyReservationsActivity()
+            popupWindow.dismiss()
+        }
         popupView.findViewById<TextView>(R.id.action_my_data).setOnClickListener {
             showMyDataActivity()
             popupWindow.dismiss()
         }
-        popupView.findViewById<TextView>(R.id.action_change_email).setOnClickListener {
-            showChangeEmailActivity()
-            popupWindow.dismiss()
-        }
-        popupView.findViewById<TextView>(R.id.action_change_password).setOnClickListener {
-            showChangePasswordActivity()
+        popupView.findViewById<TextView>(R.id.action_my_posts).setOnClickListener {
+            showMyPostActivity()
             popupWindow.dismiss()
         }
         popupView.findViewById<TextView>(R.id.action_about).setOnClickListener {
             showAboutActivity()
+            popupWindow.dismiss()
+        }
+        popupView.findViewById<TextView>(R.id.action_help).setOnClickListener {
+            showHelpActivity()
             popupWindow.dismiss()
         }
         popupView.findViewById<TextView>(R.id.logOut).setOnClickListener {
@@ -206,6 +213,11 @@ class PrincipalActivity : AppCompatActivity() {
 
         // Mostrar el popup
         popupWindow.showAsDropDown(view, -100, 0)
+    }
+
+    private fun showHelpActivity() {
+        val intent = Intent(this, HelpActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showMyBalanceActivity() {
@@ -221,14 +233,14 @@ class PrincipalActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showChangeEmailActivity() {
-        val intent = Intent(this, ChangeEmailActivity::class.java)
+    private fun showMyReservationsActivity() {
+        val intent = Intent(this, MyReservationsActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
     }
 
-    private fun showChangePasswordActivity() {
-        val intent = Intent(this, ChangePasswordActivity::class.java)
+    private fun showMyPostActivity() {
+        val intent = Intent(this, MyPostActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
     }
@@ -341,7 +353,7 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, requestCode, data)
         if (requestCode == REQUEST_CODE_BALANCE && resultCode == Activity.RESULT_OK) {
             val newBalance = data?.getDoubleExtra("new_balance", -1.0)
             if (newBalance != null && newBalance != -1.0) {

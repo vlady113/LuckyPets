@@ -3,9 +3,11 @@ package com.vgt.luckypets.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -42,22 +44,31 @@ class PostActivity : AppCompatActivity() {
         postId = intent.getLongExtra("post_id", 0L)
 
         val layoutEliminarAnuncio = findViewById<LinearLayout>(R.id.layoutEliminarAnuncio)
+        val botoneraUsuario = findViewById<LinearLayout>(R.id.botoneraUsuario)
+        val btnConfirmarTransaccion = findViewById<Button>(R.id.btnConfirmarTransaccion)
+
         if (currentUserEmail == postOwnerEmail) {
             layoutEliminarAnuncio.visibility = View.VISIBLE
             layoutEliminarAnuncio.setOnClickListener { showConfirmationDialog() }
+            botoneraUsuario.visibility = View.GONE
+            btnConfirmarTransaccion.visibility = View.VISIBLE
         } else {
             layoutEliminarAnuncio.visibility = View.GONE
+            botoneraUsuario.visibility = View.VISIBLE
+            btnConfirmarTransaccion.visibility = View.GONE
         }
 
         val provincia = intent.getStringExtra("post_provincia")
         val duracion = intent.getStringExtra("post_duracion")
         val descripcion = intent.getStringExtra("post_descripcion")
         val fotoBase64 = intent.getStringExtra("post_foto")
+        val coste = intent.getDoubleExtra("post_coste", 0.0)
 
         findViewById<TextView>(R.id.txtProvincia).text = provincia
         findViewById<TextView>(R.id.txtDuracion).text = duracion
         findViewById<TextView>(R.id.txtTelefonoPost).text = getPostOwnerPhone()
         findViewById<TextView>(R.id.txtDescripcion).text = descripcion
+        findViewById<TextView>(R.id.txtCoste).text = "$coste CR"
 
         val imgPost = findViewById<ImageView>(R.id.imgPost)
 
@@ -119,4 +130,20 @@ class PostActivity : AppCompatActivity() {
         finish()
     }
 
+    fun Llamar(view: View) {
+        val telefonoTextView = findViewById<TextView>(R.id.txtTelefonoPost)
+        var telefono = telefonoTextView.text.toString()
+
+        // Formatear el número de teléfono para eliminar cualquier espacio, paréntesis, guiones y otros caracteres
+        telefono = telefono.replace("[^\\d+]".toRegex(), "")
+
+        if (telefono != "No disponible" && telefono.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$telefono")
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Número de teléfono no disponible", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

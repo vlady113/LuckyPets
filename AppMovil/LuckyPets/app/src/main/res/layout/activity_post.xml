@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="Eliminar anuncio"
-                    android:textColor="#92736F"
+                    android:textColor="#006495"
                     android:fontFamily="@font/merriweather_bold"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp" />
@@ -194,6 +194,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/botoneraUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -222,6 +223,17 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnConfirmarTransaccion"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_view_blue"
+                android:layout_gravity="center"
+                android:text="Confirmar Transacción"
+                android:textColor="#DAC9C7"
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

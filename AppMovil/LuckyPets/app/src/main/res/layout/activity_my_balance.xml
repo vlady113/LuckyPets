@@ -62,8 +62,8 @@
             android:hint="00.00"
             android:padding="16dp"
             android:singleLine="true"
-            android:textColor="#17A4EA"
-            android:textColorHint="#17A4EA"
+            android:textColor="#D9C8C6"
+            android:textColorHint="#D9C8C6"
             android:textSize="20sp" />
 
         <TextView

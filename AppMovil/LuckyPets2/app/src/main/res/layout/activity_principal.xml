@@ -47,13 +47,12 @@
 
     <EditText
         android:id="@+id/EditText_MyBalance_Now"
-        android:layout_width="145dp"
+        android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/background_view_2"
         android:drawablePadding="15dp"
         android:editable="false"
@@ -61,8 +60,9 @@
         android:fontFamily="@font/merriweather_bold"
         android:hint="00.00"
         android:padding="16dp"
-        android:textColor="#DAC9C7"
-        android:textColorHint="#DAC9C7"
+        android:textColor="#D9C8C6"
+        android:textColorHint="#D9C8C6"
+        android:textAlignment="center"
         android:textSize="20sp" />
 
     <EditText
@@ -112,7 +112,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="35dp"
         android:layout_marginEnd="26dp"
-        android:src="@drawable/autorenew_logo_2"
+        android:src="@drawable/autorenew_logo"
         android:contentDescription="Actualizar datos"
         android:clickable="true"
         android:focusable="true" />
@@ -128,7 +128,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="-43dp"
-        android:backgroundTint="#92736F"
+        android:backgroundTint="#00AD49"
         android:contentDescription="Botón flotante"
         android:padding="10dp"
         android:scaleType="fitCenter"

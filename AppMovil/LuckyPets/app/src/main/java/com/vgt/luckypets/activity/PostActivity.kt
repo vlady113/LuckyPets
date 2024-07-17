@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -43,11 +44,18 @@ class PostActivity : AppCompatActivity() {
         postId = intent.getLongExtra("post_id", 0L)
 
         val layoutEliminarAnuncio = findViewById<LinearLayout>(R.id.layoutEliminarAnuncio)
+        val botoneraUsuario = findViewById<LinearLayout>(R.id.botoneraUsuario)
+        val btnConfirmarTransaccion = findViewById<Button>(R.id.btnConfirmarTransaccion)
+
         if (currentUserEmail == postOwnerEmail) {
             layoutEliminarAnuncio.visibility = View.VISIBLE
             layoutEliminarAnuncio.setOnClickListener { showConfirmationDialog() }
+            botoneraUsuario.visibility = View.GONE
+            btnConfirmarTransaccion.visibility = View.VISIBLE
         } else {
             layoutEliminarAnuncio.visibility = View.GONE
+            botoneraUsuario.visibility = View.VISIBLE
+            btnConfirmarTransaccion.visibility = View.GONE
         }
 
         val provincia = intent.getStringExtra("post_provincia")
@@ -138,5 +146,4 @@ class PostActivity : AppCompatActivity() {
             Toast.makeText(this, "Número de teléfono no disponible", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
