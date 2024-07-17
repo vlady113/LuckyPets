@@ -3,6 +3,7 @@ package com.vgt.luckypets.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vgt.luckypets.R
+import com.vgt.luckypets.model.Post
 import com.vgt.luckypets.network.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +57,7 @@ class PostActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.txtProvincia).text = provincia
         findViewById<TextView>(R.id.txtDuracion).text = duracion
+        findViewById<TextView>(R.id.txtTelefonoPost).text = getPostOwnerPhone()
         findViewById<TextView>(R.id.txtDescripcion).text = descripcion
 
         val imgPost = findViewById<ImageView>(R.id.imgPost)
@@ -70,6 +73,11 @@ class PostActivity : AppCompatActivity() {
     private fun getCurrentUserEmail(): String {
         val sharedPreferences = getSharedPreferences("login_prefs", MODE_PRIVATE)
         return sharedPreferences.getString("email", "") ?: ""
+    }
+
+    private fun getPostOwnerPhone(): String {
+        val post = intent.getSerializableExtra("post") as? Post
+        return post?.usuario?.telefono ?: "No disponible"
     }
 
     private fun showConfirmationDialog() {
@@ -111,4 +119,22 @@ class PostActivity : AppCompatActivity() {
         setResult(RESULT_CANCELED, intent)
         finish()
     }
+
+    fun Llamar(view: View) {
+        val telefonoTextView = findViewById<TextView>(R.id.txtTelefonoPost)
+        var telefono = telefonoTextView.text.toString()
+
+        // Formatear el número de teléfono para eliminar cualquier espacio, paréntesis, guiones y otros caracteres
+        telefono = telefono.replace("[^\\d+]".toRegex(), "")
+
+        if (telefono != "No disponible" && telefono.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$telefono")
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Número de teléfono no disponible", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

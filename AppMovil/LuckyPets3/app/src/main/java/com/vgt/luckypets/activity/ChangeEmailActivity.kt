@@ -42,7 +42,7 @@ class ChangeEmailActivity : AppCompatActivity() {
     }
 
     fun volverAtras(view: View?) {
-        val intent = Intent(this, PrincipalActivity::class.java)
+        val intent = Intent(this, MyDataActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()

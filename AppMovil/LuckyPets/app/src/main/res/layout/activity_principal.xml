@@ -112,7 +112,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="35dp"
         android:layout_marginEnd="26dp"
-        android:src="@drawable/autorenew_logo_2"
+        android:src="@drawable/autorenew_logo"
         android:contentDescription="Actualizar datos"
         android:clickable="true"
         android:focusable="true" />
@@ -128,7 +128,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="-43dp"
-        android:backgroundTint="#92736F"
+        android:backgroundTint="#00AD49"
         android:contentDescription="Botón flotante"
         android:padding="10dp"
         android:scaleType="fitCenter"

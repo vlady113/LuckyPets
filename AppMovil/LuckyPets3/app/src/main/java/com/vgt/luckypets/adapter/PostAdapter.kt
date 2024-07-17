@@ -1,6 +1,7 @@
 package com.vgt.luckypets.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vgt.luckypets.R
+import com.vgt.luckypets.activity.PostActivity
 import com.vgt.luckypets.model.Post
 import java.io.ByteArrayInputStream
 import java.time.LocalDateTime
@@ -50,7 +52,15 @@ class PostAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            clickListener(post)
+            val intent = Intent(context, PostActivity::class.java).apply {
+                putExtra("post", post)
+                putExtra("post_owner_email", post.usuario.email)
+                putExtra("post_provincia", post.usuario.provincia)
+                putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
+                putExtra("post_descripcion", post.descripcion)
+                putExtra("post_foto", post.fotoAnuncio)
+            }
+            context.startActivity(intent)
         }
     }
 
@@ -98,4 +108,5 @@ class PostAdapter(
         postsList = newPostsList
         notifyDataSetChanged()
     }
+
 }

@@ -3,8 +3,13 @@ package com.vgt.luckypets.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +66,11 @@ class MyDataActivity : AppCompatActivity() {
                 .show()
             Log.e("MyDataActivity", "Correo electrónico no proporcionado en el Intent")
         }
+
+        val menuAjustesDatos: ImageView = findViewById(R.id.menuAjustesDatos)
+        menuAjustesDatos.setOnClickListener { view ->
+            showPopupMenu(view)
+        }
     }
 
     private fun cargarDatosUsuario() {
@@ -105,6 +115,41 @@ class MyDataActivity : AppCompatActivity() {
         })
     }
 
+    private fun showPopupMenu(view: View) {
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_menu_data, null)
+
+        val popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        popupView.findViewById<TextView>(R.id.action_change_email).setOnClickListener {
+            showChangeEmailActivity()
+            popupWindow.dismiss()
+        }
+        popupView.findViewById<TextView>(R.id.action_change_password).setOnClickListener {
+            showChangePasswordActivity()
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAsDropDown(view, -100, 0)
+    }
+
+    private fun showChangeEmailActivity() {
+        val intent = Intent(this, ChangeEmailActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+    }
+
+    private fun showChangePasswordActivity() {
+        val intent = Intent(this, ChangePasswordActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+    }
+
     fun volverAtras(view: View?) {
         val intent = Intent(this, PrincipalActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
@@ -114,7 +159,7 @@ class MyDataActivity : AppCompatActivity() {
 
     fun guardarCambiosDatos(view: View?) {
         val usuario = Users(
-            userID = 0L, // El ID que corresponda si lo tienes disponible
+            userID = 0L,
             email = email,
             dni = dniEditText.text.toString().trim(),
             nombre = nombreEditText.text.toString().trim(),
@@ -123,9 +168,9 @@ class MyDataActivity : AppCompatActivity() {
             provincia = provinciaEditText.text.toString().trim(),
             codigoPostal = codigoPostalEditText.text.toString().trim(),
             telefono = telefonoEditText.text.toString().trim(),
-            password = "", // No se debe actualizar la contraseña aquí
-            fechaRegistro = "", // Fecha de registro no se modifica aquí
-            saldoCR = 0.0, // Este valor debe ser el actual, no cambiar aquí
+            password = "", // no se modifica aquí
+            fechaRegistro = "", // no se modifica aquí
+            saldoCR = 0.0, // no se modifica aquí
             codigo_restablecimiento = null,
             codigo_expiry = null,
             es_administrador = false
@@ -172,5 +217,4 @@ class MyDataActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 }

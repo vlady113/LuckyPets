@@ -3,6 +3,7 @@ package com.vgt.luckypets.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
@@ -117,6 +118,23 @@ class PostActivity : AppCompatActivity() {
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)
         finish()
+    }
+
+    fun Llamar(view: View) {
+        val telefonoTextView = findViewById<TextView>(R.id.txtTelefonoPost)
+        var telefono = telefonoTextView.text.toString()
+
+        // Formatear el número de teléfono para eliminar cualquier espacio, paréntesis, guiones y otros caracteres
+        telefono = telefono.replace("[^\\d+]".toRegex(), "")
+
+        if (telefono != "No disponible" && telefono.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$telefono")
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Número de teléfono no disponible", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

@@ -29,11 +29,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="90dp"
                 android:fontFamily="@font/merriweather_bold"
                 android:text="@string/my_data"
                 android:textColor="#DAC9C7"
                 android:textSize="30dp" />
+
+            <ImageView
+                android:id="@+id/menuAjustesDatos"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="right"
+                android:paddingRight="20dp"
+                android:src="@drawable/baseline_menu_2" />
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView

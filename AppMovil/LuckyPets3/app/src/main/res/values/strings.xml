@@ -11,10 +11,11 @@
     <string name="register_new_user">¡Registro de un nuevo usuario!</string>
     <string name="reset_password">Restablezca su contraseña</string>
     <string name="latest_ads">Últimos anuncios</string>
-    <string name="my_data">Mis datos personales</string>
+    <string name="my_data">Mis datos</string>
     <string name="confirm_code_reset">Confirmar código de restablecimiento</string>
     <string name="set_new_password">Establecer nueva contraseña</string>">
     <string name="about">Acerca de ..."</string>
+    <string name="help">Ayuda</string>
     <string name="change_email">Cambiar correo electrónico</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="my_balance">Mi Saldo CR</string>
