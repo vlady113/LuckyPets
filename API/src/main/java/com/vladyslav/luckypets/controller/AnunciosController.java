@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -34,7 +35,6 @@ public class AnunciosController {
         Optional<Anuncios> anuncio = anunciosService.findById(id);
         if (anuncio.isPresent()) {
             Anuncios foundAnuncio = anuncio.get();
-            String telefono = foundAnuncio.getUsuario().getTelefono();  // Acceder al teléfono del usuario
             foundAnuncio.getUsuario().setPassword(null); // Remover el password del JSON
             return ResponseEntity.ok(foundAnuncio);
         } else {
@@ -77,10 +77,27 @@ public class AnunciosController {
         }
     }
 
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<Anuncios> updateAnuncioStatus(@PathVariable Long id, @RequestBody Map<String, String> estadoMap) {
+        Optional<Anuncios> optionalAnuncio = anunciosService.findById(id);
+        if (optionalAnuncio.isPresent()) {
+            Anuncios anuncio = optionalAnuncio.get();
+            String estado = estadoMap.get("estado");
+            try {
+                anuncio.setEstado(Anuncios.EstadoAnuncio.fromValue(estado));
+                final Anuncios updatedAnuncio = anunciosService.save(anuncio);
+                return ResponseEntity.ok(updatedAnuncio);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(null);
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAnuncio(@PathVariable Long id) {
         anunciosService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    
 }

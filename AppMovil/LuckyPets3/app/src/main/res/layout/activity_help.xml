@@ -63,7 +63,7 @@
             android:padding="30dp"
             android:layout_gravity="center"
             android:text="vgolovatyit01@educantabria.es"
-            android:textColor="#92736F"
+            android:textColor="#006495"
             android:textSize="20sp"
             android:clickable="true" />
 

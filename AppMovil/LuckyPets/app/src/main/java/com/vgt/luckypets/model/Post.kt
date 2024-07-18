@@ -25,11 +25,9 @@ data class Post(
         @SerializedName("pendiente")
         PENDIENTE("pendiente"),
         @SerializedName("en_curso")
-        EN_CURSO("en curso"),
+        EN_CURSO("en_curso"),
         @SerializedName("completado")
-        COMPLETADO("completado"),
-        @SerializedName("cancelado")
-        CANCELADO("cancelado");
+        COMPLETADO("completado");
 
         companion object {
             fun fromValue(value: String): EstadoAnuncio {

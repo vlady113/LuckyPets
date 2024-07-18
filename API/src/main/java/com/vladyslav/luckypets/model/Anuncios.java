@@ -42,9 +42,8 @@ public class Anuncios implements Serializable {
 
     public enum EstadoAnuncio {
         pendiente("pendiente"),
-        en_curso("en curso"),
-        completado("completado"),
-        cancelado("cancelado");
+        en_curso("en_curso"),
+        completado("completado");
 
         private final String value;
 
@@ -60,7 +59,7 @@ public class Anuncios implements Serializable {
         @JsonCreator
         public static EstadoAnuncio fromValue(String value) {
             for (EstadoAnuncio estado : EstadoAnuncio.values()) {
-                if (estado.value.equalsIgnoreCase(value) || estado.name().equalsIgnoreCase(value.replace(" ", "_"))) {
+                if (estado.value.equalsIgnoreCase(value) || estado.name().replace("_", " ").equalsIgnoreCase(value)) {
                     return estado;
                 }
             }

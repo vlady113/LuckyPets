@@ -97,4 +97,9 @@ interface ApiService {
     @DELETE("anuncios/{id}")
     fun deleteAnuncio(@Path("id") id: Long): Call<Void>
 
+    // Método para actualizar el estado de un anuncio
+    @PUT("anuncios/{id}/estado")
+    fun updateAnuncioStatus(@Path("id") id: Long, @Body estado: Map<String, String>): Call<Post>
+
+
 }

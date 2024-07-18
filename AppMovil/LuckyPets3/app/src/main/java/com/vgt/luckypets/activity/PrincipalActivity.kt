@@ -185,12 +185,16 @@ class PrincipalActivity : AppCompatActivity() {
         )
 
         // Configurar el contenido del popup
+        popupView.findViewById<TextView>(R.id.action_my_reservations).setOnClickListener {
+            showMyReservationsActivity()
+            popupWindow.dismiss()
+        }
         popupView.findViewById<TextView>(R.id.action_my_data).setOnClickListener {
             showMyDataActivity()
             popupWindow.dismiss()
         }
         popupView.findViewById<TextView>(R.id.action_my_posts).setOnClickListener {
-            showMyPostsActivity()
+            showMyPostActivity()
             popupWindow.dismiss()
         }
         popupView.findViewById<TextView>(R.id.action_about).setOnClickListener {
@@ -229,8 +233,16 @@ class PrincipalActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showMyPostsActivity() {
-        // Aquí puedes agregar la lógica para mostrar la actividad de "Mis anuncios"
+    private fun showMyReservationsActivity() {
+        val intent = Intent(this, MyReservationsActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+    }
+
+    private fun showMyPostActivity() {
+        val intent = Intent(this, MyPostActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
     }
 
     private fun showAboutActivity() {
@@ -263,8 +275,10 @@ class PrincipalActivity : AppCompatActivity() {
             putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
             putExtra("post_descripcion", post.descripcion)
             putExtra("post_foto", post.fotoAnuncio)
+            putExtra("post_coste", post.costoCR)
             putExtra("post_owner_email", post.usuario.email)
         }
+        Log.d("PrincipalActivity", "Enviando postId: ${post.anuncioID}")
         startActivityForResult(intent, REQUEST_CODE_POST)
     }
 

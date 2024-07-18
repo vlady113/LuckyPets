@@ -7,14 +7,14 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/action_my_data"
+        android:id="@+id/action_my_reservations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/merriweather_bold"
         android:padding="12dp"
-        android:text="Mis datos personales"
+        android:text="Reservas"
         android:textColor="@color/custom_menu_text_color"
         android:textSize="20dp" />
 
@@ -31,16 +31,17 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/action_about"
+        android:id="@+id/action_my_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/merriweather_bold"
         android:padding="12dp"
-        android:text="Acerca de"
+        android:text="Datos personales"
         android:textColor="@color/custom_menu_text_color"
         android:textSize="20dp" />
+
 
     <TextView
         android:id="@+id/action_help"
@@ -51,6 +52,18 @@
         android:fontFamily="@font/merriweather_bold"
         android:padding="12dp"
         android:text="Ayuda"
+        android:textColor="@color/custom_menu_text_color"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/action_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/merriweather_bold"
+        android:padding="12dp"
+        android:text="Acerca de"
         android:textColor="@color/custom_menu_text_color"
         android:textSize="20dp" />
 

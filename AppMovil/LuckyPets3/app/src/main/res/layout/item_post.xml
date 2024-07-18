@@ -45,9 +45,9 @@
                     android:id="@+id/txtProvincia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_regular"
+                    android:fontFamily="@font/merriweather_bold"
                     android:layout_marginTop="5dp"
-                    android:textColor="#DAC9C7"
+                    android:textColor="#17A4EA"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -67,8 +67,29 @@
                     android:id="@+id/txtDuracion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_regular"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:textColor="#17A4EA"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="Coste: "
                     android:textColor="#DAC9C7"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtCoste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:textColor="#17A4EA"
                     android:textSize="16sp" />
             </LinearLayout>
 

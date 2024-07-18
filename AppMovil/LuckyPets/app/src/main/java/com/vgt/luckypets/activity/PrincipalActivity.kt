@@ -275,8 +275,10 @@ class PrincipalActivity : AppCompatActivity() {
             putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
             putExtra("post_descripcion", post.descripcion)
             putExtra("post_foto", post.fotoAnuncio)
+            putExtra("post_coste", post.costoCR)
             putExtra("post_owner_email", post.usuario.email)
         }
+        Log.d("PrincipalActivity", "Enviando postId: ${post.anuncioID}")
         startActivityForResult(intent, REQUEST_CODE_POST)
     }
 

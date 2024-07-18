@@ -6,6 +6,7 @@ import com.vladyslav.luckypets.repository.AnunciosRepository;
 import com.vladyslav.luckypets.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,17 +32,21 @@ public class AnunciosService {
         return anuncio;
     }
 
+    @Transactional
     public Anuncios save(Anuncios anuncio) {
         if (anuncio.getUsuario() != null && anuncio.getUsuario().getUserID() != null) {
-            Usuarios usuario = usuariosRepository.findById(anuncio.getUsuario().getUserID()).orElse(null);
-            if (usuario != null) {
-                anuncio.setUsuario(usuario);
-            }
+            Usuarios usuario = usuariosRepository.findById(anuncio.getUsuario().getUserID())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + anuncio.getUsuario().getUserID()));
+            anuncio.setUsuario(usuario);
         }
         return anunciosRepository.save(anuncio);
     }
 
+    @Transactional
     public void deleteById(Long id) {
+        if (!anunciosRepository.existsById(id)) {
+            throw new IllegalArgumentException("Anuncio no encontrado con ID: " + id);
+        }
         anunciosRepository.deleteById(id);
     }
 
@@ -54,5 +59,4 @@ public class AnunciosService {
             }
         }
     }
-    
 }

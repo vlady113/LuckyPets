@@ -36,10 +36,11 @@ class PostAdapter(
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = postsList[position]
 
-        Log.d("PostAdapter", "Binding post: $post")
+        Log.d("PostAdapter", "Binding post: ${post.anuncioID}")
 
         holder.txtProvincia.text = post.usuario.provincia
         holder.txtDuracion.text = calculateDuration(post.fechaInicio, post.fechaFin)
+        holder.txtCoste.text = "${post.costoCR} CR"
 
         val fotoBase64 = post.fotoAnuncio
         if (!fotoBase64.isNullOrEmpty()) {
@@ -53,13 +54,15 @@ class PostAdapter(
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostActivity::class.java).apply {
-                putExtra("post", post)
+                putExtra("post_id", post.anuncioID) // Pasar el ID del anuncio
                 putExtra("post_owner_email", post.usuario.email)
                 putExtra("post_provincia", post.usuario.provincia)
                 putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
                 putExtra("post_descripcion", post.descripcion)
                 putExtra("post_foto", post.fotoAnuncio)
+                putExtra("post_coste", post.costoCR)
             }
+            Log.d("PostAdapter", "Enviando postId: ${post.anuncioID}")
             context.startActivity(intent)
         }
     }
@@ -72,6 +75,7 @@ class PostAdapter(
         val imgPost: ImageView = itemView.findViewById(R.id.imgPost)
         val txtProvincia: TextView = itemView.findViewById(R.id.txtProvincia)
         val txtDuracion: TextView = itemView.findViewById(R.id.txtDuracion)
+        val txtCoste: TextView = itemView.findViewById(R.id.txtCoste)
     }
 
     private fun calculateDuration(startDate: String, endDate: String): String {
@@ -108,5 +112,4 @@ class PostAdapter(
         postsList = newPostsList
         notifyDataSetChanged()
     }
-
 }
