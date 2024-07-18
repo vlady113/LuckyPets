@@ -40,6 +40,9 @@ public class Anuncios implements Serializable {
     @Column(name = "foto_anuncio")
     private byte[] fotoAnuncio;
 
+    @Column(name = "email_cliente", nullable = true)
+    private String emailCliente;
+
     public enum EstadoAnuncio {
         pendiente("pendiente"),
         en_curso("en_curso"),
@@ -69,7 +72,7 @@ public class Anuncios implements Serializable {
 
     public Anuncios() {}
 
-    public Anuncios(Long anuncioID, Usuarios usuario, LocalDateTime fechaInicio, LocalDateTime fechaFin, String descripcion, EstadoAnuncio estado, Double costoCR, byte[] fotoAnuncio) {
+    public Anuncios(Long anuncioID, Usuarios usuario, LocalDateTime fechaInicio, LocalDateTime fechaFin, String descripcion, EstadoAnuncio estado, Double costoCR, byte[] fotoAnuncio, String emailCliente) {
         this.anuncioID = anuncioID;
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
@@ -78,7 +81,10 @@ public class Anuncios implements Serializable {
         this.estado = estado;
         this.costoCR = costoCR;
         this.fotoAnuncio = fotoAnuncio;
+        this.emailCliente = emailCliente;
     }
+
+    // Getters and Setters
 
     public Long getAnuncioID() {
         return anuncioID;
@@ -143,5 +149,12 @@ public class Anuncios implements Serializable {
     public void setFotoAnuncio(byte[] fotoAnuncio) {
         this.fotoAnuncio = fotoAnuncio;
     }
-    
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
 }

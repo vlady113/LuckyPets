@@ -241,7 +241,8 @@ class NewPostActivity : AppCompatActivity() {
                         descripcion = editTextDescripcion.text.toString(),
                         estado = Post.EstadoAnuncio.PENDIENTE,
                         costoCR = costoPublicacion,
-                        fotoAnuncio = base64Image
+                        fotoAnuncio = base64Image,
+                        emailCliente = null // No se asigna valor al crear el anuncio
                     )
                     RetrofitBuilder.api.createPost(newPost).enqueue(object : Callback<Post> {
                         override fun onResponse(call: Call<Post>, response: Response<Post>) {

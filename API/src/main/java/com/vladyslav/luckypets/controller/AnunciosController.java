@@ -70,6 +70,7 @@ public class AnunciosController {
             anuncio.setEstado(anuncioDetails.getEstado());
             anuncio.setCostoCR(anuncioDetails.getCostoCR());
             anuncio.setFotoAnuncio(anuncioDetails.getFotoAnuncio());
+            anuncio.setEmailCliente(anuncioDetails.getEmailCliente());
             final Anuncios updatedAnuncio = anunciosService.save(anuncio);
             return ResponseEntity.ok(updatedAnuncio);
         } else {
@@ -83,8 +84,10 @@ public class AnunciosController {
         if (optionalAnuncio.isPresent()) {
             Anuncios anuncio = optionalAnuncio.get();
             String estado = estadoMap.get("estado");
+            String emailCliente = estadoMap.get("emailCliente");
             try {
                 anuncio.setEstado(Anuncios.EstadoAnuncio.fromValue(estado));
+                anuncio.setEmailCliente(emailCliente);
                 final Anuncios updatedAnuncio = anunciosService.save(anuncio);
                 return ResponseEntity.ok(updatedAnuncio);
             } catch (IllegalArgumentException e) {
@@ -94,7 +97,7 @@ public class AnunciosController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAnuncio(@PathVariable Long id) {
         anunciosService.deleteById(id);
