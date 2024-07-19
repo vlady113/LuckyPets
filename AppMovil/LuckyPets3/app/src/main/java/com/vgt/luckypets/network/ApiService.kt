@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -100,5 +101,11 @@ interface ApiService {
     // Método para actualizar el estado de un anuncio
     @PUT("anuncios/{id}/estado")
     fun updateAnuncioStatus(@Path("id") id: Long, @Body estado: Map<String, String?>): Call<Post>
+
+    // -- Métodos relacionados con el historial de transacciones --
+
+    // Método para confirmar una transacción
+    @POST("historialtransacciones/confirmar")
+    fun confirmarTransaccion(@Query("anuncioId") anuncioId: Long, @Query("emailCliente") emailCliente: String): Call<Void>
 
 }

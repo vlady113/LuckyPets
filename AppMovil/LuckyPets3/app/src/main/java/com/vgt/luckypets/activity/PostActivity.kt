@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vgt.luckypets.R
 import com.vgt.luckypets.model.Post
+import com.vgt.luckypets.model.Users
 import com.vgt.luckypets.network.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -85,6 +86,7 @@ class PostActivity : AppCompatActivity() {
         val btnPendienteReserva = findViewById<Button>(R.id.btnPendienteReserva)
         val btnReservar = findViewById<Button>(R.id.btnReservar)
         val btnCancelarReserva = findViewById<Button>(R.id.btnCancelarReserva)
+        val btnCompletado = findViewById<Button>(R.id.btnCompletado)
 
         if (currentUserEmail == postOwnerEmail) {
             layoutEliminarAnuncio.visibility = View.VISIBLE
@@ -128,6 +130,10 @@ class PostActivity : AppCompatActivity() {
 
         btnCancelarReserva.setOnClickListener {
             showCancelConfirmationDialog()
+        }
+
+        btnConfirmarTransaccion.setOnClickListener {
+            showConfirmTransactionDialog()
         }
     }
 
@@ -178,6 +184,20 @@ class PostActivity : AppCompatActivity() {
         builder.show()
     }
 
+    private fun showConfirmTransactionDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar transacción")
+        builder.setMessage("¿Está seguro de que desea confirmar esta transacción?")
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            confirmarTransaccion()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
     private fun eliminarAnuncio() {
         RetrofitBuilder.api.deleteAnuncio(postId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -222,7 +242,6 @@ class PostActivity : AppCompatActivity() {
     }
 
     private fun cancelarReserva() {
-        // Verificar si han pasado al menos 15 minutos desde la última reserva
         val currentTime = System.currentTimeMillis()
         val elapsedMinutes = (currentTime - lastReservedTime) / (1000 * 60)
 
@@ -236,7 +255,6 @@ class PostActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@PostActivity, "Reserva cancelada con éxito", Toast.LENGTH_SHORT).show()
-                    // Ocultar botón de cancelar reserva y mostrar botón de reservar
                     findViewById<Button>(R.id.btnCancelarReserva).visibility = View.GONE
                     findViewById<Button>(R.id.btnReservar).visibility = View.VISIBLE
                 } else {
@@ -246,6 +264,68 @@ class PostActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun confirmarTransaccion() {
+        if (postId > 0) {
+            RetrofitBuilder.api.confirmarTransaccion(postId, post.emailCliente ?: "").enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        // Calcula la comisión y el crédito final
+                        val postCoste = post.costoCR
+                        val comision = 15.0
+                        val creditoFinal = postCoste - comision
+
+                        // Actualiza los créditos del cliente y del propietario
+                        actualizarCreditos(post.emailCliente ?: "", creditoFinal)
+                        actualizarCreditos(postOwnerEmail, -postCoste)
+
+                        Toast.makeText(this@PostActivity, "Transacción confirmada con éxito", Toast.LENGTH_SHORT).show()
+                        findViewById<Button>(R.id.btnConfirmarTransaccion).visibility = View.GONE
+                        findViewById<Button>(R.id.btnCompletado).visibility = View.VISIBLE
+                    } else {
+                        Toast.makeText(this@PostActivity, "Error al confirmar la transacción", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this@PostActivity, "ID de anuncio no válido", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun actualizarCreditos(email: String, cantidad: Double) {
+        RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {
+            override fun onResponse(call: Call<Users>, response: Response<Users>) {
+                if (response.isSuccessful) {
+                    val usuario = response.body()!!
+                    val nuevosCreditos = usuario.saldoCR + cantidad
+                    usuario.saldoCR = nuevosCreditos
+
+                    RetrofitBuilder.api.updateUsuario(email, usuario).enqueue(object : Callback<Users> {
+                        override fun onResponse(call: Call<Users>, response: Response<Users>) {
+                            if (!response.isSuccessful) {
+                                Toast.makeText(this@PostActivity, "Error al actualizar los créditos", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Users>, t: Throwable) {
+                            Toast.makeText(this@PostActivity, "Error de red al actualizar los créditos: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                } else {
+                    Toast.makeText(this@PostActivity, "Error al obtener el usuario", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Users>, t: Throwable) {
+                Toast.makeText(this@PostActivity, "Error de red al obtener el usuario: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -260,7 +340,6 @@ class PostActivity : AppCompatActivity() {
         val telefonoTextView = findViewById<TextView>(R.id.txtTelefonoPost)
         var telefono = telefonoTextView.text.toString()
 
-        // Formatear el número de teléfono para eliminar cualquier espacio, paréntesis, guiones y otros caracteres
         telefono = telefono.replace("[^\\d+]".toRegex(), "")
 
         if (telefono != "No disponible" && telefono.isNotEmpty()) {

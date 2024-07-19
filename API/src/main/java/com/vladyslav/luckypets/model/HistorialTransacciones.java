@@ -36,24 +36,28 @@ public class HistorialTransacciones implements Serializable{
     @Column(name = "Tipo", nullable = false)
     private TipoTransaccion tipo;
 
-    // La entidad Reservas es opcional, ya que no todas las transacciones están vinculadas a una reserva
     @ManyToOne
     @JoinColumn(name = "ReservaID")
     private Anuncios reserva;
+    
+    @ManyToOne
+    @JoinColumn(name = "UserIDCliente")
+    private Usuarios usuarioCliente;
 
     public enum TipoTransaccion {
-        adición,
-        sustracción
+        adicion,
+        sustraccion
     }
 
     public HistorialTransacciones() {}
 
-    public HistorialTransacciones(Usuarios usuario, LocalDate fecha, Double montoCR, TipoTransaccion tipo, Anuncios reserva) {
+    public HistorialTransacciones(Usuarios usuario, LocalDate fecha, Double montoCR, TipoTransaccion tipo, Anuncios reserva, Usuarios usuarioCliente) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.montoCR = montoCR;
         this.tipo = tipo;
         this.reserva = reserva;
+        this.usuarioCliente = usuarioCliente;
     }
 
     public Long getTransaccionID() {
@@ -103,5 +107,13 @@ public class HistorialTransacciones implements Serializable{
     public void setReserva(Anuncios reserva) {
         this.reserva = reserva;
     }
+
+	public Usuarios getUsuarioCliente() {
+		return usuarioCliente;
+	}
+
+	public void setUsuarioCliente(Usuarios usuarioCliente) {
+		this.usuarioCliente = usuarioCliente;
+	}
 	
 }
