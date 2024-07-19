@@ -82,6 +82,7 @@ class PostActivity : AppCompatActivity() {
         val layoutEliminarAnuncio = findViewById<LinearLayout>(R.id.layoutEliminarAnuncio)
         val botoneraUsuario = findViewById<LinearLayout>(R.id.botoneraUsuario)
         val btnConfirmarTransaccion = findViewById<Button>(R.id.btnConfirmarTransaccion)
+        val btnPendienteReserva = findViewById<Button>(R.id.btnPendienteReserva)
         val btnReservar = findViewById<Button>(R.id.btnReservar)
         val btnCancelarReserva = findViewById<Button>(R.id.btnCancelarReserva)
 
@@ -89,27 +90,19 @@ class PostActivity : AppCompatActivity() {
             layoutEliminarAnuncio.visibility = View.VISIBLE
             layoutEliminarAnuncio.setOnClickListener { showConfirmationDialog() }
             botoneraUsuario.visibility = View.GONE
-            btnConfirmarTransaccion.visibility = View.VISIBLE
+
+            if (post.emailCliente.isNullOrEmpty()) {
+                btnConfirmarTransaccion.visibility = View.GONE
+                btnPendienteReserva.visibility = View.VISIBLE
+            } else {
+                btnConfirmarTransaccion.visibility = View.VISIBLE
+                btnPendienteReserva.visibility = View.GONE
+            }
         } else {
             layoutEliminarAnuncio.visibility = View.GONE
             botoneraUsuario.visibility = View.VISIBLE
             btnConfirmarTransaccion.visibility = View.GONE
-        }
-
-        if (post.estado == Post.EstadoAnuncio.EN_CURSO && post.emailCliente == currentUserEmail) {
-            btnReservar.visibility = View.GONE
-            btnCancelarReserva.visibility = View.VISIBLE
-        } else {
-            btnReservar.visibility = View.VISIBLE
-            btnCancelarReserva.visibility = View.GONE
-        }
-
-        btnReservar.setOnClickListener {
-            showReserveConfirmationDialog()
-        }
-
-        btnCancelarReserva.setOnClickListener {
-            showCancelConfirmationDialog()
+            btnPendienteReserva.visibility = View.GONE
         }
 
         findViewById<TextView>(R.id.txtProvincia).text = post.usuario.provincia
@@ -127,6 +120,14 @@ class PostActivity : AppCompatActivity() {
             imgPost.setImageBitmap(bitmap)
         } ?: run {
             imgPost.setImageResource(R.drawable.placeholder_image)
+        }
+
+        btnReservar.setOnClickListener {
+            showReserveConfirmationDialog()
+        }
+
+        btnCancelarReserva.setOnClickListener {
+            showCancelConfirmationDialog()
         }
     }
 

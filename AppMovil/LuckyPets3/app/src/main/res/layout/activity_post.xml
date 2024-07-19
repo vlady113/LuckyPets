@@ -229,7 +229,8 @@
                     android:background="@drawable/background_view_green"
                     android:text="Llamar"
                     android:textColor="#DAC9C7"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:onClick="Llamar" />
             </LinearLayout>
 
             <Button
@@ -243,6 +244,19 @@
                 android:textColor="#DAC9C7"
                 android:textSize="16sp"
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnPendienteReserva"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_view_yellow"
+                android:layout_gravity="center"
+                android:text="Pendiente de Reserva"
+                android:textColor="#DAC9C7"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

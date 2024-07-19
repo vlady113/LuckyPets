@@ -19,14 +19,28 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/imgPost"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:contentDescription="Imagen del anuncio"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/placeholder_image" />
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/imgPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Imagen del anuncio"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder_image" />
+
+                <ImageView
+                    android:id="@+id/notificationIcon"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="top|start"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/notifications_active" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
