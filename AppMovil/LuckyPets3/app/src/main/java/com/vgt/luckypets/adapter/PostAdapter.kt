@@ -78,7 +78,7 @@ class PostAdapter(
         val txtCoste: TextView = itemView.findViewById(R.id.txtCoste)
     }
 
-    private fun calculateDuration(startDate: String, endDate: String): String {
+    fun calculateDuration(startDate: String, endDate: String): String {
         return try {
             val formatter = DateTimeFormatter.ISO_DATE_TIME
             val start = LocalDateTime.parse(startDate, formatter)

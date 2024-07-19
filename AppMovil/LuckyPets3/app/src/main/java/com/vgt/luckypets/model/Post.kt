@@ -19,7 +19,9 @@ data class Post(
     @SerializedName("costoCR")
     val costoCR: Double,
     @SerializedName("fotoAnuncio")
-    val fotoAnuncio: String?
+    val fotoAnuncio: String?,
+    @SerializedName("emailCliente")
+    val emailCliente: String?
 ) : Serializable {
     enum class EstadoAnuncio(val value: String) {
         @SerializedName("pendiente")

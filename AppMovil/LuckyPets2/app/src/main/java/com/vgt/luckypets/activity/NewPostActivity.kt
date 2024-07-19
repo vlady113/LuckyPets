@@ -37,7 +37,6 @@ class NewPostActivity : AppCompatActivity() {
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
     private lateinit var checkBoxAceptarCoste: CheckBox
-    private lateinit var editTextProvincia: EditText
     private lateinit var editTextFechaInicio: EditText
     private lateinit var editTextHoraInicio: EditText
     private lateinit var editTextFechaFin: EditText
@@ -61,7 +60,6 @@ class NewPostActivity : AppCompatActivity() {
 
         imgNewPost = findViewById(R.id.imgNewPost)
         checkBoxAceptarCoste = findViewById(R.id.checkBoxAceptarCoste)
-        editTextProvincia = findViewById(R.id.EditText_Provincia)
         editTextFechaInicio = findViewById(R.id.EditText_Fecha_Inicio)
         editTextHoraInicio = findViewById(R.id.EditText_Hora_Inicio)
         editTextFechaFin = findViewById(R.id.EditText_Fecha_Fin)
@@ -190,7 +188,7 @@ class NewPostActivity : AppCompatActivity() {
             return
         }
 
-        if (selectedImageUri == null || editTextProvincia.text.isEmpty() || editTextFechaInicio.text.isEmpty() || editTextHoraInicio.text.isEmpty() || editTextFechaFin.text.isEmpty() || editTextHoraFin.text.isEmpty() || editTextDescripcion.text.isEmpty() || editTextCostePublicacion.text.isEmpty()) {
+        if (selectedImageUri == null || editTextFechaInicio.text.isEmpty() || editTextHoraInicio.text.isEmpty() || editTextFechaFin.text.isEmpty() || editTextHoraFin.text.isEmpty() || editTextDescripcion.text.isEmpty() || editTextCostePublicacion.text.isEmpty()) {
             Toast.makeText(this, "Todos los campos deben estar completos, incluida una foto.", Toast.LENGTH_LONG).show()
             return
         }
@@ -213,21 +211,32 @@ class NewPostActivity : AppCompatActivity() {
             return
         }
 
-        if (fechaInicio.isAfter(fechaFin)) {
-            Toast.makeText(this, "La fecha de inicio debe ser anterior a la fecha de fin.", Toast.LENGTH_LONG).show()
+        if (fechaInicio.isBefore(LocalDateTime.now())) {
+            Toast.makeText(this, "La fecha de inicio no puede ser anterior a la fecha y hora actuales.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (fechaFin.isBefore(fechaInicio)) {
+            Toast.makeText(this, "La fecha de fin no puede ser anterior a la fecha y hora de inicio.", Toast.LENGTH_LONG).show()
             return
         }
 
         val costoPublicacion = editTextCostePublicacion.text.toString().toDoubleOrNull()
-        if (costoPublicacion == null || user.saldoCR < costoPublicacion) {
-            Toast.makeText(this, "Saldo insuficiente para publicar el anuncio.", Toast.LENGTH_LONG).show()
+        if (costoPublicacion == null) {
+            Toast.makeText(this, "Debe introducir un coste válido.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val costoTotal = costoPublicacion + 30 // Comisiones de 15 CR por publicación y 15 CR por transacción
+        if (user.saldoCR < costoTotal) {
+            Toast.makeText(this, "Saldo insuficiente para cubrir el coste y las comisiones.", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MyBalanceActivity::class.java)
             intent.putExtra("email", email)
             startActivity(intent)
             return
         }
 
-        val newBalance = user.saldoCR - costoPublicacion
+        val newBalance = user.saldoCR - costoTotal
         user.saldoCR = newBalance
 
         RetrofitBuilder.api.updateUsuario(user.email, user).enqueue(object : Callback<Users> {
@@ -241,7 +250,8 @@ class NewPostActivity : AppCompatActivity() {
                         descripcion = editTextDescripcion.text.toString(),
                         estado = Post.EstadoAnuncio.PENDIENTE,
                         costoCR = costoPublicacion,
-                        fotoAnuncio = base64Image
+                        fotoAnuncio = base64Image,
+                        emailCliente = null // No se asigna valor al crear el anuncio
                     )
                     RetrofitBuilder.api.createPost(newPost).enqueue(object : Callback<Post> {
                         override fun onResponse(call: Call<Post>, response: Response<Post>) {

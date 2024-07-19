@@ -69,31 +69,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Introduce provincia:"
-                android:textColor="#92736F"
-                android:layout_marginTop="30dp"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/EditText_Provincia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/background_view_2"
-                android:drawablePadding="15dp"
-                android:fontFamily="@font/merriweather_bold"
-                android:hint="_ _ _ _ _ _ _ _ _"
-                android:padding="16dp"
-                android:singleLine="true"
-                android:textColor="#DAC9C7"
-                android:textColorHint="#DAC9C7"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/merriweather_bold"
-                android:padding="8dp"
                 android:text="Introduce fecha y hora Inicio:"
                 android:textColor="#92736F"
                 android:layout_marginTop="10dp"
@@ -200,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Introduce coste por publicación CR:"
+                android:text="Introduce los CR que estas dispuesto a pagar por el servicio:"
                 android:textColor="#92736F"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp" />
@@ -263,7 +238,7 @@
                 android:id="@+id/btnPublicarAnuncio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/background_view_green"
                 android:onClick="publicarAnuncio"
                 android:text="Publicar anuncio"

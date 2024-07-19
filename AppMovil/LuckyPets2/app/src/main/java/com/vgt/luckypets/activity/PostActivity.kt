@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -22,12 +23,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayInputStream
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class PostActivity : AppCompatActivity() {
 
     private lateinit var currentUserEmail: String
     private lateinit var postOwnerEmail: String
     private var postId: Long = 0L
+    private var lastReservedTime: Long = 0L
+    private lateinit var post: Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +49,41 @@ class PostActivity : AppCompatActivity() {
         postOwnerEmail = intent.getStringExtra("post_owner_email") ?: ""
         postId = intent.getLongExtra("post_id", 0L)
 
+        Log.d("PostActivity", "postId recibido: $postId")
+        Log.d("PostActivity", "postOwnerEmail recibido: $postOwnerEmail")
+
+        if (postId == 0L) {
+            Toast.makeText(this, "ID de anuncio no válido", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        fetchPostDetails()
+    }
+
+    private fun fetchPostDetails() {
+        RetrofitBuilder.api.getPostById(postId).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.isSuccessful) {
+                    post = response.body()!!
+                    setupUI()
+                } else {
+                    Toast.makeText(this@PostActivity, "Error al obtener detalles del anuncio.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setupUI() {
         val layoutEliminarAnuncio = findViewById<LinearLayout>(R.id.layoutEliminarAnuncio)
         val botoneraUsuario = findViewById<LinearLayout>(R.id.botoneraUsuario)
         val btnConfirmarTransaccion = findViewById<Button>(R.id.btnConfirmarTransaccion)
+        val btnReservar = findViewById<Button>(R.id.btnReservar)
+        val btnCancelarReserva = findViewById<Button>(R.id.btnCancelarReserva)
 
         if (currentUserEmail == postOwnerEmail) {
             layoutEliminarAnuncio.visibility = View.VISIBLE
@@ -58,25 +96,37 @@ class PostActivity : AppCompatActivity() {
             btnConfirmarTransaccion.visibility = View.GONE
         }
 
-        val provincia = intent.getStringExtra("post_provincia")
-        val duracion = intent.getStringExtra("post_duracion")
-        val descripcion = intent.getStringExtra("post_descripcion")
-        val fotoBase64 = intent.getStringExtra("post_foto")
-        val coste = intent.getDoubleExtra("post_coste", 0.0)
+        if (post.estado == Post.EstadoAnuncio.EN_CURSO && post.emailCliente == currentUserEmail) {
+            btnReservar.visibility = View.GONE
+            btnCancelarReserva.visibility = View.VISIBLE
+        } else {
+            btnReservar.visibility = View.VISIBLE
+            btnCancelarReserva.visibility = View.GONE
+        }
 
-        findViewById<TextView>(R.id.txtProvincia).text = provincia
-        findViewById<TextView>(R.id.txtDuracion).text = duracion
-        findViewById<TextView>(R.id.txtTelefonoPost).text = getPostOwnerPhone()
-        findViewById<TextView>(R.id.txtDescripcion).text = descripcion
-        findViewById<TextView>(R.id.txtCoste).text = "$coste CR"
+        btnReservar.setOnClickListener {
+            showReserveConfirmationDialog()
+        }
+
+        btnCancelarReserva.setOnClickListener {
+            showCancelConfirmationDialog()
+        }
+
+        findViewById<TextView>(R.id.txtProvincia).text = post.usuario.provincia
+        findViewById<TextView>(R.id.txtDuracion).text = calculateDuration(post.fechaInicio, post.fechaFin)
+        findViewById<TextView>(R.id.txtTelefonoPost).text = post.usuario.telefono
+        findViewById<TextView>(R.id.txtDescripcion).text = post.descripcion
+        findViewById<TextView>(R.id.txtCoste).text = "${post.costoCR} CR"
 
         val imgPost = findViewById<ImageView>(R.id.imgPost)
 
-        if (fotoBase64 != null) {
-            val imageBytes = Base64.decode(fotoBase64, Base64.DEFAULT)
+        post.fotoAnuncio?.let {
+            val imageBytes = Base64.decode(it, Base64.DEFAULT)
             val inputStream = ByteArrayInputStream(imageBytes)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             imgPost.setImageBitmap(bitmap)
+        } ?: run {
+            imgPost.setImageResource(R.drawable.placeholder_image)
         }
     }
 
@@ -85,17 +135,40 @@ class PostActivity : AppCompatActivity() {
         return sharedPreferences.getString("email", "") ?: ""
     }
 
-    private fun getPostOwnerPhone(): String {
-        val post = intent.getSerializableExtra("post") as? Post
-        return post?.usuario?.telefono ?: "No disponible"
-    }
-
     private fun showConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Confirmar eliminación")
         builder.setMessage("¿Está seguro de que desea eliminar este anuncio?")
         builder.setPositiveButton("Sí") { dialog, _ ->
             eliminarAnuncio()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private fun showReserveConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar reserva")
+        builder.setMessage("¿Está seguro de que desea reservar este servicio?")
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            reservarAnuncio()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private fun showCancelConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar cancelación")
+        builder.setMessage("¿Está seguro de que desea cancelar esta reserva?")
+        builder.setPositiveButton("Sí") { dialog, _ ->
+            cancelarReserva()
             dialog.dismiss()
         }
         builder.setNegativeButton("Cancelar") { dialog, _ ->
@@ -124,6 +197,58 @@ class PostActivity : AppCompatActivity() {
         })
     }
 
+    private fun reservarAnuncio() {
+        if (postId > 0) {
+            val estadoMap = mapOf("estado" to "en_curso", "emailCliente" to currentUserEmail)
+            RetrofitBuilder.api.updateAnuncioStatus(postId, estadoMap).enqueue(object : Callback<Post> {
+                override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@PostActivity, "Servicio reservado con éxito", Toast.LENGTH_SHORT).show()
+                        findViewById<Button>(R.id.btnReservar).visibility = View.GONE
+                        findViewById<Button>(R.id.btnCancelarReserva).visibility = View.VISIBLE
+                    } else {
+                        Toast.makeText(this@PostActivity, "Error al reservar el servicio", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Post>, t: Throwable) {
+                    Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this@PostActivity, "ID de anuncio no válido", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun cancelarReserva() {
+        // Verificar si han pasado al menos 15 minutos desde la última reserva
+        val currentTime = System.currentTimeMillis()
+        val elapsedMinutes = (currentTime - lastReservedTime) / (1000 * 60)
+
+        if (elapsedMinutes < 15) {
+            Toast.makeText(this, "Debe esperar 15 minutos antes de volver a reservar.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val estadoMap = mapOf("estado" to "pendiente", "emailCliente" to "")
+        RetrofitBuilder.api.updateAnuncioStatus(postId, estadoMap).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@PostActivity, "Reserva cancelada con éxito", Toast.LENGTH_SHORT).show()
+                    // Ocultar botón de cancelar reserva y mostrar botón de reservar
+                    findViewById<Button>(R.id.btnCancelarReserva).visibility = View.GONE
+                    findViewById<Button>(R.id.btnReservar).visibility = View.VISIBLE
+                } else {
+                    Toast.makeText(this@PostActivity, "Error al cancelar la reserva", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     fun volverAtras(view: View?) {
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)
@@ -144,6 +269,24 @@ class PostActivity : AppCompatActivity() {
             startActivity(intent)
         } else {
             Toast.makeText(this, "Número de teléfono no disponible", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun calculateDuration(startDate: String, endDate: String): String {
+        return try {
+            val formatter = DateTimeFormatter.ISO_DATE_TIME
+            val start = LocalDateTime.parse(startDate, formatter)
+            val end = LocalDateTime.parse(endDate, formatter)
+            val days = ChronoUnit.DAYS.between(start, end)
+            if (days == 0L) {
+                val hours = ChronoUnit.HOURS.between(start, end)
+                if (hours == 1L) "$hours hora" else "$hours horas"
+            } else {
+                if (days == 1L) "$days día" else "$days días"
+            }
+        } catch (e: Exception) {
+            Log.e("PostActivity", "Error parsing dates: $startDate, $endDate", e)
+            "Duración desconocida"
         }
     }
 }

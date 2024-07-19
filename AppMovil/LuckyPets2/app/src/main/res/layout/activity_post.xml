@@ -201,12 +201,22 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btnCancelarReserva"
+                    android:layout_width="121dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_view_red"
+                    android:text="Cancelar Reserva"
+                    android:textColor="#DAC9C7"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <Button
                     android:id="@+id/btnReservar"
                     android:layout_width="121dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/background_view_yellow"
-                    android:onClick="Reservar"
                     android:text="Reservar"
                     android:textColor="#DAC9C7"
                     android:textSize="16sp" />
@@ -217,7 +227,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/background_view_green"
-                    android:onClick="Llamar"
                     android:text="Llamar"
                     android:textColor="#DAC9C7"
                     android:textSize="16sp" />
