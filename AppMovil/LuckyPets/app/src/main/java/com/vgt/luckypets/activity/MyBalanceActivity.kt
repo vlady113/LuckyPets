@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -49,8 +51,8 @@ class MyBalanceActivity : AppCompatActivity() {
             volverAtras()
         }
 
-        findViewById<Button>(R.id.btnVerTarjeta).setOnClickListener {
-            verTarjeta(it)
+        findViewById<ImageView>(R.id.menuAjustesBalance).setOnClickListener {
+            mostrarPopupMenu(it)
         }
 
         if (email.isNotEmpty()) {
@@ -150,6 +152,7 @@ class MyBalanceActivity : AppCompatActivity() {
                                     balanceEditText.setText(String.format("%.2f CR", nuevoSaldo))
                                     balanceAddEditText.text.clear()
                                     Toast.makeText(this@MyBalanceActivity, "Saldo añadido correctamente.", Toast.LENGTH_SHORT).show()
+                                    actualizarTarjetas() // Aquí se llama al método después de actualizar el saldo
                                 } else {
                                     Toast.makeText(this@MyBalanceActivity, "Error al actualizar saldo: ${response.message()}", Toast.LENGTH_SHORT).show()
                                 }
@@ -181,8 +184,37 @@ class MyBalanceActivity : AppCompatActivity() {
         startActivityForResult(intent, ADD_CARD_REQUEST_CODE)
     }
 
-    fun verTarjeta(view: View?) {
+    private fun mostrarPopupMenu(view: View) {
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_menu_balance, null)
+
+        val popupWindow = PopupWindow(popupView,
+            android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+            android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+            true)
+
+        popupWindow.showAsDropDown(view)
+
+        popupView.findViewById<TextView>(R.id.action_ver_tarjetas_guardadas).setOnClickListener {
+            popupWindow.dismiss()
+            verTarjeta()
+        }
+
+        popupView.findViewById<TextView>(R.id.action_my_transaction).setOnClickListener {
+            popupWindow.dismiss()
+            mostrarTransacciones()
+        }
+    }
+
+    private fun verTarjeta() {
         val intent = Intent(this, ShowCardActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        actualizarTarjetas()
+    }
+
+    private fun mostrarTransacciones() {
+        val intent = Intent(this, TransactionActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
     }
@@ -213,6 +245,7 @@ class MyBalanceActivity : AppCompatActivity() {
                     setupSpinner(tarjetasDisponibles)
                 }
             }
+            actualizarTarjetas()
         }
     }
 
@@ -230,5 +263,4 @@ class MyBalanceActivity : AppCompatActivity() {
     companion object {
         private const val ADD_CARD_REQUEST_CODE = 1
     }
-
 }

@@ -29,6 +29,14 @@
             android:text="@string/my_balance"
             android:textColor="#DAC9C7"
             android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/menuAjustesBalance"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="right"
+            android:paddingRight="20dp"
+            android:src="@drawable/baseline_menu_2" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -113,7 +121,7 @@
             android:id="@+id/btnAddBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="170dp"
             android:background="@drawable/background_view_2"
             android:onClick="addBalance"
             android:text="Añadir Saldo CR"
@@ -124,22 +132,10 @@
             android:id="@+id/btnAddTarjeta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/background_view_2"
             android:onClick="addTarjeta"
             android:text="Añadir tarjeta de débito / crédito"
-            android:textColor="#DAC9C7"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btnVerTarjeta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_view_2"
-            android:onClick="verTarjeta"
-            android:text="Ver mis tarjetas guardadas"
             android:textColor="#DAC9C7"
             android:textSize="16sp" />
 

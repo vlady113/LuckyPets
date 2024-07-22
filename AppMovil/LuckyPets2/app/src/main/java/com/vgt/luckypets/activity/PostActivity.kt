@@ -270,28 +270,27 @@ class PostActivity : AppCompatActivity() {
 
     private fun confirmarTransaccion() {
         if (postId > 0) {
-            val estadoMap = mapOf("estado" to "completado", "emailCliente" to "")
-            RetrofitBuilder.api.updateAnuncioStatus(postId, estadoMap).enqueue(object : Callback<Post> {
-                override fun onResponse(call: Call<Post>, response: Response<Post>) {
+            RetrofitBuilder.api.confirmarTransaccion(postId, post.emailCliente ?: "").enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        // Calcula la comisión y el crédito final
                         val postCoste = post.costoCR
                         val comision = 15.0
                         val creditoFinal = postCoste - comision
 
-                        // Lógica para actualizar los créditos del usuario y el cliente
+                        // Actualiza los créditos del cliente y del propietario
                         actualizarCreditos(post.emailCliente ?: "", creditoFinal)
                         actualizarCreditos(postOwnerEmail, -postCoste)
 
+                        Toast.makeText(this@PostActivity, "Transacción confirmada con éxito", Toast.LENGTH_SHORT).show()
                         findViewById<Button>(R.id.btnConfirmarTransaccion).visibility = View.GONE
                         findViewById<Button>(R.id.btnCompletado).visibility = View.VISIBLE
-
-                        Toast.makeText(this@PostActivity, "Transacción confirmada con éxito", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this@PostActivity, "Error al confirmar la transacción", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<Post>, t: Throwable) {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     Toast.makeText(this@PostActivity, "Error de red: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -299,6 +298,7 @@ class PostActivity : AppCompatActivity() {
             Toast.makeText(this@PostActivity, "ID de anuncio no válido", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun actualizarCreditos(email: String, cantidad: Double) {
         RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {

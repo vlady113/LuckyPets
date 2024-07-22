@@ -12,6 +12,7 @@
     <string name="reset_password">Restablezca su contraseña</string>
     <string name="latest_ads">Últimos anuncios</string>
     <string name="my_posts">Mis anuncios</string>
+    <string name="acitvity_transactions">Mis transacciones</string>
     <string name="my_reservations">Mis reservas</string>
     <string name="my_data">Mis datos</string>
     <string name="confirm_code_reset">Confirmar código de restablecimiento</string>
