@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
-                android:text="Selecciona una imagen:"
+                android:text="Selecciona una imagen de tú mascota:"
                 android:textColor="#92736F"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp" />

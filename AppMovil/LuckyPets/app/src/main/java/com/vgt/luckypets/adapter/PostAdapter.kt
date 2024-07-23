@@ -62,11 +62,6 @@ class PostAdapter(
             val intent = Intent(context, PostActivity::class.java).apply {
                 putExtra("post_id", post.anuncioID)
                 putExtra("post_owner_email", post.usuario.email)
-                putExtra("post_provincia", post.usuario.provincia)
-                putExtra("post_duracion", calculateDuration(post.fechaInicio, post.fechaFin))
-                putExtra("post_descripcion", post.descripcion)
-                putExtra("post_foto", post.fotoAnuncio)
-                putExtra("post_coste", post.costoCR)
             }
             Log.d("PostAdapter", "Enviando postId: ${post.anuncioID}")
             context.startActivity(intent)
