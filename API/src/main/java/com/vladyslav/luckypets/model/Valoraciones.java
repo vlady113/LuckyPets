@@ -14,63 +14,47 @@ import java.io.Serializable;
 @Table(name = "valoraciones")
 public class Valoraciones implements Serializable {
 
-	@Id
-	@Column(name = "ValoracionID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long valoracionID;
+    @Id
+    @Column(name = "ValoracionID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long valoracionID;
 
-	@ManyToOne
-	@JoinColumn(name = "ReservaID", nullable = false)
-	private Anuncios reserva;
+    @ManyToOne
+    @JoinColumn(name = "UserID", nullable = false)
+    private Usuarios usuario;
 
-	@Column(name = "Valoracion", nullable = false)
-	private Integer valoracion;
+    @Column(name = "Valoracion", nullable = false)
+    private Integer valoracion;
 
-	@Column(name = "Comentario", length = 1024) // Limite caracteres
-	private String comentario;
+    public Valoraciones() {
+    }
 
-	// Constructor vacío
-	public Valoraciones() {
-	}
+    public Valoraciones(Usuarios usuario, Integer valoracion) {
+        this.usuario = usuario;
+        this.valoracion = valoracion;
+    }
 
-	// Constructor con parámetros
-	public Valoraciones(Anuncios reserva, Integer valoracion, String comentario) {
-		this.reserva = reserva;
-		this.valoracion = valoracion;
-		this.comentario = comentario;
-	}
+    public Long getValoracionID() {
+        return valoracionID;
+    }
 
-	// Getters y setters
-	public Long getValoracionID() {
-		return valoracionID;
-	}
+    public void setValoracionID(Long valoracionID) {
+        this.valoracionID = valoracionID;
+    }
 
-	public void setValoracionID(Long valoracionID) {
-		this.valoracionID = valoracionID;
-	}
+    public Usuarios getUsuario() {
+        return usuario;
+    }
 
-	public Anuncios getReserva() {
-		return reserva;
-	}
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setReserva(Anuncios reserva) {
-		this.reserva = reserva;
-	}
+    public Integer getValoracion() {
+        return valoracion;
+    }
 
-	public Integer getValoracion() {
-		return valoracion;
-	}
-
-	public void setValoracion(Integer valoracion) {
-		this.valoracion = valoracion;
-	}
-
-	public String getComentario() {
-		return comentario;
-	}
-
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-
+    public void setValoracion(Integer valoracion) {
+        this.valoracion = valoracion;
+    }
 }

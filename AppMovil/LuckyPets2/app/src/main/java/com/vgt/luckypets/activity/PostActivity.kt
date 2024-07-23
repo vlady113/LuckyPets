@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -285,6 +286,9 @@ class PostActivity : AppCompatActivity() {
                         Toast.makeText(this@PostActivity, "Transacción confirmada con éxito", Toast.LENGTH_SHORT).show()
                         findViewById<Button>(R.id.btnConfirmarTransaccion).visibility = View.GONE
                         findViewById<Button>(R.id.btnCompletado).visibility = View.VISIBLE
+
+                        // Mostrar el diálogo de valoración
+                        showRatingDialog()
                     } else {
                         Toast.makeText(this@PostActivity, "Error al confirmar la transacción", Toast.LENGTH_SHORT).show()
                     }
@@ -299,6 +303,23 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
+    private fun showRatingDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.rating_dialog, null)
+        val ratingBar = dialogLayout.findViewById<RatingBar>(R.id.ratingBar)
+
+        builder.setView(dialogLayout)
+        builder.setPositiveButton("Enviar") { dialog, _ ->
+            val rating = ratingBar.rating
+            Toast.makeText(this, "Has valorado al cuidador con $rating estrellas.", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
 
     private fun actualizarCreditos(email: String, cantidad: Double) {
         RetrofitBuilder.api.getUsuarioByEmail(email).enqueue(object : Callback<Users> {

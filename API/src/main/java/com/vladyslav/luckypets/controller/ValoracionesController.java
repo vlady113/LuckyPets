@@ -16,13 +16,11 @@ public class ValoracionesController {
     @Autowired
     private ValoracionesService valoracionesService;
 
-    // Obtener todas las valoraciones
     @GetMapping
     public List<Valoraciones> getAllValoraciones() {
         return valoracionesService.findAll();
     }
 
-    // Obtener una valoración por ID
     @GetMapping("/{id}")
     public ResponseEntity<Valoraciones> getValoracionById(@PathVariable Long id) {
         Optional<Valoraciones> valoracion = valoracionesService.findById(id);
@@ -33,21 +31,18 @@ public class ValoracionesController {
         }
     }
 
-    // Crear una nueva valoración
     @PostMapping
     public Valoraciones createValoracion(@RequestBody Valoraciones valoracion) {
         return valoracionesService.save(valoracion);
     }
 
-    // Actualizar una valoración existente
     @PutMapping("/{id}")
     public ResponseEntity<Valoraciones> updateValoracion(@PathVariable Long id, @RequestBody Valoraciones valoracionDetails) {
         Optional<Valoraciones> optionalValoracion = valoracionesService.findById(id);
         if (optionalValoracion.isPresent()) {
             Valoraciones valoracion = optionalValoracion.get();
-            valoracion.setReserva(valoracionDetails.getReserva());
+            valoracion.setUsuario(valoracionDetails.getUsuario());
             valoracion.setValoracion(valoracionDetails.getValoracion());
-            valoracion.setComentario(valoracionDetails.getComentario());
             final Valoraciones updatedValoracion = valoracionesService.save(valoracion);
             return ResponseEntity.ok(updatedValoracion);
         } else {
@@ -55,11 +50,9 @@ public class ValoracionesController {
         }
     }
 
-    // Eliminar una valoración
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteValoracion(@PathVariable Long id) {
         valoracionesService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    
 }

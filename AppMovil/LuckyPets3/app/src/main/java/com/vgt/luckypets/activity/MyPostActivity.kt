@@ -45,7 +45,6 @@ class MyPostActivity : AppCompatActivity() {
             return
         }
 
-        // Configurar RecyclerView
         postsList = mutableListOf()
         postAdapter = PostAdapter(this, postsList) { post ->
             showPostDetails(post)
@@ -54,13 +53,11 @@ class MyPostActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = postAdapter
 
-        // Configurar ImageView para actualizar datos
         val actualizarDatos = findViewById<View>(R.id.actualizarDatos)
         actualizarDatos.setOnClickListener {
             refreshPosts()
         }
 
-        // Cargar los posts del usuario
         fetchUserPosts()
     }
 

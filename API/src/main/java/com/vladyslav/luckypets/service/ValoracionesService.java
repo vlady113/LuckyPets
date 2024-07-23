@@ -29,5 +29,4 @@ public class ValoracionesService {
     public void deleteById(Long id) {
         valoracionesRepository.deleteById(id);
     }
-    
 }

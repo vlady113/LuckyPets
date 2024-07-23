@@ -52,7 +52,6 @@ class PostAdapter(
             holder.imgPost.setImageResource(R.drawable.placeholder_image)
         }
 
-        // Mostrar el icono de notificación si el estado es "en_curso"
         if (post.estado == Post.EstadoAnuncio.EN_CURSO) {
             holder.notificationIcon.visibility = View.VISIBLE
         } else {
