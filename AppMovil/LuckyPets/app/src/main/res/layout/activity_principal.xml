@@ -94,7 +94,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTarjetasGuardadas"
             android:layout_width="match_parent"
-            android:layout_height="607dp"
+            android:layout_height="670dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
