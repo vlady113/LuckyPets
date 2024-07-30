@@ -1,0 +1,11 @@
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\LuckyPets.exe
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\LuckyPets.exe.config
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.csproj.AssemblyReference.cache
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.Login.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.Principal.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.Properties.Resources.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.csproj.GenerateResource.cache
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.csproj.CoreCompileInputs.cache
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.exe
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.pdb
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\LuckyPets.pdb

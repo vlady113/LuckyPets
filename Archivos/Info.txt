@@ -1,4 +1,0 @@
-
-
-	API NO puede tener relaciones bidireccionales.
-	
