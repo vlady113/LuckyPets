@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO; // Añadido para FileInfo
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OfficeOpenXml; // Añadido para EPPlus
 using RestSharp;
 
 namespace LuckyPets
@@ -18,15 +21,16 @@ namespace LuckyPets
         {
             InitializeComponent();
 
+            toolStripStatusLblFechaHora.Spring = true;
+            toolStripStatusLblFechaHora.TextAlign = ContentAlignment.MiddleRight;
+
             timer = new Timer();
             timer.Interval = 1000; // 1 segundo
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
-            toolStripStatusLblFechaHora.TextAlign = ContentAlignment.MiddleRight;
-            toolStripStatusLblFechaHora.Text = $"Fecha: {DateTime.Now.ToString("dd/MM/yyyy  ")} Hora: {DateTime.Now.ToString("HH:mm:ss  ")}";
+            toolStripStatusLblFechaHora.Text = $"  Fecha: {DateTime.Now.ToString("dd/MM/yyyy  ")} Hora: {DateTime.Now.ToString("HH:mm:ss  ")}";
 
-            // Configurar comboBoxPrincipal
             comboBoxPrincipal.Items.AddRange(new string[]
             {
                 "Anuncios",
@@ -36,20 +40,34 @@ namespace LuckyPets
                 "Valoraciones"
             });
 
-            comboBoxPrincipal.SelectedIndex = 0; // Establecer "Anuncios" como elemento predeterminado
+            comboBoxPrincipal.SelectedIndex = 0;
             comboBoxPrincipal.SelectedIndexChanged += ComboBoxPrincipal_SelectedIndexChanged;
 
-            // Cargar datos iniciales (Anuncios)
             LoadData("Anuncios");
+
+            toolStripMenuItemSalir.Click += ToolStripMenuItemSalir_Click;
+            toolStripMenuItemCerrarSesion.Click += ToolStripMenuItemCerrarSesion_Click;
+            toolStripMenuItemAcercaDe.Click += ToolStripMenuItemAcercaDe_Click;
+            toolStripMenuItemAbrir.Click += ToolStripMenuItemAbrir_Click;
+            toolStripMenuItemGuardarComo.Click += ToolStripMenuItemGuardarComo_Click;
+
+            toolStripMenuItemDeshacer.Click += ToolStripMenuItemDeshacer_Click;
+            toolStripMenuItemCortar.Click += ToolStripMenuItemCortar_Click;
+            toolStripMenuItemCopiar.Click += ToolStripMenuItemCopiar_Click;
+            toolStripMenuItemPegar.Click += ToolStripMenuItemPegar_Click;
+            toolStripMenuItemSeleccionarTodo.Click += ToolStripMenuItemSeleccionarTodo_Click;
+
+            txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            toolStripStatusLblFechaHora.Text = $"Fecha: {DateTime.Now.ToString("dd/MM/yyyy  ")} Hora: {DateTime.Now.ToString("HH:mm:ss  ")}";
+            toolStripStatusLblFechaHora.Text = $"  Fecha: {DateTime.Now.ToString("dd/MM/yyyy  ")} Hora: {DateTime.Now.ToString("HH:mm:ss  ")}";
         }
 
         private async void ComboBoxPrincipal_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtBoxPrincipalBuscar.Clear();
             var selectedItem = comboBoxPrincipal.SelectedItem.ToString();
             await LoadData(selectedItem);
         }
@@ -79,10 +97,8 @@ namespace LuckyPets
 
                 if (response.IsSuccessful)
                 {
-                    // Log para depuración
                     Console.WriteLine($"Respuesta de {tableName}: {response.Content}");
 
-                    // Verificar si la respuesta es una lista válida
                     var jsonArray = JArray.Parse(response.Content);
                     var flattenedJsonArray = new JArray();
 
@@ -95,7 +111,6 @@ namespace LuckyPets
 
                     var dataTable = JsonConvert.DeserializeObject<DataTable>(flattenedJsonArray.ToString());
 
-                    // Establecer el DataSource del DataGridView
                     dataGridViewPrincipal.DataSource = dataTable;
                 }
                 else
@@ -122,6 +137,225 @@ namespace LuckyPets
                 else
                 {
                     flattened[propertyName] = property.Value;
+                }
+            }
+        }
+
+        private void ToolStripMenuItemSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ToolStripMenuItemCerrarSesion_Click(object sender, EventArgs e)
+        {
+            foreach (Form form in Application.OpenForms)
+            {
+                form.Hide();
+            }
+
+            var loginForm = new Login();
+            loginForm.ResetLoginFields();
+            loginForm.Show();
+        }
+
+        private void ToolStripMenuItemAcercaDe_Click(object sender, EventArgs e)
+        {
+            AcercaDe acercaDeForm = new AcercaDe();
+            acercaDeForm.ShowDialog();
+        }
+
+        private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xls";
+                openFileDialog.Title = "Seleccione un archivo de Excel";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadExcelFile(openFileDialog.FileName);
+                }
+            }
+        }
+
+        private void LoadExcelFile(string filePath)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Añadido para EPPlus
+
+            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                DataTable dataTable = new DataTable();
+
+                foreach (var header in worksheet.Cells[1, 1, 1, worksheet.Dimension.End.Column])
+                {
+                    dataTable.Columns.Add(header.Text);
+                }
+
+                for (var rowNumber = 2; rowNumber <= worksheet.Dimension.End.Row; rowNumber++)
+                {
+                    var row = worksheet.Cells[rowNumber, 1, rowNumber, worksheet.Dimension.End.Column];
+                    var newRow = dataTable.NewRow();
+
+                    foreach (var cell in row)
+                    {
+                        newRow[cell.Start.Column - 1] = cell.Text;
+                    }
+
+                    dataTable.Rows.Add(newRow);
+                }
+
+                dataGridViewPrincipal.DataSource = dataTable;
+            }
+        }
+
+        private void ToolStripMenuItemGuardarComo_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Files|*.xlsx|Text Files|*.txt|All Files|*.*";
+                saveFileDialog.Title = "Guardar como";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    string fileExtension = Path.GetExtension(filePath).ToLower();
+
+                    switch (fileExtension)
+                    {
+                        case ".xlsx":
+                            SaveAsExcel(filePath);
+                            break;
+                        case ".txt":
+                            SaveAsText(filePath);
+                            break;
+                        default:
+                            MessageBox.Show("Formato de archivo no soportado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void SaveAsExcel(string filePath)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                DataTable dataTable = (DataTable)dataGridViewPrincipal.DataSource;
+
+                for (int i = 0; i < dataTable.Columns.Count; i++)
+                {
+                    worksheet.Cells[1, i + 1].Value = dataTable.Columns[i].ColumnName;
+                }
+
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dataTable.Columns.Count; j++)
+                    {
+                        worksheet.Cells[i + 2, j + 1].Value = dataTable.Rows[i][j];
+                    }
+                }
+
+                FileInfo fi = new FileInfo(filePath);
+                package.SaveAs(fi);
+            }
+
+            MessageBox.Show("Datos guardados como Excel.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SaveAsText(string filePath)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                DataTable dataTable = (DataTable)dataGridViewPrincipal.DataSource;
+
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    writer.Write(column.ColumnName + "\t");
+                }
+                writer.WriteLine();
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    foreach (var item in row.ItemArray)
+                    {
+                        writer.Write(item.ToString() + "\t");
+                    }
+                    writer.WriteLine();
+                }
+            }
+
+            MessageBox.Show("Datos guardados como archivo de texto.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ToolStripMenuItemDeshacer_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl is TextBox textBox && textBox.CanUndo)
+            {
+                textBox.Undo();
+                textBox.ClearUndo();
+            }
+        }
+
+        private void ToolStripMenuItemCortar_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl is TextBox textBox && textBox.SelectedText.Length > 0)
+            {
+                textBox.Cut();
+            }
+        }
+
+        private void ToolStripMenuItemCopiar_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl is TextBox textBox && textBox.SelectedText.Length > 0)
+            {
+                textBox.Copy();
+            }
+        }
+
+        private void ToolStripMenuItemPegar_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl is TextBox textBox)
+            {
+                textBox.Paste();
+            }
+        }
+
+        private void ToolStripMenuItemSeleccionarTodo_Click(object sender, EventArgs e)
+        {
+            if (ActiveControl is TextBox textBox)
+            {
+                textBox.SelectAll();
+            }
+        }
+
+        private void TxtBoxPrincipalBuscar_TextChanged(object sender, EventArgs e)
+        {
+            string searchValue = txtBoxPrincipalBuscar.Text.ToLower();
+
+            if (string.IsNullOrEmpty(searchValue))
+            {
+                foreach (DataGridViewRow row in dataGridViewPrincipal.Rows)
+                {
+                    row.Selected = false;
+                }
+                return;
+            }
+
+            foreach (DataGridViewRow row in dataGridViewPrincipal.Rows)
+            {
+                row.Selected = false;
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().ToLower().Contains(searchValue))
+                    {
+                        row.Selected = true;
+                        dataGridViewPrincipal.FirstDisplayedScrollingRowIndex = row.Index;
+                        break;
+                    }
                 }
             }
         }

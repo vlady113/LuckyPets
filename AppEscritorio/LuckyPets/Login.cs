@@ -113,6 +113,13 @@ namespace LuckyPets
             PasswrodReset passwordResetForm = new PasswrodReset();
             passwordResetForm.ShowDialog();
         }
+
+        public void ResetLoginFields()
+        {
+            txtBoxEmailLogin.Clear();
+            txtBoxPasswordLogin.Clear();
+            checkBoxRecordarme.Checked = false;
+        }
     }
 
     public class LoginRequest
@@ -120,5 +127,4 @@ namespace LuckyPets
         public string Email { get; set; }
         public string Password { get; set; }
     }
-
 }

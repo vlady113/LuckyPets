@@ -65,3 +65,11 @@ C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.PasswrodReset.resources
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.CodigoRest.resources
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.NewPassword.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.AcercaDe.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\EPPlus.dll
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\EPPlus.xml
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
