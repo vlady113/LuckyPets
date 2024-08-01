@@ -18,7 +18,8 @@ namespace LuckyPets
             txtBoxEmailLogin.KeyPress += TxtBox_KeyPress;
             txtBoxPasswordLogin.KeyPress += TxtBox_KeyPress;
 
-            txtBoxEmailLogin.TextChanged += TxtBoxEmailLogin_TextChanged; // Agregar el evento TextChanged
+            txtBoxEmailLogin.TextChanged += TxtBoxEmailLogin_TextChanged;
+            linklblOlvideContrasenia.Click += LinklblOlvideContrasenia_Click;
 
             if (Properties.Settings.Default.RememberMe)
             {
@@ -38,7 +39,7 @@ namespace LuckyPets
 
         private void TxtBoxEmailLogin_TextChanged(object sender, EventArgs e)
         {
-            txtBoxPasswordLogin.Clear(); // Limpiar el contenido de txtBoxPasswordLogin
+            txtBoxPasswordLogin.Clear();
         }
 
         private async void btn_Login_Click(object sender, EventArgs e)
@@ -104,6 +105,13 @@ namespace LuckyPets
             Console.WriteLine("Request Body: " + JsonConvert.SerializeObject(loginRequest));
 
             return await client.ExecuteAsync(request);
+        }
+
+        private void LinklblOlvideContrasenia_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            PasswrodReset passwordResetForm = new PasswrodReset();
+            passwordResetForm.ShowDialog();
         }
     }
 

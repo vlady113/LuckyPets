@@ -62,3 +62,6 @@ C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\System.Text.Json.xml
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\bin\Debug\System.ValueTuple.xml
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.PasswrodReset.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.CodigoRest.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.NewPassword.resources

@@ -46,6 +46,8 @@
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vistapreviadeimpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,8 +60,6 @@
             this.seleccionartodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.pictureBoxPrincipal = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrincipal)).BeginInit();
             this.statusStripFechaHora.SuspendLayout();
@@ -73,18 +73,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPrincipal.Location = new System.Drawing.Point(12, 143);
+            this.dataGridViewPrincipal.Location = new System.Drawing.Point(12, 165);
             this.dataGridViewPrincipal.Name = "dataGridViewPrincipal";
-            this.dataGridViewPrincipal.Size = new System.Drawing.Size(793, 387);
+            this.dataGridViewPrincipal.Size = new System.Drawing.Size(840, 392);
             this.dataGridViewPrincipal.TabIndex = 0;
             // 
             // statusStripFechaHora
             // 
             this.statusStripFechaHora.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLblFechaHora});
-            this.statusStripFechaHora.Location = new System.Drawing.Point(0, 543);
+            this.statusStripFechaHora.Location = new System.Drawing.Point(0, 570);
             this.statusStripFechaHora.Name = "statusStripFechaHora";
-            this.statusStripFechaHora.Size = new System.Drawing.Size(817, 23);
+            this.statusStripFechaHora.Size = new System.Drawing.Size(864, 23);
             this.statusStripFechaHora.TabIndex = 1;
             this.statusStripFechaHora.Text = "statusStrip1";
             this.toolTipPrincipal.SetToolTip(this.statusStripFechaHora, "Fecha y Hora de la sesión actual");
@@ -94,7 +94,7 @@
             this.toolStripStatusLblFechaHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLblFechaHora.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLblFechaHora.Name = "toolStripStatusLblFechaHora";
-            this.toolStripStatusLblFechaHora.Size = new System.Drawing.Size(802, 18);
+            this.toolStripStatusLblFechaHora.Size = new System.Drawing.Size(849, 18);
             this.toolStripStatusLblFechaHora.Spring = true;
             this.toolStripStatusLblFechaHora.Text = "toolStripStatusLabel1";
             // 
@@ -129,7 +129,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(817, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(864, 27);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -206,6 +206,17 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
+            // 
+            // cerrarSesiónToolStripMenuItem
+            // 
+            this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
+            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
+            this.cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(229, 6);
             // 
             // salirToolStripMenuItem
             // 
@@ -296,26 +307,16 @@
             // acercadeToolStripMenuItem
             // 
             this.acercadeToolStripMenuItem.Name = "acercadeToolStripMenuItem";
-            this.acercadeToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.acercadeToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
             this.acercadeToolStripMenuItem.Text = "&Acerca de...";
-            // 
-            // cerrarSesiónToolStripMenuItem
-            // 
-            this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(232, 24);
-            this.cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(229, 6);
             // 
             // pictureBoxPrincipal
             // 
+            this.pictureBoxPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxPrincipal.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxPrincipal.BackgroundImage")));
-            this.pictureBoxPrincipal.Location = new System.Drawing.Point(685, 34);
+            this.pictureBoxPrincipal.Location = new System.Drawing.Point(723, 34);
             this.pictureBoxPrincipal.Name = "pictureBoxPrincipal";
-            this.pictureBoxPrincipal.Size = new System.Drawing.Size(120, 103);
+            this.pictureBoxPrincipal.Size = new System.Drawing.Size(129, 125);
             this.pictureBoxPrincipal.TabIndex = 7;
             this.pictureBoxPrincipal.TabStop = false;
             // 
@@ -324,7 +325,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.ClientSize = new System.Drawing.Size(817, 566);
+            this.ClientSize = new System.Drawing.Size(864, 593);
             this.Controls.Add(this.pictureBoxPrincipal);
             this.Controls.Add(this.comboBoxPrincipal);
             this.Controls.Add(this.lblMostrarInformacion);
@@ -333,7 +334,7 @@
             this.Controls.Add(this.dataGridViewPrincipal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Principal";
-            this.Text = " ";
+            this.Text = "Principal LuckyPets";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrincipal)).EndInit();
             this.statusStripFechaHora.ResumeLayout(false);
             this.statusStripFechaHora.PerformLayout();
