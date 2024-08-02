@@ -31,6 +31,21 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.dataGridViewPrincipal = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripPrincipal = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.añadirDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarSiguienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.limpiarDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.seleccionarTodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripFechaHora = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLblFechaHora = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMostrarInformacion = new System.Windows.Forms.Label();
@@ -48,21 +63,24 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEditar = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDeshacer = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemBuscar = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemBuscarSiguiente = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemLimpiarDatos = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemDeshacer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemCortar = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCopiar = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPegar = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.ToolStripMenuItemBuscar = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemBuscarSiguiente = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemSeleccionarTodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.lblBusqueda = new System.Windows.Forms.Label();
-            this.ToolStripMenuItemLimpiarDatos = new System.Windows.Forms.ToolStripMenuItem();
+            this.añadirDatosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarDatosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrincipal)).BeginInit();
+            this.contextMenuStripPrincipal.SuspendLayout();
             this.statusStripFechaHora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPrincipal)).BeginInit();
             this.menuStripPrincipal.SuspendLayout();
@@ -74,10 +92,126 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPrincipal.ContextMenuStrip = this.contextMenuStripPrincipal;
             this.dataGridViewPrincipal.Location = new System.Drawing.Point(12, 165);
             this.dataGridViewPrincipal.Name = "dataGridViewPrincipal";
             this.dataGridViewPrincipal.Size = new System.Drawing.Size(840, 310);
             this.dataGridViewPrincipal.TabIndex = 0;
+            // 
+            // contextMenuStripPrincipal
+            // 
+            this.contextMenuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.añadirDatosToolStripMenuItem,
+            this.eliminarDatosToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.buscarToolStripMenuItem,
+            this.buscarSiguienteToolStripMenuItem,
+            this.limpiarDatosToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.deshacerToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.cortarToolStripMenuItem,
+            this.copiarToolStripMenuItem,
+            this.pegarToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.seleccionarTodoToolStripMenuItem});
+            this.contextMenuStripPrincipal.Name = "contextMenuStripPrincipal";
+            this.contextMenuStripPrincipal.Size = new System.Drawing.Size(229, 290);
+            // 
+            // añadirDatosToolStripMenuItem
+            // 
+            this.añadirDatosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("añadirDatosToolStripMenuItem.Image")));
+            this.añadirDatosToolStripMenuItem.Name = "añadirDatosToolStripMenuItem";
+            this.añadirDatosToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.añadirDatosToolStripMenuItem.Text = "Añadir datos";
+            // 
+            // eliminarDatosToolStripMenuItem
+            // 
+            this.eliminarDatosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarDatosToolStripMenuItem.Image")));
+            this.eliminarDatosToolStripMenuItem.Name = "eliminarDatosToolStripMenuItem";
+            this.eliminarDatosToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.eliminarDatosToolStripMenuItem.Text = "Eliminar datos";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(175, 6);
+            // 
+            // buscarToolStripMenuItem
+            // 
+            this.buscarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("buscarToolStripMenuItem.Image")));
+            this.buscarToolStripMenuItem.Name = "buscarToolStripMenuItem";
+            this.buscarToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.buscarToolStripMenuItem.Text = "Buscar";
+            // 
+            // buscarSiguienteToolStripMenuItem
+            // 
+            this.buscarSiguienteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("buscarSiguienteToolStripMenuItem.Image")));
+            this.buscarSiguienteToolStripMenuItem.Name = "buscarSiguienteToolStripMenuItem";
+            this.buscarSiguienteToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.buscarSiguienteToolStripMenuItem.Text = "Buscar siguiente";
+            // 
+            // limpiarDatosToolStripMenuItem
+            // 
+            this.limpiarDatosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("limpiarDatosToolStripMenuItem.Image")));
+            this.limpiarDatosToolStripMenuItem.Name = "limpiarDatosToolStripMenuItem";
+            this.limpiarDatosToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.limpiarDatosToolStripMenuItem.Text = "Limpiar datos";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(175, 6);
+            // 
+            // deshacerToolStripMenuItem
+            // 
+            this.deshacerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deshacerToolStripMenuItem.Image")));
+            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
+            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(175, 6);
+            // 
+            // cortarToolStripMenuItem
+            // 
+            this.cortarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cortarToolStripMenuItem.Image")));
+            this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
+            this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.cortarToolStripMenuItem.Text = "Cortar";
+            // 
+            // copiarToolStripMenuItem
+            // 
+            this.copiarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copiarToolStripMenuItem.Image")));
+            this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
+            this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.copiarToolStripMenuItem.Text = "Copiar";
+            // 
+            // pegarToolStripMenuItem
+            // 
+            this.pegarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pegarToolStripMenuItem.Image")));
+            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
+            this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.pegarToolStripMenuItem.Text = "Pegar";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(175, 6);
+            // 
+            // seleccionarTodoToolStripMenuItem
+            // 
+            this.seleccionarTodoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("seleccionarTodoToolStripMenuItem.Image")));
+            this.seleccionarTodoToolStripMenuItem.Name = "seleccionarTodoToolStripMenuItem";
+            this.seleccionarTodoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.seleccionarTodoToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.seleccionarTodoToolStripMenuItem.Text = "Seleccionar todo";
             // 
             // statusStripFechaHora
             // 
@@ -126,6 +260,7 @@
             // 
             // txtBoxPrincipalBuscar
             // 
+            this.txtBoxPrincipalBuscar.ContextMenuStrip = this.contextMenuStripPrincipal;
             this.txtBoxPrincipalBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxPrincipalBuscar.ForeColor = System.Drawing.Color.Black;
             this.txtBoxPrincipalBuscar.Location = new System.Drawing.Point(12, 67);
@@ -220,20 +355,48 @@
             // toolStripMenuItemEditar
             // 
             this.toolStripMenuItemEditar.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemDeshacer,
+            this.añadirDatosToolStripMenuItem1,
+            this.eliminarDatosToolStripMenuItem1,
             this.toolStripSeparator10,
-            this.toolStripMenuItemCortar,
-            this.toolStripMenuItemCopiar,
-            this.toolStripMenuItemPegar,
-            this.toolStripSeparator11,
             this.ToolStripMenuItemBuscar,
             this.ToolStripMenuItemBuscarSiguiente,
             this.ToolStripMenuItemLimpiarDatos,
+            this.toolStripMenuItemDeshacer,
+            this.toolStripSeparator11,
+            this.toolStripMenuItemCortar,
+            this.toolStripMenuItemCopiar,
+            this.toolStripMenuItemPegar,
             this.toolStripSeparator1,
             this.toolStripMenuItemSeleccionarTodo});
             this.toolStripMenuItemEditar.Name = "toolStripMenuItemEditar";
             this.toolStripMenuItemEditar.Size = new System.Drawing.Size(56, 23);
             this.toolStripMenuItemEditar.Text = "&Editar";
+            // 
+            // ToolStripMenuItemBuscar
+            // 
+            this.ToolStripMenuItemBuscar.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemBuscar.Image")));
+            this.ToolStripMenuItemBuscar.Name = "ToolStripMenuItemBuscar";
+            this.ToolStripMenuItemBuscar.Size = new System.Drawing.Size(228, 24);
+            this.ToolStripMenuItemBuscar.Text = "Buscar";
+            // 
+            // ToolStripMenuItemBuscarSiguiente
+            // 
+            this.ToolStripMenuItemBuscarSiguiente.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemBuscarSiguiente.Image")));
+            this.ToolStripMenuItemBuscarSiguiente.Name = "ToolStripMenuItemBuscarSiguiente";
+            this.ToolStripMenuItemBuscarSiguiente.Size = new System.Drawing.Size(228, 24);
+            this.ToolStripMenuItemBuscarSiguiente.Text = "Buscar siguiente";
+            // 
+            // ToolStripMenuItemLimpiarDatos
+            // 
+            this.ToolStripMenuItemLimpiarDatos.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemLimpiarDatos.Image")));
+            this.ToolStripMenuItemLimpiarDatos.Name = "ToolStripMenuItemLimpiarDatos";
+            this.ToolStripMenuItemLimpiarDatos.Size = new System.Drawing.Size(228, 24);
+            this.ToolStripMenuItemLimpiarDatos.Text = "Limpiar datos";
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(225, 6);
             // 
             // toolStripMenuItemDeshacer
             // 
@@ -243,10 +406,10 @@
             this.toolStripMenuItemDeshacer.Size = new System.Drawing.Size(228, 24);
             this.toolStripMenuItemDeshacer.Text = "&Deshacer";
             // 
-            // toolStripSeparator10
+            // toolStripSeparator11
             // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(225, 6);
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(225, 6);
             // 
             // toolStripMenuItemCortar
             // 
@@ -275,25 +438,6 @@
             this.toolStripMenuItemPegar.Size = new System.Drawing.Size(228, 24);
             this.toolStripMenuItemPegar.Text = "&Pegar";
             // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(225, 6);
-            // 
-            // ToolStripMenuItemBuscar
-            // 
-            this.ToolStripMenuItemBuscar.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemBuscar.Image")));
-            this.ToolStripMenuItemBuscar.Name = "ToolStripMenuItemBuscar";
-            this.ToolStripMenuItemBuscar.Size = new System.Drawing.Size(228, 24);
-            this.ToolStripMenuItemBuscar.Text = "Buscar";
-            // 
-            // ToolStripMenuItemBuscarSiguiente
-            // 
-            this.ToolStripMenuItemBuscarSiguiente.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemBuscarSiguiente.Image")));
-            this.ToolStripMenuItemBuscarSiguiente.Name = "ToolStripMenuItemBuscarSiguiente";
-            this.ToolStripMenuItemBuscarSiguiente.Size = new System.Drawing.Size(228, 24);
-            this.ToolStripMenuItemBuscarSiguiente.Text = "Buscar siguiente";
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -319,7 +463,7 @@
             // 
             this.toolStripMenuItemAcercaDe.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAcercaDe.Image")));
             this.toolStripMenuItemAcercaDe.Name = "toolStripMenuItemAcercaDe";
-            this.toolStripMenuItemAcercaDe.Size = new System.Drawing.Size(180, 24);
+            this.toolStripMenuItemAcercaDe.Size = new System.Drawing.Size(146, 24);
             this.toolStripMenuItemAcercaDe.Text = "&Acerca de...";
             // 
             // lblBusqueda
@@ -333,12 +477,19 @@
             this.lblBusqueda.TabIndex = 9;
             this.lblBusqueda.Text = "Búsqueda:";
             // 
-            // ToolStripMenuItemLimpiarDatos
+            // añadirDatosToolStripMenuItem1
             // 
-            this.ToolStripMenuItemLimpiarDatos.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemLimpiarDatos.Image")));
-            this.ToolStripMenuItemLimpiarDatos.Name = "ToolStripMenuItemLimpiarDatos";
-            this.ToolStripMenuItemLimpiarDatos.Size = new System.Drawing.Size(228, 24);
-            this.ToolStripMenuItemLimpiarDatos.Text = "Limpiar datos";
+            this.añadirDatosToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("añadirDatosToolStripMenuItem1.Image")));
+            this.añadirDatosToolStripMenuItem1.Name = "añadirDatosToolStripMenuItem1";
+            this.añadirDatosToolStripMenuItem1.Size = new System.Drawing.Size(228, 24);
+            this.añadirDatosToolStripMenuItem1.Text = "Añadir datos";
+            // 
+            // eliminarDatosToolStripMenuItem1
+            // 
+            this.eliminarDatosToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("eliminarDatosToolStripMenuItem1.Image")));
+            this.eliminarDatosToolStripMenuItem1.Name = "eliminarDatosToolStripMenuItem1";
+            this.eliminarDatosToolStripMenuItem1.Size = new System.Drawing.Size(228, 24);
+            this.eliminarDatosToolStripMenuItem1.Text = "Eliminar datos";
             // 
             // Principal
             // 
@@ -358,6 +509,7 @@
             this.Name = "Principal";
             this.Text = "Principal LuckyPets";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrincipal)).EndInit();
+            this.contextMenuStripPrincipal.ResumeLayout(false);
             this.statusStripFechaHora.ResumeLayout(false);
             this.statusStripFechaHora.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPrincipal)).EndInit();
@@ -402,5 +554,22 @@
         private System.Windows.Forms.Label lblBusqueda;
         private System.Windows.Forms.TextBox txtBoxPrincipalBuscar;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLimpiarDatos;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripPrincipal;
+        private System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem cortarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem buscarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscarSiguienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem limpiarDatosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem seleccionarTodoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem añadirDatosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem eliminarDatosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem añadirDatosToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem eliminarDatosToolStripMenuItem1;
     }
 }

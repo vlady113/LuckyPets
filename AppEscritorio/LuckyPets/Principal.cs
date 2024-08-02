@@ -62,6 +62,16 @@ namespace LuckyPets
             ToolStripMenuItemBuscarSiguiente.Click += ToolStripMenuItemBuscarSiguiente_Click;
             toolStripMenuItemSeleccionarTodo.Click += ToolStripMenuItemSeleccionarTodo_Click;
 
+            // Añadir eventos del ContextMenuStrip
+            deshacerToolStripMenuItem.Click += ToolStripMenuItemDeshacer_Click;
+            cortarToolStripMenuItem.Click += ToolStripMenuItemCortar_Click;
+            copiarToolStripMenuItem.Click += ToolStripMenuItemCopiar_Click;
+            pegarToolStripMenuItem.Click += ToolStripMenuItemPegar_Click;
+            buscarToolStripMenuItem.Click += ToolStripMenuItemBuscar_Click;
+            buscarSiguienteToolStripMenuItem.Click += ToolStripMenuItemBuscarSiguiente_Click;
+            limpiarDatosToolStripMenuItem.Click += ToolStripMenuItemLimpiarDatos_Click;
+            seleccionarTodoToolStripMenuItem.Click += ToolStripMenuItemSeleccionarTodo_Click;
+
             txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
         }
 
