@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswrodReset));
             this.lblPasswordReset1 = new System.Windows.Forms.Label();
             this.lblPasswordReset2 = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
             this.btn_ResetPassword = new System.Windows.Forms.Button();
             this.linklblOlvideContraseniaReset = new System.Windows.Forms.LinkLabel();
             this.lblEsperar = new System.Windows.Forms.Label();
+            this.toolTipPasswordReset = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblPasswordReset1
@@ -67,6 +69,7 @@
             this.txtBoxEmailResetPassword.Name = "txtBoxEmailResetPassword";
             this.txtBoxEmailResetPassword.Size = new System.Drawing.Size(374, 24);
             this.txtBoxEmailResetPassword.TabIndex = 6;
+            this.toolTipPasswordReset.SetToolTip(this.txtBoxEmailResetPassword, "Introduzca su correo electrónico");
             // 
             // btn_ResetPassword
             // 
@@ -79,6 +82,7 @@
             this.btn_ResetPassword.Size = new System.Drawing.Size(374, 38);
             this.btn_ResetPassword.TabIndex = 7;
             this.btn_ResetPassword.Text = "RESTABLECER CONTRASEÑA";
+            this.toolTipPasswordReset.SetToolTip(this.btn_ResetPassword, "Procesar a restablecer contraseña");
             this.btn_ResetPassword.UseVisualStyleBackColor = false;
             this.btn_ResetPassword.Click += new System.EventHandler(this.btn_ResetPassword_Click);
             // 
@@ -93,6 +97,7 @@
             this.linklblOlvideContraseniaReset.TabIndex = 9;
             this.linklblOlvideContraseniaReset.TabStop = true;
             this.linklblOlvideContraseniaReset.Text = "Iniciar sesión con tus credenciales";
+            this.toolTipPasswordReset.SetToolTip(this.linklblOlvideContraseniaReset, "Inicie sesión con sus credenciales actuales");
             // 
             // lblEsperar
             // 
@@ -135,5 +140,6 @@
         private System.Windows.Forms.Button btn_ResetPassword;
         private System.Windows.Forms.LinkLabel linklblOlvideContraseniaReset;
         private System.Windows.Forms.Label lblEsperar;
+        private System.Windows.Forms.ToolTip toolTipPasswordReset;
     }
 }

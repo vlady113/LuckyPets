@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodigoRest));
             this.lblResetCode1 = new System.Windows.Forms.Label();
             this.lblResetCode2 = new System.Windows.Forms.Label();
             this.txtBoxResetCode = new System.Windows.Forms.TextBox();
             this.btn_ConfirmarCodigo = new System.Windows.Forms.Button();
+            this.toolTipResetPassword = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblResetCode1
@@ -65,6 +67,7 @@
             this.txtBoxResetCode.Name = "txtBoxResetCode";
             this.txtBoxResetCode.Size = new System.Drawing.Size(374, 24);
             this.txtBoxResetCode.TabIndex = 7;
+            this.toolTipResetPassword.SetToolTip(this.txtBoxResetCode, "Introduzca el código de restablecimiento");
             // 
             // btn_ConfirmarCodigo
             // 
@@ -77,6 +80,7 @@
             this.btn_ConfirmarCodigo.Size = new System.Drawing.Size(374, 38);
             this.btn_ConfirmarCodigo.TabIndex = 8;
             this.btn_ConfirmarCodigo.Text = "CONFIRMAR CÓDIGO";
+            this.toolTipResetPassword.SetToolTip(this.btn_ConfirmarCodigo, "Confirmar y enviar código de restablecimiento");
             this.btn_ConfirmarCodigo.UseVisualStyleBackColor = false;
             this.btn_ConfirmarCodigo.Click += new System.EventHandler(this.btn_ConfirmarCodigo_Click);
             // 
@@ -106,5 +110,6 @@
         private System.Windows.Forms.Label lblResetCode2;
         private System.Windows.Forms.TextBox txtBoxResetCode;
         private System.Windows.Forms.Button btn_ConfirmarCodigo;
+        private System.Windows.Forms.ToolTip toolTipResetPassword;
     }
 }

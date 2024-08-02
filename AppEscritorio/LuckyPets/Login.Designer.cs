@@ -139,6 +139,7 @@
             this.linklblOlvideContrasenia.TabIndex = 8;
             this.linklblOlvideContrasenia.TabStop = true;
             this.linklblOlvideContrasenia.Text = "¿Has olvidado tú contraseña?";
+            this.toolTipLogin.SetToolTip(this.linklblOlvideContrasenia, "Restablezca su contraseña");
             // 
             // Login
             // 

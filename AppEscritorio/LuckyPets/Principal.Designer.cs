@@ -61,6 +61,7 @@
             this.toolStripMenuItemAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.lblBusqueda = new System.Windows.Forms.Label();
+            this.ToolStripMenuItemLimpiarDatos = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrincipal)).BeginInit();
             this.statusStripFechaHora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPrincipal)).BeginInit();
@@ -75,14 +76,14 @@
             this.dataGridViewPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPrincipal.Location = new System.Drawing.Point(12, 165);
             this.dataGridViewPrincipal.Name = "dataGridViewPrincipal";
-            this.dataGridViewPrincipal.Size = new System.Drawing.Size(840, 392);
+            this.dataGridViewPrincipal.Size = new System.Drawing.Size(840, 310);
             this.dataGridViewPrincipal.TabIndex = 0;
             // 
             // statusStripFechaHora
             // 
             this.statusStripFechaHora.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLblFechaHora});
-            this.statusStripFechaHora.Location = new System.Drawing.Point(0, 570);
+            this.statusStripFechaHora.Location = new System.Drawing.Point(0, 488);
             this.statusStripFechaHora.Name = "statusStripFechaHora";
             this.statusStripFechaHora.Size = new System.Drawing.Size(864, 23);
             this.statusStripFechaHora.TabIndex = 1;
@@ -105,7 +106,7 @@
             this.lblMostrarInformacion.AutoSize = true;
             this.lblMostrarInformacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMostrarInformacion.ForeColor = System.Drawing.Color.White;
-            this.lblMostrarInformacion.Location = new System.Drawing.Point(12, 112);
+            this.lblMostrarInformacion.Location = new System.Drawing.Point(12, 94);
             this.lblMostrarInformacion.Name = "lblMostrarInformacion";
             this.lblMostrarInformacion.Size = new System.Drawing.Size(232, 18);
             this.lblMostrarInformacion.TabIndex = 4;
@@ -117,7 +118,7 @@
             this.comboBoxPrincipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.comboBoxPrincipal.ForeColor = System.Drawing.Color.Black;
             this.comboBoxPrincipal.FormattingEnabled = true;
-            this.comboBoxPrincipal.Location = new System.Drawing.Point(12, 133);
+            this.comboBoxPrincipal.Location = new System.Drawing.Point(12, 115);
             this.comboBoxPrincipal.Name = "comboBoxPrincipal";
             this.comboBoxPrincipal.Size = new System.Drawing.Size(229, 26);
             this.comboBoxPrincipal.TabIndex = 5;
@@ -127,7 +128,7 @@
             // 
             this.txtBoxPrincipalBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxPrincipalBuscar.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxPrincipalBuscar.Location = new System.Drawing.Point(12, 79);
+            this.txtBoxPrincipalBuscar.Location = new System.Drawing.Point(12, 67);
             this.txtBoxPrincipalBuscar.Name = "txtBoxPrincipalBuscar";
             this.txtBoxPrincipalBuscar.Size = new System.Drawing.Size(229, 24);
             this.txtBoxPrincipalBuscar.TabIndex = 10;
@@ -227,6 +228,7 @@
             this.toolStripSeparator11,
             this.ToolStripMenuItemBuscar,
             this.ToolStripMenuItemBuscarSiguiente,
+            this.ToolStripMenuItemLimpiarDatos,
             this.toolStripSeparator1,
             this.toolStripMenuItemSeleccionarTodo});
             this.toolStripMenuItemEditar.Name = "toolStripMenuItemEditar";
@@ -325,18 +327,25 @@
             this.lblBusqueda.AutoSize = true;
             this.lblBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBusqueda.ForeColor = System.Drawing.Color.White;
-            this.lblBusqueda.Location = new System.Drawing.Point(12, 58);
+            this.lblBusqueda.Location = new System.Drawing.Point(12, 46);
             this.lblBusqueda.Name = "lblBusqueda";
             this.lblBusqueda.Size = new System.Drawing.Size(87, 18);
             this.lblBusqueda.TabIndex = 9;
             this.lblBusqueda.Text = "Búsqueda:";
+            // 
+            // ToolStripMenuItemLimpiarDatos
+            // 
+            this.ToolStripMenuItemLimpiarDatos.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemLimpiarDatos.Image")));
+            this.ToolStripMenuItemLimpiarDatos.Name = "ToolStripMenuItemLimpiarDatos";
+            this.ToolStripMenuItemLimpiarDatos.Size = new System.Drawing.Size(228, 24);
+            this.ToolStripMenuItemLimpiarDatos.Text = "Limpiar datos";
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.ClientSize = new System.Drawing.Size(864, 593);
+            this.ClientSize = new System.Drawing.Size(864, 511);
             this.Controls.Add(this.txtBoxPrincipalBuscar);
             this.Controls.Add(this.lblBusqueda);
             this.Controls.Add(this.menuStripPrincipal);
@@ -392,5 +401,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Label lblBusqueda;
         private System.Windows.Forms.TextBox txtBoxPrincipalBuscar;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLimpiarDatos;
     }
 }

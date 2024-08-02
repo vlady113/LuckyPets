@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.IO; // Añadido para FileInfo
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OfficeOpenXml; // Añadido para EPPlus
+using OfficeOpenXml;
 using RestSharp;
 
 namespace LuckyPets
@@ -16,6 +16,8 @@ namespace LuckyPets
     public partial class Principal : Form
     {
         private Timer timer;
+        private int advancedSearchIndex = -1;
+        private string currentSearchValue = string.Empty;
 
         public Principal()
         {
@@ -50,11 +52,14 @@ namespace LuckyPets
             toolStripMenuItemAcercaDe.Click += ToolStripMenuItemAcercaDe_Click;
             toolStripMenuItemAbrir.Click += ToolStripMenuItemAbrir_Click;
             toolStripMenuItemGuardarComo.Click += ToolStripMenuItemGuardarComo_Click;
+            ToolStripMenuItemLimpiarDatos.Click += ToolStripMenuItemLimpiarDatos_Click;
 
             toolStripMenuItemDeshacer.Click += ToolStripMenuItemDeshacer_Click;
             toolStripMenuItemCortar.Click += ToolStripMenuItemCortar_Click;
             toolStripMenuItemCopiar.Click += ToolStripMenuItemCopiar_Click;
             toolStripMenuItemPegar.Click += ToolStripMenuItemPegar_Click;
+            ToolStripMenuItemBuscar.Click += ToolStripMenuItemBuscar_Click;
+            ToolStripMenuItemBuscarSiguiente.Click += ToolStripMenuItemBuscarSiguiente_Click;
             toolStripMenuItemSeleccionarTodo.Click += ToolStripMenuItemSeleccionarTodo_Click;
 
             txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
@@ -324,6 +329,23 @@ namespace LuckyPets
             }
         }
 
+        private void ToolStripMenuItemBuscar_Click(object sender, EventArgs e)
+        {
+            Buscar buscarForm = new Buscar();
+            buscarForm.BusquedaRealizada += BuscarForm_BusquedaRealizada;
+            buscarForm.ShowDialog();
+        }
+
+        private void ToolStripMenuItemBuscarSiguiente_Click(object sender, EventArgs e)
+        {
+            SeleccionarSiguiente();
+        }
+
+        private void ToolStripMenuItemLimpiarDatos_Click(object sender, EventArgs e)
+        {
+            LimpiarDatos();
+        }
+
         private void ToolStripMenuItemSeleccionarTodo_Click(object sender, EventArgs e)
         {
             if (ActiveControl is TextBox textBox)
@@ -358,6 +380,96 @@ namespace LuckyPets
                     }
                 }
             }
+        }
+
+        private void BuscarForm_BusquedaRealizada(object sender, string searchValue)
+        {
+            advancedSearchIndex = -1;
+            currentSearchValue = searchValue.ToLower();
+            RealizarBusquedaAvanzada(currentSearchValue);
+        }
+
+        private void RealizarBusquedaAvanzada(string searchValue)
+        {
+            bool found = false;
+
+            for (int i = 0; i < dataGridViewPrincipal.Rows.Count; i++)
+            {
+                DataGridViewRow row = dataGridViewPrincipal.Rows[i];
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().ToLower().Contains(searchValue))
+                    {
+                        advancedSearchIndex = i;
+                        row.Selected = true;
+                        dataGridViewPrincipal.FirstDisplayedScrollingRowIndex = i;
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    break;
+            }
+
+            if (!found)
+            {
+                MessageBox.Show("No se encontraron más coincidencias.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void SeleccionarSiguiente()
+        {
+            if (string.IsNullOrEmpty(currentSearchValue))
+            {
+                MessageBox.Show("No se ha realizado ninguna búsqueda avanzada.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool found = false;
+
+            for (int i = advancedSearchIndex + 1; i < dataGridViewPrincipal.Rows.Count; i++)
+            {
+                DataGridViewRow row = dataGridViewPrincipal.Rows[i];
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().ToLower().Contains(currentSearchValue))
+                    {
+                        advancedSearchIndex = i;
+                        row.Selected = true;
+                        dataGridViewPrincipal.FirstDisplayedScrollingRowIndex = i;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                    break;
+            }
+
+            if (!found)
+            {
+                MessageBox.Show("No se encontraron más coincidencias.", "Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void LimpiarDatos()
+        {
+            txtBoxPrincipalBuscar.Clear();
+
+            var buscarForm = Application.OpenForms.OfType<Buscar>().FirstOrDefault();
+            if (buscarForm != null)
+            {
+                buscarForm.ClearAdvancedSearch();
+            }
+
+            foreach (DataGridViewRow row in dataGridViewPrincipal.Rows)
+            {
+                row.Selected = false;
+            }
+
+            advancedSearchIndex = -1;
+            currentSearchValue = string.Empty;
         }
     }
 }

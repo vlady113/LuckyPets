@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewPassword));
             this.label2 = new System.Windows.Forms.Label();
             this.txtBoxNewPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxConfirmNewPassword = new System.Windows.Forms.TextBox();
             this.btn_ConfirmarContrasenia = new System.Windows.Forms.Button();
+            this.toolTipNewPassword = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label2
@@ -56,6 +58,7 @@
             this.txtBoxNewPassword.PasswordChar = '*';
             this.txtBoxNewPassword.Size = new System.Drawing.Size(374, 24);
             this.txtBoxNewPassword.TabIndex = 8;
+            this.toolTipNewPassword.SetToolTip(this.txtBoxNewPassword, "Introduzca una nueva contraseña");
             // 
             // label1
             // 
@@ -77,6 +80,7 @@
             this.textBoxConfirmNewPassword.PasswordChar = '*';
             this.textBoxConfirmNewPassword.Size = new System.Drawing.Size(374, 24);
             this.textBoxConfirmNewPassword.TabIndex = 10;
+            this.toolTipNewPassword.SetToolTip(this.textBoxConfirmNewPassword, "Repita su nueva contraseña");
             // 
             // btn_ConfirmarContrasenia
             // 
@@ -89,6 +93,7 @@
             this.btn_ConfirmarContrasenia.Size = new System.Drawing.Size(374, 38);
             this.btn_ConfirmarContrasenia.TabIndex = 11;
             this.btn_ConfirmarContrasenia.Text = "ESTABLECER CONTRASEÑA";
+            this.toolTipNewPassword.SetToolTip(this.btn_ConfirmarContrasenia, "Establecer nueva contraseña");
             this.btn_ConfirmarContrasenia.UseVisualStyleBackColor = false;
             this.btn_ConfirmarContrasenia.Click += new System.EventHandler(this.btn_ConfirmarContrasenia_Click);
             // 
@@ -118,5 +123,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxConfirmNewPassword;
         private System.Windows.Forms.Button btn_ConfirmarContrasenia;
+        private System.Windows.Forms.ToolTip toolTipNewPassword;
     }
 }
