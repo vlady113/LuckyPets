@@ -54,6 +54,7 @@ namespace LuckyPets
             toolStripMenuItemGuardarComo.Click += ToolStripMenuItemGuardarComo_Click;
             ToolStripMenuItemLimpiarDatos.Click += ToolStripMenuItemLimpiarDatos_Click;
 
+            ToolStripMenuItemAniadirDatos.Click += ToolStripMenuItemAniadirDatos_Click;
             toolStripMenuItemDeshacer.Click += ToolStripMenuItemDeshacer_Click;
             toolStripMenuItemCortar.Click += ToolStripMenuItemCortar_Click;
             toolStripMenuItemCopiar.Click += ToolStripMenuItemCopiar_Click;
@@ -62,7 +63,7 @@ namespace LuckyPets
             ToolStripMenuItemBuscarSiguiente.Click += ToolStripMenuItemBuscarSiguiente_Click;
             toolStripMenuItemSeleccionarTodo.Click += ToolStripMenuItemSeleccionarTodo_Click;
 
-            // Añadir eventos del ContextMenuStrip
+            aniadirDatosToolStripMenuItem.Click += ToolStripMenuItemAniadirDatos_Click;
             deshacerToolStripMenuItem.Click += ToolStripMenuItemDeshacer_Click;
             cortarToolStripMenuItem.Click += ToolStripMenuItemCortar_Click;
             copiarToolStripMenuItem.Click += ToolStripMenuItemCopiar_Click;
@@ -177,6 +178,12 @@ namespace LuckyPets
         {
             AcercaDe acercaDeForm = new AcercaDe();
             acercaDeForm.ShowDialog();
+        }
+
+        private void ToolStripMenuItemAniadirDatos_Click(object sender, EventArgs e)
+        {
+            AddUser addUserForm = new AddUser();
+            addUserForm.ShowDialog();
         }
 
         private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
