@@ -76,6 +76,7 @@ namespace LuckyPets
             actualizarDatosToolStripMenuItem.Click += ToolStripMenuItemActualizarDatos_Click;
 
             txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
+
         }
 
         private void Timer_Tick(object sender, EventArgs e)
