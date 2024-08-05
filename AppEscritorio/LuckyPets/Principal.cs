@@ -56,6 +56,7 @@ namespace LuckyPets
             ToolStripMenuItemActualizarDatos.Click += ToolStripMenuItemActualizarDatos_Click;
 
             ToolStripMenuItemAniadirDatos.Click += ToolStripMenuItemAniadirDatos_Click;
+            ToolStripMenuIteModificarDatos.Click += ToolStripMenuIteModificarDatos_Click;
             toolStripMenuItemDeshacer.Click += ToolStripMenuItemDeshacer_Click;
             toolStripMenuItemCortar.Click += ToolStripMenuItemCortar_Click;
             toolStripMenuItemCopiar.Click += ToolStripMenuItemCopiar_Click;
@@ -65,6 +66,7 @@ namespace LuckyPets
             toolStripMenuItemSeleccionarTodo.Click += ToolStripMenuItemSeleccionarTodo_Click;
 
             aniadirDatosToolStripMenuItem.Click += ToolStripMenuItemAniadirDatos_Click;
+            modificarDatosToolStripMenuItem.Click += ToolStripMenuIteModificarDatos_Click;
             deshacerToolStripMenuItem.Click += ToolStripMenuItemDeshacer_Click;
             cortarToolStripMenuItem.Click += ToolStripMenuItemCortar_Click;
             copiarToolStripMenuItem.Click += ToolStripMenuItemCopiar_Click;
@@ -77,6 +79,7 @@ namespace LuckyPets
 
             txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
 
+            dataGridViewPrincipal.CellClick += dataGridViewPrincipal_CellClick;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -94,13 +97,13 @@ namespace LuckyPets
         private async Task LoadData(string tableName)
         {
             var endpoints = new Dictionary<string, string>
-    {
-        { "Anuncios", "anuncios" },
-        { "Usuarios", "usuarios" },
-        { "Tarjetas Bancarias", "tarjetas" },
-        { "Historial Transacciones", "historialtransacciones" },
-        { "Valoraciones", "valoraciones" }
-    };
+            {
+                { "Anuncios", "anuncios" },
+                { "Usuarios", "usuarios" },
+                { "Tarjetas Bancarias", "tarjetas" },
+                { "Historial Transacciones", "historialtransacciones" },
+                { "Valoraciones", "valoraciones" }
+            };
 
             if (!endpoints.TryGetValue(tableName, out var apiEndpoint))
             {
@@ -131,6 +134,11 @@ namespace LuckyPets
                     var dataTable = JsonConvert.DeserializeObject<DataTable>(flattenedJsonArray.ToString());
 
                     dataGridViewPrincipal.DataSource = dataTable;
+
+                    foreach (DataGridViewColumn column in dataGridViewPrincipal.Columns)
+                    {
+                        Console.WriteLine(column.Name);
+                    }
                 }
                 else
                 {
@@ -208,6 +216,76 @@ namespace LuckyPets
             }
 
             formToOpen?.ShowDialog();
+        }
+
+        private async void ToolStripMenuIteModificarDatos_Click(object sender, EventArgs e)
+        {
+            if (comboBoxPrincipal.SelectedItem.ToString() == "Usuarios" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
+                EditUser editUserForm = new EditUser();
+
+                editUserForm.TxtBoxeEditUserID.Text = selectedRow.Cells["usuario.userID"].Value.ToString();
+                editUserForm.TxtBoxeEditUserDNI.Text = selectedRow.Cells["usuario.dni"].Value.ToString();
+                editUserForm.TxtBoxeEditUserNombre.Text = selectedRow.Cells["usuario.nombre"].Value.ToString();
+                editUserForm.TxtBoxeEditUserApellidos.Text = selectedRow.Cells["usuario.apellidos"].Value.ToString();
+                editUserForm.TxtBoxeEditUserEmail.Text = selectedRow.Cells["usuario.email"].Value.ToString();
+                editUserForm.TxtBoxeEditUserPassword.Text = selectedRow.Cells["usuario.password"].Value.ToString();
+                editUserForm.TxtBoxeEditUserDireccion.Text = selectedRow.Cells["usuario.direccion"].Value.ToString();
+                editUserForm.TxtBoxeEditUserProvincia.Text = selectedRow.Cells["usuario.provincia"].Value.ToString();
+                editUserForm.TxtBoxeEditUserCP.Text = selectedRow.Cells["usuario.codigoPostal"].Value.ToString();
+                editUserForm.TxtBoxeEditUserTelefono.Text = selectedRow.Cells["usuario.telefono"].Value.ToString();
+                editUserForm.TxtBoxeEditUserFechaRegistro.Text = selectedRow.Cells["usuario.fechaRegistro"].Value.ToString();
+                editUserForm.TxtBoxeEditUserSaldo.Text = selectedRow.Cells["usuario.saldoCR"].Value.ToString();
+                editUserForm.TxtBoxeEditUserCodRest.Text = selectedRow.Cells["usuario.codigo_restablecimiento"].Value.ToString();
+                editUserForm.CheckBoxEditUserAdmin.Checked = Convert.ToBoolean(selectedRow.Cells["usuario.esAdministrador"].Value);
+
+                if (editUserForm.ShowDialog() == DialogResult.OK)
+                {
+                    await LoadData("Usuarios");
+                }
+            }
+            else if (comboBoxPrincipal.SelectedItem.ToString() == "Anuncios" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
+                EditPost editPostForm = new EditPost();
+
+                editPostForm.TxtBoxEditPostEmailCliente.Text = selectedRow.Cells["emailCliente"].Value.ToString();
+                editPostForm.TxtBoxEditPostEmailAnunciante.Text = selectedRow.Cells["usuario.email"].Value.ToString();
+
+                if (selectedRow.Cells["fotoAnuncio"].Value != null)
+                {
+                    try
+                    {
+                        string base64String = selectedRow.Cells["fotoAnuncio"].Value.ToString();
+                        byte[] imageBytes = Convert.FromBase64String(base64String);
+                        using (var ms = new MemoryStream(imageBytes))
+                        {
+                            editPostForm.PictureBoxEditPost.Image = Image.FromStream(ms);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al cargar la imagen: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                editPostForm.DateTimePickerEditPostFechaInicio.Value = DateTime.Parse(selectedRow.Cells["fechaInicio"].Value.ToString());
+                editPostForm.TextBoxEditPostHoraInicio.Text = DateTime.Parse(selectedRow.Cells["fechaInicio"].Value.ToString()).ToString("HH:mm");
+                editPostForm.DateTimePickerEditPostFechaFin.Value = DateTime.Parse(selectedRow.Cells["fechaFin"].Value.ToString());
+                editPostForm.TextBoxEditPostHoraFin.Text = DateTime.Parse(selectedRow.Cells["fechaFin"].Value.ToString()).ToString("HH:mm");
+                editPostForm.TextBoxEditPostCR.Text = selectedRow.Cells["costoCR"].Value.ToString();
+                editPostForm.TextBoxEditPostDescripcion.Text = selectedRow.Cells["descripcion"].Value.ToString();
+
+                if (editPostForm.ShowDialog() == DialogResult.OK)
+                {
+                    await LoadData("Anuncios");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar 'Usuarios' o 'Anuncios' en el comboBox y una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
@@ -501,6 +579,15 @@ namespace LuckyPets
             MessageBox.Show("Datos actualizados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void dataGridViewPrincipal_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                dataGridViewPrincipal.ClearSelection();
+                dataGridViewPrincipal.Rows[e.RowIndex].Selected = true;
+            }
+        }
+
         private void LimpiarDatos()
         {
             txtBoxPrincipalBuscar.Clear();
@@ -519,7 +606,6 @@ namespace LuckyPets
             advancedSearchIndex = -1;
             currentSearchValue = string.Empty;
         }
-
     }
 
 }

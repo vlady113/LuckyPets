@@ -34,7 +34,7 @@
             this.contextMenuStripPrincipal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.aniadirDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizarDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarSiguienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +66,7 @@
             this.toolStripMenuItemEditar = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemAniadirDatos = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemActualizarDatos = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemEliminarDatos = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuIteModificarDatos = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemBuscar = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemBuscarSiguiente = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +106,7 @@
             this.contextMenuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aniadirDatosToolStripMenuItem,
             this.actualizarDatosToolStripMenuItem,
-            this.eliminarDatosToolStripMenuItem,
+            this.modificarDatosToolStripMenuItem,
             this.toolStripSeparator2,
             this.buscarToolStripMenuItem,
             this.buscarSiguienteToolStripMenuItem,
@@ -120,7 +120,7 @@
             this.toolStripSeparator4,
             this.seleccionarTodoToolStripMenuItem});
             this.contextMenuStripPrincipal.Name = "contextMenuStripPrincipal";
-            this.contextMenuStripPrincipal.Size = new System.Drawing.Size(229, 292);
+            this.contextMenuStripPrincipal.Size = new System.Drawing.Size(229, 314);
             // 
             // aniadirDatosToolStripMenuItem
             // 
@@ -136,12 +136,12 @@
             this.actualizarDatosToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
             this.actualizarDatosToolStripMenuItem.Text = "Actualizar datos";
             // 
-            // eliminarDatosToolStripMenuItem
+            // modificarDatosToolStripMenuItem
             // 
-            this.eliminarDatosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarDatosToolStripMenuItem.Image")));
-            this.eliminarDatosToolStripMenuItem.Name = "eliminarDatosToolStripMenuItem";
-            this.eliminarDatosToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.eliminarDatosToolStripMenuItem.Text = "Eliminar datos";
+            this.modificarDatosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("modificarDatosToolStripMenuItem.Image")));
+            this.modificarDatosToolStripMenuItem.Name = "modificarDatosToolStripMenuItem";
+            this.modificarDatosToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.modificarDatosToolStripMenuItem.Text = "Modificar datos";
             // 
             // toolStripSeparator2
             // 
@@ -369,7 +369,7 @@
             this.toolStripMenuItemEditar.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemAniadirDatos,
             this.ToolStripMenuItemActualizarDatos,
-            this.ToolStripMenuItemEliminarDatos,
+            this.ToolStripMenuIteModificarDatos,
             this.toolStripSeparator10,
             this.ToolStripMenuItemBuscar,
             this.ToolStripMenuItemBuscarSiguiente,
@@ -400,12 +400,12 @@
             this.ToolStripMenuItemActualizarDatos.Size = new System.Drawing.Size(228, 24);
             this.ToolStripMenuItemActualizarDatos.Text = "Actualizar datos";
             // 
-            // ToolStripMenuItemEliminarDatos
+            // ToolStripMenuIteModificarDatos
             // 
-            this.ToolStripMenuItemEliminarDatos.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemEliminarDatos.Image")));
-            this.ToolStripMenuItemEliminarDatos.Name = "ToolStripMenuItemEliminarDatos";
-            this.ToolStripMenuItemEliminarDatos.Size = new System.Drawing.Size(228, 24);
-            this.ToolStripMenuItemEliminarDatos.Text = "Eliminar datos";
+            this.ToolStripMenuIteModificarDatos.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuIteModificarDatos.Image")));
+            this.ToolStripMenuIteModificarDatos.Name = "ToolStripMenuIteModificarDatos";
+            this.ToolStripMenuIteModificarDatos.Size = new System.Drawing.Size(228, 24);
+            this.ToolStripMenuIteModificarDatos.Text = "Modificar datos";
             // 
             // toolStripSeparator10
             // 
@@ -595,11 +595,11 @@
         private System.Windows.Forms.ToolStripMenuItem seleccionarTodoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aniadirDatosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem eliminarDatosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAniadirDatos;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemEliminarDatos;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem actualizarDatosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemActualizarDatos;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuIteModificarDatos;
+        private System.Windows.Forms.ToolStripMenuItem modificarDatosToolStripMenuItem;
     }
 }
