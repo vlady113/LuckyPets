@@ -53,6 +53,7 @@ namespace LuckyPets
             toolStripMenuItemAbrir.Click += ToolStripMenuItemAbrir_Click;
             toolStripMenuItemGuardarComo.Click += ToolStripMenuItemGuardarComo_Click;
             ToolStripMenuItemLimpiarDatos.Click += ToolStripMenuItemLimpiarDatos_Click;
+            ToolStripMenuItemActualizarDatos.Click += ToolStripMenuItemActualizarDatos_Click;
 
             ToolStripMenuItemAniadirDatos.Click += ToolStripMenuItemAniadirDatos_Click;
             toolStripMenuItemDeshacer.Click += ToolStripMenuItemDeshacer_Click;
@@ -72,6 +73,7 @@ namespace LuckyPets
             buscarSiguienteToolStripMenuItem.Click += ToolStripMenuItemBuscarSiguiente_Click;
             limpiarDatosToolStripMenuItem.Click += ToolStripMenuItemLimpiarDatos_Click;
             seleccionarTodoToolStripMenuItem.Click += ToolStripMenuItemSeleccionarTodo_Click;
+            actualizarDatosToolStripMenuItem.Click += ToolStripMenuItemActualizarDatos_Click;
 
             txtBoxPrincipalBuscar.TextChanged += TxtBoxPrincipalBuscar_TextChanged;
         }
@@ -91,13 +93,13 @@ namespace LuckyPets
         private async Task LoadData(string tableName)
         {
             var endpoints = new Dictionary<string, string>
-            {
-                { "Anuncios", "anuncios" },
-                { "Usuarios", "usuarios" },
-                { "Tarjetas Bancarias", "tarjetas" },
-                { "Historial Transacciones", "historialtransacciones" },
-                { "Valoraciones", "valoraciones" }
-            };
+    {
+        { "Anuncios", "anuncios" },
+        { "Usuarios", "usuarios" },
+        { "Tarjetas Bancarias", "tarjetas" },
+        { "Historial Transacciones", "historialtransacciones" },
+        { "Valoraciones", "valoraciones" }
+    };
 
             if (!endpoints.TryGetValue(tableName, out var apiEndpoint))
             {
@@ -182,8 +184,29 @@ namespace LuckyPets
 
         private void ToolStripMenuItemAniadirDatos_Click(object sender, EventArgs e)
         {
-            AddUser addUserForm = new AddUser();
-            addUserForm.ShowDialog();
+            string selectedItem = comboBoxPrincipal.SelectedItem.ToString();
+
+            Form formToOpen = null;
+
+            switch (selectedItem)
+            {
+                case "Anuncios":
+                    formToOpen = new AddPost();
+                    break;
+                case "Usuarios":
+                    formToOpen = new AddUser();
+                    (formToOpen as AddUser).UserAdded += (s, ev) => { LoadData("Usuarios"); };
+                    break;
+                case "Tarjetas Bancarias":
+                    formToOpen = new AddCard();
+                    (formToOpen as AddCard).CardAdded += (s, ev) => { LoadData("Tarjetas Bancarias"); };
+                    break;
+                default:
+                    MessageBox.Show("Seleccione una categoría válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            formToOpen?.ShowDialog();
         }
 
         private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
@@ -470,6 +493,13 @@ namespace LuckyPets
             }
         }
 
+        private async void ToolStripMenuItemActualizarDatos_Click(object sender, EventArgs e)
+        {
+            string selectedItem = comboBoxPrincipal.SelectedItem.ToString();
+            await LoadData(selectedItem);
+            MessageBox.Show("Datos actualizados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void LimpiarDatos()
         {
             txtBoxPrincipalBuscar.Clear();
@@ -488,5 +518,7 @@ namespace LuckyPets
             advancedSearchIndex = -1;
             currentSearchValue = string.Empty;
         }
+
     }
+
 }

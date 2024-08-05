@@ -112,6 +112,7 @@
             this.txtBoxAddUserPassword.ForeColor = System.Drawing.Color.Black;
             this.txtBoxAddUserPassword.Location = new System.Drawing.Point(344, 54);
             this.txtBoxAddUserPassword.Name = "txtBoxAddUserPassword";
+            this.txtBoxAddUserPassword.PasswordChar = '*';
             this.txtBoxAddUserPassword.Size = new System.Drawing.Size(229, 24);
             this.txtBoxAddUserPassword.TabIndex = 19;
             this.toolTipAddUser.SetToolTip(this.txtBoxAddUserPassword, "Introduzca una contraseña");
@@ -122,6 +123,7 @@
             this.txtBoxAddUserRepeatPassword.ForeColor = System.Drawing.Color.Black;
             this.txtBoxAddUserRepeatPassword.Location = new System.Drawing.Point(344, 115);
             this.txtBoxAddUserRepeatPassword.Name = "txtBoxAddUserRepeatPassword";
+            this.txtBoxAddUserRepeatPassword.PasswordChar = '*';
             this.txtBoxAddUserRepeatPassword.Size = new System.Drawing.Size(229, 24);
             this.txtBoxAddUserRepeatPassword.TabIndex = 20;
             this.toolTipAddUser.SetToolTip(this.txtBoxAddUserRepeatPassword, "Vuelva a escribir la contraseña");
@@ -139,6 +141,7 @@
             this.btn_RegistrarUsuario.Text = "REGISTRAR NUEVO USUARIO";
             this.toolTipAddUser.SetToolTip(this.btn_RegistrarUsuario, "Registrar un nuevo usuario en el sistema");
             this.btn_RegistrarUsuario.UseVisualStyleBackColor = false;
+            this.btn_RegistrarUsuario.Click += new System.EventHandler(this.btn_RegistrarUsuario_Click);
             // 
             // AddUser
             // 
@@ -159,7 +162,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "AddUser";
-            this.Text = "Añadir un nuevo usuario";
+            this.Text = "Añadir nuevo usuario";
             this.ResumeLayout(false);
             this.PerformLayout();
 
