@@ -79,3 +79,6 @@ C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.AddPost.resources
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.EditUser.resources
 C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.EditPost.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.EditCard.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.EditTransaction.resources
+C:\Users\Vladyslav\Desktop\PROYECTO FINAL\LuckyPets\AppEscritorio\LuckyPets\obj\Debug\LuckyPets.EditValoration.resources

@@ -51,7 +51,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtBoxeEditUserTelefono = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtBoxeEditUserFechaRegistro = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtBoxeEditUserSaldo = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -60,6 +59,7 @@
             this.btn_GuardarDatosUser = new System.Windows.Forms.Button();
             this.btn_EliminarDatosUser = new System.Windows.Forms.Button();
             this.toolTipEditUser = new System.Windows.Forms.ToolTip(this.components);
+            this.dateTimePickerEditUserFechaRegistro = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -69,9 +69,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(37, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 18);
+            this.label1.Size = new System.Drawing.Size(93, 18);
             this.label1.TabIndex = 10;
-            this.label1.Text = "User ID:";
+            this.label1.Text = "Usuario ID:";
             // 
             // txtBoxeEditUserID
             // 
@@ -282,16 +282,6 @@
             this.label11.TabIndex = 30;
             this.label11.Text = "Fecha registro:";
             // 
-            // txtBoxeEditUserFechaRegistro
-            // 
-            this.txtBoxeEditUserFechaRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxeEditUserFechaRegistro.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditUserFechaRegistro.Location = new System.Drawing.Point(341, 264);
-            this.txtBoxeEditUserFechaRegistro.Name = "txtBoxeEditUserFechaRegistro";
-            this.txtBoxeEditUserFechaRegistro.Size = new System.Drawing.Size(229, 24);
-            this.txtBoxeEditUserFechaRegistro.TabIndex = 31;
-            this.toolTipEditUser.SetToolTip(this.txtBoxeEditUserFechaRegistro, "Fecha registro de usuario");
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -377,12 +367,21 @@
             this.btn_EliminarDatosUser.UseVisualStyleBackColor = false;
             this.btn_EliminarDatosUser.Click += new System.EventHandler(this.btn_EliminarDatosUser_Click);
             // 
+            // dateTimePickerEditUserFechaRegistro
+            // 
+            this.dateTimePickerEditUserFechaRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.dateTimePickerEditUserFechaRegistro.Location = new System.Drawing.Point(341, 264);
+            this.dateTimePickerEditUserFechaRegistro.Name = "dateTimePickerEditUserFechaRegistro";
+            this.dateTimePickerEditUserFechaRegistro.Size = new System.Drawing.Size(229, 24);
+            this.dateTimePickerEditUserFechaRegistro.TabIndex = 41;
+            // 
             // EditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(618, 659);
+            this.Controls.Add(this.dateTimePickerEditUserFechaRegistro);
             this.Controls.Add(this.btn_EliminarDatosUser);
             this.Controls.Add(this.btn_GuardarDatosUser);
             this.Controls.Add(this.checkBoxEditUserAdmin);
@@ -390,7 +389,6 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtBoxeEditUserSaldo);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.txtBoxeEditUserFechaRegistro);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtBoxeEditUserTelefono);
             this.Controls.Add(this.label10);
@@ -445,7 +443,6 @@
         public System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox txtBoxeEditUserTelefono;
         public System.Windows.Forms.Label label11;
-        public System.Windows.Forms.TextBox txtBoxeEditUserFechaRegistro;
         public System.Windows.Forms.Label label12;
         public System.Windows.Forms.TextBox txtBoxeEditUserSaldo;
         public System.Windows.Forms.Label label13;
@@ -454,5 +451,6 @@
         public System.Windows.Forms.Button btn_GuardarDatosUser;
         public System.Windows.Forms.Button btn_EliminarDatosUser;
         private System.Windows.Forms.ToolTip toolTipEditUser;
+        public System.Windows.Forms.DateTimePicker dateTimePickerEditUserFechaRegistro;
     }
 }

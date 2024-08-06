@@ -196,6 +196,76 @@ namespace LuckyPets
             public string Telefono { get; set; }
             public string Email { get; set; }
         }
+
+        private void AddPost_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePickerAddPostFechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxAddPostHoraInicio_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePickerAddPostFechaFin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxAddPostHoraFin_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxAddPostEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxAddCardCR_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxAddPostDescripcion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxAddCardAceptarCoste_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

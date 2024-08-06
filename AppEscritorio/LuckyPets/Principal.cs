@@ -97,13 +97,13 @@ namespace LuckyPets
         private async Task LoadData(string tableName)
         {
             var endpoints = new Dictionary<string, string>
-            {
-                { "Anuncios", "anuncios" },
-                { "Usuarios", "usuarios" },
-                { "Tarjetas Bancarias", "tarjetas" },
-                { "Historial Transacciones", "historialtransacciones" },
-                { "Valoraciones", "valoraciones" }
-            };
+    {
+        { "Anuncios", "anuncios" },
+        { "Usuarios", "usuarios" },
+        { "Tarjetas Bancarias", "tarjetas" },
+        { "Historial Transacciones", "historialtransacciones" },
+        { "Valoraciones", "valoraciones" }
+    };
 
             if (!endpoints.TryGetValue(tableName, out var apiEndpoint))
             {
@@ -217,7 +217,6 @@ namespace LuckyPets
 
             formToOpen?.ShowDialog();
         }
-
         private async void ToolStripMenuIteModificarDatos_Click(object sender, EventArgs e)
         {
             if (comboBoxPrincipal.SelectedItem.ToString() == "Usuarios" && dataGridViewPrincipal.SelectedRows.Count > 0)
@@ -225,20 +224,39 @@ namespace LuckyPets
                 var selectedRow = dataGridViewPrincipal.SelectedRows[0];
                 EditUser editUserForm = new EditUser();
 
-                editUserForm.TxtBoxeEditUserID.Text = selectedRow.Cells["usuario.userID"].Value.ToString();
-                editUserForm.TxtBoxeEditUserDNI.Text = selectedRow.Cells["usuario.dni"].Value.ToString();
-                editUserForm.TxtBoxeEditUserNombre.Text = selectedRow.Cells["usuario.nombre"].Value.ToString();
-                editUserForm.TxtBoxeEditUserApellidos.Text = selectedRow.Cells["usuario.apellidos"].Value.ToString();
-                editUserForm.TxtBoxeEditUserEmail.Text = selectedRow.Cells["usuario.email"].Value.ToString();
-                editUserForm.TxtBoxeEditUserPassword.Text = selectedRow.Cells["usuario.password"].Value.ToString();
-                editUserForm.TxtBoxeEditUserDireccion.Text = selectedRow.Cells["usuario.direccion"].Value.ToString();
-                editUserForm.TxtBoxeEditUserProvincia.Text = selectedRow.Cells["usuario.provincia"].Value.ToString();
-                editUserForm.TxtBoxeEditUserCP.Text = selectedRow.Cells["usuario.codigoPostal"].Value.ToString();
-                editUserForm.TxtBoxeEditUserTelefono.Text = selectedRow.Cells["usuario.telefono"].Value.ToString();
-                editUserForm.TxtBoxeEditUserFechaRegistro.Text = selectedRow.Cells["usuario.fechaRegistro"].Value.ToString();
-                editUserForm.TxtBoxeEditUserSaldo.Text = selectedRow.Cells["usuario.saldoCR"].Value.ToString();
-                editUserForm.TxtBoxeEditUserCodRest.Text = selectedRow.Cells["usuario.codigo_restablecimiento"].Value.ToString();
-                editUserForm.CheckBoxEditUserAdmin.Checked = Convert.ToBoolean(selectedRow.Cells["usuario.esAdministrador"].Value);
+                editUserForm.TxtBoxeEditUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                editUserForm.TxtBoxeEditUserDNI.Text = selectedRow.Cells["dni"].Value.ToString();
+                editUserForm.TxtBoxeEditUserNombre.Text = selectedRow.Cells["nombre"].Value.ToString();
+                editUserForm.TxtBoxeEditUserApellidos.Text = selectedRow.Cells["apellidos"].Value.ToString();
+                editUserForm.TxtBoxeEditUserEmail.Text = selectedRow.Cells["email"].Value.ToString();
+                editUserForm.TxtBoxeEditUserPassword.Text = selectedRow.Cells["password"].Value.ToString();
+                editUserForm.TxtBoxeEditUserDireccion.Text = selectedRow.Cells["direccion"].Value.ToString();
+                editUserForm.TxtBoxeEditUserProvincia.Text = selectedRow.Cells["provincia"].Value.ToString();
+                editUserForm.TxtBoxeEditUserCP.Text = selectedRow.Cells["codigoPostal"].Value.ToString();
+                editUserForm.TxtBoxeEditUserTelefono.Text = selectedRow.Cells["telefono"].Value.ToString();
+
+                string fechaRegistroStr = selectedRow.Cells["fechaRegistro"].Value?.ToString();
+                if (!string.IsNullOrEmpty(fechaRegistroStr))
+                {
+                    DateTime fechaRegistro;
+                    if (DateTime.TryParse(fechaRegistroStr, out fechaRegistro))
+                    {
+                        editUserForm.dateTimePickerEditUserFechaRegistro.Value = fechaRegistro;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El formato de la fecha de registro no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    editUserForm.dateTimePickerEditUserFechaRegistro.Value = DateTime.Now;
+                }
+
+                editUserForm.TxtBoxeEditUserSaldo.Text = selectedRow.Cells["saldoCR"].Value.ToString();
+                editUserForm.TxtBoxeEditUserCodRest.Text = selectedRow.Cells["codigo_restablecimiento"].Value.ToString();
+                editUserForm.CheckBoxEditUserAdmin.Checked = Convert.ToBoolean(selectedRow.Cells["esAdministrador"].Value);
 
                 if (editUserForm.ShowDialog() == DialogResult.OK)
                 {
@@ -250,6 +268,8 @@ namespace LuckyPets
                 var selectedRow = dataGridViewPrincipal.SelectedRows[0];
                 EditPost editPostForm = new EditPost();
 
+                editPostForm.AnuncioID = Convert.ToInt64(selectedRow.Cells["anuncioID"].Value);
+
                 editPostForm.TxtBoxEditPostEmailCliente.Text = selectedRow.Cells["emailCliente"].Value.ToString();
                 editPostForm.TxtBoxEditPostEmailAnunciante.Text = selectedRow.Cells["usuario.email"].Value.ToString();
 
@@ -258,10 +278,17 @@ namespace LuckyPets
                     try
                     {
                         string base64String = selectedRow.Cells["fotoAnuncio"].Value.ToString();
-                        byte[] imageBytes = Convert.FromBase64String(base64String);
-                        using (var ms = new MemoryStream(imageBytes))
+                        if (IsBase64String(base64String))
                         {
-                            editPostForm.PictureBoxEditPost.Image = Image.FromStream(ms);
+                            byte[] imageBytes = Convert.FromBase64String(base64String);
+                            using (var ms = new MemoryStream(imageBytes))
+                            {
+                                editPostForm.PictureBoxEditPost.Image = Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Los datos de la imagen no son válidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)
@@ -271,9 +298,7 @@ namespace LuckyPets
                 }
 
                 editPostForm.DateTimePickerEditPostFechaInicio.Value = DateTime.Parse(selectedRow.Cells["fechaInicio"].Value.ToString());
-                editPostForm.TextBoxEditPostHoraInicio.Text = DateTime.Parse(selectedRow.Cells["fechaInicio"].Value.ToString()).ToString("HH:mm");
                 editPostForm.DateTimePickerEditPostFechaFin.Value = DateTime.Parse(selectedRow.Cells["fechaFin"].Value.ToString());
-                editPostForm.TextBoxEditPostHoraFin.Text = DateTime.Parse(selectedRow.Cells["fechaFin"].Value.ToString()).ToString("HH:mm");
                 editPostForm.TextBoxEditPostCR.Text = selectedRow.Cells["costoCR"].Value.ToString();
                 editPostForm.TextBoxEditPostDescripcion.Text = selectedRow.Cells["descripcion"].Value.ToString();
 
@@ -287,6 +312,26 @@ namespace LuckyPets
                 MessageBox.Show("Debe seleccionar 'Usuarios' o 'Anuncios' en el comboBox y una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+        private bool IsBase64String(string base64)
+        {
+            if (string.IsNullOrEmpty(base64) || base64.Length % 4 != 0)
+            {
+                return false;
+            }
+
+            try
+            {
+                Convert.FromBase64String(base64);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
 
         private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
         {

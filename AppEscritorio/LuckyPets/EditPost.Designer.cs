@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPost));
             this.txtBoxEditPostEmailAnunciante = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -47,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btn_EliminarDatosEditPost = new System.Windows.Forms.Button();
             this.btn_GuardarDatosEditPost = new System.Windows.Forms.Button();
+            this.toolTipEditPost = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEditPost)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +60,7 @@
             this.txtBoxEditPostEmailAnunciante.Name = "txtBoxEditPostEmailAnunciante";
             this.txtBoxEditPostEmailAnunciante.Size = new System.Drawing.Size(259, 24);
             this.txtBoxEditPostEmailAnunciante.TabIndex = 51;
+            this.toolTipEditPost.SetToolTip(this.txtBoxEditPostEmailAnunciante, "Correo electrónico del anunciante");
             // 
             // label7
             // 
@@ -79,6 +82,7 @@
             this.textBoxEditPostHoraFin.Size = new System.Drawing.Size(59, 24);
             this.textBoxEditPostHoraFin.TabIndex = 49;
             this.textBoxEditPostHoraFin.Text = "00:00";
+            this.toolTipEditPost.SetToolTip(this.textBoxEditPostHoraFin, "Hora de finalización");
             // 
             // textBoxEditPostHoraInicio
             // 
@@ -89,6 +93,7 @@
             this.textBoxEditPostHoraInicio.Size = new System.Drawing.Size(59, 24);
             this.textBoxEditPostHoraInicio.TabIndex = 48;
             this.textBoxEditPostHoraInicio.Text = "00:00";
+            this.toolTipEditPost.SetToolTip(this.textBoxEditPostHoraInicio, "Hora de inicio");
             // 
             // pictureBoxEditPost
             // 
@@ -110,6 +115,7 @@
             this.textBoxEditPostDescripcion.Name = "textBoxEditPostDescripcion";
             this.textBoxEditPostDescripcion.Size = new System.Drawing.Size(556, 200);
             this.textBoxEditPostDescripcion.TabIndex = 46;
+            this.toolTipEditPost.SetToolTip(this.textBoxEditPostDescripcion, "Breve descripción");
             // 
             // label5
             // 
@@ -130,6 +136,7 @@
             this.textBoxEditPostCR.Name = "textBoxEditPostCR";
             this.textBoxEditPostCR.Size = new System.Drawing.Size(84, 24);
             this.textBoxEditPostCR.TabIndex = 44;
+            this.toolTipEditPost.SetToolTip(this.textBoxEditPostCR, "Precio a pagar en CR");
             // 
             // label4
             // 
@@ -149,6 +156,7 @@
             this.dateTimePickerEditPostFechaFin.Name = "dateTimePickerEditPostFechaFin";
             this.dateTimePickerEditPostFechaFin.Size = new System.Drawing.Size(182, 24);
             this.dateTimePickerEditPostFechaFin.TabIndex = 42;
+            this.toolTipEditPost.SetToolTip(this.dateTimePickerEditPostFechaFin, "Fecha de finalización");
             // 
             // label3
             // 
@@ -168,6 +176,7 @@
             this.dateTimePickerEditPostFechaInicio.Name = "dateTimePickerEditPostFechaInicio";
             this.dateTimePickerEditPostFechaInicio.Size = new System.Drawing.Size(182, 24);
             this.dateTimePickerEditPostFechaInicio.TabIndex = 40;
+            this.toolTipEditPost.SetToolTip(this.dateTimePickerEditPostFechaInicio, "Fecha de inicio");
             // 
             // label2
             // 
@@ -199,6 +208,7 @@
             this.txtBoxEditPostEmailCliente.Name = "txtBoxEditPostEmailCliente";
             this.txtBoxEditPostEmailCliente.Size = new System.Drawing.Size(259, 24);
             this.txtBoxEditPostEmailCliente.TabIndex = 52;
+            this.toolTipEditPost.SetToolTip(this.txtBoxEditPostEmailCliente, "Correo electrónico del cliente");
             // 
             // label6
             // 
@@ -216,12 +226,13 @@
             this.btn_EliminarDatosEditPost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btn_EliminarDatosEditPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_EliminarDatosEditPost.ForeColor = System.Drawing.Color.White;
-            this.btn_EliminarDatosEditPost.Location = new System.Drawing.Point(116, 673);
+            this.btn_EliminarDatosEditPost.Location = new System.Drawing.Point(128, 673);
             this.btn_EliminarDatosEditPost.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_EliminarDatosEditPost.Name = "btn_EliminarDatosEditPost";
             this.btn_EliminarDatosEditPost.Size = new System.Drawing.Size(374, 38);
             this.btn_EliminarDatosEditPost.TabIndex = 55;
             this.btn_EliminarDatosEditPost.Text = "ELIMINAR ANUNCIO";
+            this.toolTipEditPost.SetToolTip(this.btn_EliminarDatosEditPost, "Eliminar anuncio");
             this.btn_EliminarDatosEditPost.UseVisualStyleBackColor = false;
             // 
             // btn_GuardarDatosEditPost
@@ -229,12 +240,13 @@
             this.btn_GuardarDatosEditPost.BackColor = System.Drawing.Color.White;
             this.btn_GuardarDatosEditPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_GuardarDatosEditPost.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.btn_GuardarDatosEditPost.Location = new System.Drawing.Point(116, 629);
+            this.btn_GuardarDatosEditPost.Location = new System.Drawing.Point(128, 629);
             this.btn_GuardarDatosEditPost.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_GuardarDatosEditPost.Name = "btn_GuardarDatosEditPost";
             this.btn_GuardarDatosEditPost.Size = new System.Drawing.Size(374, 38);
             this.btn_GuardarDatosEditPost.TabIndex = 54;
             this.btn_GuardarDatosEditPost.Text = "GUARDAR DATOS DEL ANUNCIO";
+            this.toolTipEditPost.SetToolTip(this.btn_GuardarDatosEditPost, "Guardar datos del anuncio");
             this.btn_GuardarDatosEditPost.UseVisualStyleBackColor = false;
             // 
             // EditPost
@@ -292,5 +304,6 @@
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Button btn_EliminarDatosEditPost;
         public System.Windows.Forms.Button btn_GuardarDatosEditPost;
+        public System.Windows.Forms.ToolTip toolTipEditPost;
     }
 }

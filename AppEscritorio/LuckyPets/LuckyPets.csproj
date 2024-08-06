@@ -221,17 +221,35 @@
     <Compile Include="CodigoRest.Designer.cs">
       <DependentUpon>CodigoRest.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCard.Designer.cs">
+      <DependentUpon>EditCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditPost.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditPost.Designer.cs">
       <DependentUpon>EditPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTransaction.Designer.cs">
+      <DependentUpon>EditTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditValoration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditValoration.Designer.cs">
+      <DependentUpon>EditValoration.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -278,11 +296,20 @@
     <EmbeddedResource Include="CodigoRest.resx">
       <DependentUpon>CodigoRest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditCard.resx">
+      <DependentUpon>EditCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditPost.resx">
       <DependentUpon>EditPost.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditTransaction.resx">
+      <DependentUpon>EditTransaction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditValoration.resx">
+      <DependentUpon>EditValoration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

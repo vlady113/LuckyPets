@@ -69,6 +69,8 @@ namespace LuckyPets
 
                     usuario["esAdministrador"] = CheckBoxEditUserAdmin.Checked ? 1 : 0;
 
+                    usuario["fechaRegistro"] = DateTimePickerEditUserFechaRegistro.Value.ToString("yyyy-MM-ddTHH:mm:ss");
+
                     request.AddJsonBody(usuario);
 
                     var response = await client.ExecuteAsync(request);
@@ -147,11 +149,12 @@ namespace LuckyPets
         public TextBox TxtBoxeEditUserProvincia => txtBoxeEditUserProvincia;
         public TextBox TxtBoxeEditUserCP => txtBoxeEditUserCP;
         public TextBox TxtBoxeEditUserTelefono => txtBoxeEditUserTelefono;
-        public TextBox TxtBoxeEditUserFechaRegistro => txtBoxeEditUserFechaRegistro;
+        public DateTimePicker DateTimePickerEditUserFechaRegistro => dateTimePickerEditUserFechaRegistro;
         public TextBox TxtBoxeEditUserSaldo => txtBoxeEditUserSaldo;
         public TextBox TxtBoxeEditUserCodRest => txtBoxeEditUserCodRest;
         public CheckBox CheckBoxEditUserAdmin => checkBoxEditUserAdmin;
         public Button BtnGuardarDatosUser => btn_GuardarDatosUser;
         public Button BtnEliminarDatosUser => btn_EliminarDatosUser;
     }
+
 }
