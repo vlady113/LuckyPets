@@ -36,15 +36,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_EliminarEditValoration = new System.Windows.Forms.Button();
-            this.btn_GuardarEditValoration = new System.Windows.Forms.Button();
-            this.txtBoxeEditValorationValoracionID = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.dateTimePickerEditCard = new System.Windows.Forms.DateTimePicker();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.btn_EliminarEditTransaction = new System.Windows.Forms.Button();
+            this.btn_GuardarEditTransaction = new System.Windows.Forms.Button();
+            this.txtBoxeEditTransactionUserID = new System.Windows.Forms.TextBox();
+            this.txtBoxeEditTransactionClienteID = new System.Windows.Forms.TextBox();
+            this.txtBoxeEditTransactionID = new System.Windows.Forms.TextBox();
+            this.txtBoxeEditTransactionReservaID = new System.Windows.Forms.TextBox();
+            this.dateTimePickerEditTransaction = new System.Windows.Forms.DateTimePicker();
+            this.txtBoxeEditTransactionMontoCR = new System.Windows.Forms.TextBox();
+            this.txtBoxeEditTransactionTipo = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label7
@@ -124,93 +124,93 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "Cliente ID:";
             // 
-            // btn_EliminarEditValoration
+            // btn_EliminarEditTransaction
             // 
-            this.btn_EliminarEditValoration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btn_EliminarEditValoration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_EliminarEditValoration.ForeColor = System.Drawing.Color.White;
-            this.btn_EliminarEditValoration.Location = new System.Drawing.Point(122, 389);
-            this.btn_EliminarEditValoration.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btn_EliminarEditValoration.Name = "btn_EliminarEditValoration";
-            this.btn_EliminarEditValoration.Size = new System.Drawing.Size(374, 38);
-            this.btn_EliminarEditValoration.TabIndex = 46;
-            this.btn_EliminarEditValoration.Text = "ELIMINAR TRANSACCIÓN";
-            this.btn_EliminarEditValoration.UseVisualStyleBackColor = false;
+            this.btn_EliminarEditTransaction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btn_EliminarEditTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_EliminarEditTransaction.ForeColor = System.Drawing.Color.White;
+            this.btn_EliminarEditTransaction.Location = new System.Drawing.Point(122, 389);
+            this.btn_EliminarEditTransaction.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btn_EliminarEditTransaction.Name = "btn_EliminarEditTransaction";
+            this.btn_EliminarEditTransaction.Size = new System.Drawing.Size(374, 38);
+            this.btn_EliminarEditTransaction.TabIndex = 46;
+            this.btn_EliminarEditTransaction.Text = "ELIMINAR TRANSACCIÓN";
+            this.btn_EliminarEditTransaction.UseVisualStyleBackColor = false;
             // 
-            // btn_GuardarEditValoration
+            // btn_GuardarEditTransaction
             // 
-            this.btn_GuardarEditValoration.BackColor = System.Drawing.Color.White;
-            this.btn_GuardarEditValoration.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_GuardarEditValoration.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.btn_GuardarEditValoration.Location = new System.Drawing.Point(122, 345);
-            this.btn_GuardarEditValoration.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btn_GuardarEditValoration.Name = "btn_GuardarEditValoration";
-            this.btn_GuardarEditValoration.Size = new System.Drawing.Size(374, 38);
-            this.btn_GuardarEditValoration.TabIndex = 45;
-            this.btn_GuardarEditValoration.Text = "GUARDAR DATOS TRANSACCIÓN";
-            this.btn_GuardarEditValoration.UseVisualStyleBackColor = false;
+            this.btn_GuardarEditTransaction.BackColor = System.Drawing.Color.White;
+            this.btn_GuardarEditTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_GuardarEditTransaction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
+            this.btn_GuardarEditTransaction.Location = new System.Drawing.Point(122, 345);
+            this.btn_GuardarEditTransaction.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btn_GuardarEditTransaction.Name = "btn_GuardarEditTransaction";
+            this.btn_GuardarEditTransaction.Size = new System.Drawing.Size(374, 38);
+            this.btn_GuardarEditTransaction.TabIndex = 45;
+            this.btn_GuardarEditTransaction.Text = "GUARDAR DATOS TRANSACCIÓN";
+            this.btn_GuardarEditTransaction.UseVisualStyleBackColor = false;
             // 
-            // txtBoxeEditValorationValoracionID
+            // txtBoxeEditTransactionUserID
             // 
-            this.txtBoxeEditValorationValoracionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxeEditValorationValoracionID.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditValorationValoracionID.Location = new System.Drawing.Point(35, 56);
-            this.txtBoxeEditValorationValoracionID.Name = "txtBoxeEditValorationValoracionID";
-            this.txtBoxeEditValorationValoracionID.Size = new System.Drawing.Size(229, 24);
-            this.txtBoxeEditValorationValoracionID.TabIndex = 47;
+            this.txtBoxeEditTransactionUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionUserID.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionUserID.Location = new System.Drawing.Point(35, 56);
+            this.txtBoxeEditTransactionUserID.Name = "txtBoxeEditTransactionUserID";
+            this.txtBoxeEditTransactionUserID.Size = new System.Drawing.Size(229, 24);
+            this.txtBoxeEditTransactionUserID.TabIndex = 47;
             // 
-            // textBox1
+            // txtBoxeEditTransactionClienteID
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(35, 128);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(229, 24);
-            this.textBox1.TabIndex = 48;
+            this.txtBoxeEditTransactionClienteID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionClienteID.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionClienteID.Location = new System.Drawing.Point(35, 128);
+            this.txtBoxeEditTransactionClienteID.Name = "txtBoxeEditTransactionClienteID";
+            this.txtBoxeEditTransactionClienteID.Size = new System.Drawing.Size(229, 24);
+            this.txtBoxeEditTransactionClienteID.TabIndex = 48;
             // 
-            // textBox2
+            // txtBoxeEditTransactionID
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Black;
-            this.textBox2.Location = new System.Drawing.Point(35, 204);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(229, 24);
-            this.textBox2.TabIndex = 49;
+            this.txtBoxeEditTransactionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionID.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionID.Location = new System.Drawing.Point(35, 204);
+            this.txtBoxeEditTransactionID.Name = "txtBoxeEditTransactionID";
+            this.txtBoxeEditTransactionID.Size = new System.Drawing.Size(229, 24);
+            this.txtBoxeEditTransactionID.TabIndex = 49;
             // 
-            // textBox3
+            // txtBoxeEditTransactionReservaID
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Black;
-            this.textBox3.Location = new System.Drawing.Point(35, 277);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(229, 24);
-            this.textBox3.TabIndex = 50;
+            this.txtBoxeEditTransactionReservaID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionReservaID.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionReservaID.Location = new System.Drawing.Point(35, 277);
+            this.txtBoxeEditTransactionReservaID.Name = "txtBoxeEditTransactionReservaID";
+            this.txtBoxeEditTransactionReservaID.Size = new System.Drawing.Size(229, 24);
+            this.txtBoxeEditTransactionReservaID.TabIndex = 50;
             // 
-            // dateTimePickerEditCard
+            // dateTimePickerEditTransaction
             // 
-            this.dateTimePickerEditCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.dateTimePickerEditCard.Location = new System.Drawing.Point(350, 56);
-            this.dateTimePickerEditCard.Name = "dateTimePickerEditCard";
-            this.dateTimePickerEditCard.Size = new System.Drawing.Size(229, 24);
-            this.dateTimePickerEditCard.TabIndex = 51;
+            this.dateTimePickerEditTransaction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.dateTimePickerEditTransaction.Location = new System.Drawing.Point(350, 56);
+            this.dateTimePickerEditTransaction.Name = "dateTimePickerEditTransaction";
+            this.dateTimePickerEditTransaction.Size = new System.Drawing.Size(229, 24);
+            this.dateTimePickerEditTransaction.TabIndex = 51;
             // 
-            // textBox4
+            // txtBoxeEditTransactionMontoCR
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.Black;
-            this.textBox4.Location = new System.Drawing.Point(350, 128);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(229, 24);
-            this.textBox4.TabIndex = 52;
+            this.txtBoxeEditTransactionMontoCR.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionMontoCR.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionMontoCR.Location = new System.Drawing.Point(350, 128);
+            this.txtBoxeEditTransactionMontoCR.Name = "txtBoxeEditTransactionMontoCR";
+            this.txtBoxeEditTransactionMontoCR.Size = new System.Drawing.Size(229, 24);
+            this.txtBoxeEditTransactionMontoCR.TabIndex = 52;
             // 
-            // textBox5
+            // txtBoxeEditTransactionTipo
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.Black;
-            this.textBox5.Location = new System.Drawing.Point(350, 204);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(136, 24);
-            this.textBox5.TabIndex = 53;
+            this.txtBoxeEditTransactionTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxeEditTransactionTipo.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxeEditTransactionTipo.Location = new System.Drawing.Point(350, 204);
+            this.txtBoxeEditTransactionTipo.Name = "txtBoxeEditTransactionTipo";
+            this.txtBoxeEditTransactionTipo.Size = new System.Drawing.Size(136, 24);
+            this.txtBoxeEditTransactionTipo.TabIndex = 53;
             // 
             // EditTransaction
             // 
@@ -218,15 +218,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(640, 462);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.dateTimePickerEditCard);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.txtBoxeEditValorationValoracionID);
-            this.Controls.Add(this.btn_EliminarEditValoration);
-            this.Controls.Add(this.btn_GuardarEditValoration);
+            this.Controls.Add(this.txtBoxeEditTransactionTipo);
+            this.Controls.Add(this.txtBoxeEditTransactionMontoCR);
+            this.Controls.Add(this.dateTimePickerEditTransaction);
+            this.Controls.Add(this.txtBoxeEditTransactionReservaID);
+            this.Controls.Add(this.txtBoxeEditTransactionID);
+            this.Controls.Add(this.txtBoxeEditTransactionClienteID);
+            this.Controls.Add(this.txtBoxeEditTransactionUserID);
+            this.Controls.Add(this.btn_EliminarEditTransaction);
+            this.Controls.Add(this.btn_GuardarEditTransaction);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -253,14 +253,14 @@
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Button btn_EliminarEditValoration;
-        public System.Windows.Forms.Button btn_GuardarEditValoration;
-        public System.Windows.Forms.TextBox txtBoxeEditValorationValoracionID;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.DateTimePicker dateTimePickerEditCard;
-        public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.TextBox textBox5;
+        public System.Windows.Forms.Button btn_EliminarEditTransaction;
+        public System.Windows.Forms.Button btn_GuardarEditTransaction;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionUserID;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionClienteID;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionID;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionReservaID;
+        public System.Windows.Forms.DateTimePicker dateTimePickerEditTransaction;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionMontoCR;
+        public System.Windows.Forms.TextBox txtBoxeEditTransactionTipo;
     }
 }

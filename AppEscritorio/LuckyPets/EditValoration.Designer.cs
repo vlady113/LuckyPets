@@ -117,7 +117,7 @@
             this.btn_EliminarEditValoration.Text = "ELIMINAR VALORACIÓN";
             this.toolTipEditValoracion.SetToolTip(this.btn_EliminarEditValoration, "Eliminar valoración");
             this.btn_EliminarEditValoration.UseVisualStyleBackColor = false;
-            this.btn_EliminarEditValoration.Click += new System.EventHandler(this.btn_EliminarEditCard_Click);
+            this.btn_EliminarEditValoration.Click += new System.EventHandler(this.btn_EliminarEditValoration_Click);
             // 
             // btn_GuardarEditValoration
             // 
@@ -132,7 +132,7 @@
             this.btn_GuardarEditValoration.Text = "GUARDAR DATOS VALORACIÓN";
             this.toolTipEditValoracion.SetToolTip(this.btn_GuardarEditValoration, "Guardar datos de la valoración");
             this.btn_GuardarEditValoration.UseVisualStyleBackColor = false;
-            this.btn_GuardarEditValoration.Click += new System.EventHandler(this.btn_GuardarEditCard_Click);
+            this.btn_GuardarEditValoration.Click += new System.EventHandler(this.btn_GuardarEditValoration_Click);
             // 
             // EditValoration
             // 
@@ -168,6 +168,6 @@
         public System.Windows.Forms.TextBox txtBoxeEditValorationValoracion;
         public System.Windows.Forms.Button btn_EliminarEditValoration;
         public System.Windows.Forms.Button btn_GuardarEditValoration;
-        private System.Windows.Forms.ToolTip toolTipEditValoracion;
+        public System.Windows.Forms.ToolTip toolTipEditValoracion;
     }
 }

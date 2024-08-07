@@ -4,8 +4,10 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySqlX.XDevAPI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
@@ -93,7 +95,6 @@ namespace LuckyPets
             var selectedItem = comboBoxPrincipal.SelectedItem.ToString();
             await LoadData(selectedItem);
         }
-
         private async Task LoadData(string tableName)
         {
             var endpoints = new Dictionary<string, string>
@@ -217,6 +218,7 @@ namespace LuckyPets
 
             formToOpen?.ShowDialog();
         }
+
         private async void ToolStripMenuIteModificarDatos_Click(object sender, EventArgs e)
         {
             if (comboBoxPrincipal.SelectedItem.ToString() == "Usuarios" && dataGridViewPrincipal.SelectedRows.Count > 0)
@@ -307,12 +309,97 @@ namespace LuckyPets
                     await LoadData("Anuncios");
                 }
             }
+            else if (comboBoxPrincipal.SelectedItem.ToString() == "Historial Transacciones" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
+                EditTransaction editTransactionForm = new EditTransaction();
+
+                editTransactionForm.txtBoxeEditTransactionID.Text = selectedRow.Cells["transaccionID"].Value.ToString();
+                editTransactionForm.txtBoxeEditTransactionUserID.Text = selectedRow.Cells["usuarioID"].Value.ToString();
+                editTransactionForm.txtBoxeEditTransactionClienteID.Text = selectedRow.Cells["clienteID"].Value.ToString();
+                editTransactionForm.txtBoxeEditTransactionReservaID.Text = selectedRow.Cells["reservaID"].Value.ToString();
+                editTransactionForm.txtBoxeEditTransactionMontoCR.Text = selectedRow.Cells["montoCR"].Value.ToString();
+                editTransactionForm.txtBoxeEditTransactionTipo.Text = selectedRow.Cells["tipo"].Value.ToString();
+
+                string fechaStr = selectedRow.Cells["fecha"].Value?.ToString();
+                if (!string.IsNullOrEmpty(fechaStr))
+                {
+                    DateTime fecha;
+                    if (DateTime.TryParse(fechaStr, out fecha))
+                    {
+                        editTransactionForm.dateTimePickerEditTransaction.Value = fecha;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El formato de la fecha no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    editTransactionForm.dateTimePickerEditTransaction.Value = DateTime.Now;
+                }
+
+                if (editTransactionForm.ShowDialog() == DialogResult.OK)
+                {
+                    await LoadData("Historial Transacciones");
+                }
+            }
+            else if (comboBoxPrincipal.SelectedItem.ToString() == "Tarjetas Bancarias" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
+                EditCard editCardForm = new EditCard();
+
+                editCardForm.CardID = Convert.ToInt64(selectedRow.Cells["id"].Value);
+
+                editCardForm.txtBoxeEditCardNumTarjeta.Text = selectedRow.Cells["numeroTarjeta"].Value.ToString();
+                editCardForm.txtBoxeEditCardTitular.Text = selectedRow.Cells["titularTarjeta"].Value.ToString();
+                editCardForm.comboBoxEditCardEmisor.Text = selectedRow.Cells["emisorTarjeta"].Value.ToString();
+                editCardForm.textBoxEditCardCvv.Text = selectedRow.Cells["cvv"].Value.ToString();
+
+                string fechaCaducidadStr = selectedRow.Cells["fechaCaducidad"].Value?.ToString();
+                if (!string.IsNullOrEmpty(fechaCaducidadStr))
+                {
+                    DateTime fechaCaducidad;
+                    if (DateTime.TryParse(fechaCaducidadStr, out fechaCaducidad))
+                    {
+                        editCardForm.dateTimePickerEditCard.Value = fechaCaducidad;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El formato de la fecha de caducidad no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    editCardForm.dateTimePickerEditCard.Value = DateTime.Now;
+                }
+
+                if (editCardForm.ShowDialog() == DialogResult.OK)
+                {
+                    await LoadData("Tarjetas Bancarias");
+                }
+            }
+            else if (comboBoxPrincipal.SelectedItem.ToString() == "Valoraciones" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
+                EditValoration editValorationForm = new EditValoration();
+
+                editValorationForm.ValorationID = Convert.ToInt64(selectedRow.Cells["valoracionID"].Value);
+                editValorationForm.txtBoxeEditValorationUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                editValorationForm.txtBoxeEditValorationValoracion.Text = selectedRow.Cells["valoracion"].Value.ToString();
+
+                if (editValorationForm.ShowDialog() == DialogResult.OK)
+                {
+                    await LoadData("Valoraciones");
+                }
+            }
             else
             {
-                MessageBox.Show("Debe seleccionar 'Usuarios' o 'Anuncios' en el comboBox y una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una categoría válida en el comboBox y una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
 
         private bool IsBase64String(string base64)
         {
@@ -331,7 +418,6 @@ namespace LuckyPets
                 return false;
             }
         }
-
 
         private void ToolStripMenuItemAbrir_Click(object sender, EventArgs e)
         {

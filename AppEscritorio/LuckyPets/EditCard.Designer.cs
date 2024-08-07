@@ -36,13 +36,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.txtBoxeEditCardUserID = new System.Windows.Forms.TextBox();
             this.txtBoxeEditCardCardID = new System.Windows.Forms.TextBox();
             this.txtBoxeEditCardNumTarjeta = new System.Windows.Forms.TextBox();
             this.dateTimePickerEditCard = new System.Windows.Forms.DateTimePicker();
             this.txtBoxeEditCardTitular = new System.Windows.Forms.TextBox();
-            this.txtBoxeEditCardEmail = new System.Windows.Forms.TextBox();
             this.comboBoxEditCardEmisor = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxEditCardCvv = new System.Windows.Forms.TextBox();
@@ -100,7 +98,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(347, 251);
+            this.label6.Location = new System.Drawing.Point(347, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 18);
             this.label6.TabIndex = 16;
@@ -116,17 +114,6 @@
             this.label7.Size = new System.Drawing.Size(93, 18);
             this.label7.TabIndex = 17;
             this.label7.Text = "Usuario ID:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(347, 104);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(229, 18);
-            this.label8.TabIndex = 30;
-            this.label8.Text = "Correo electrónico del titular:";
             // 
             // txtBoxeEditCardUserID
             // 
@@ -177,22 +164,12 @@
             this.txtBoxeEditCardTitular.TabIndex = 35;
             this.toolTipEditCard.SetToolTip(this.txtBoxeEditCardTitular, "Titular de la tarjeta bancaria");
             // 
-            // txtBoxeEditCardEmail
-            // 
-            this.txtBoxeEditCardEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxeEditCardEmail.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditCardEmail.Location = new System.Drawing.Point(350, 125);
-            this.txtBoxeEditCardEmail.Name = "txtBoxeEditCardEmail";
-            this.txtBoxeEditCardEmail.Size = new System.Drawing.Size(229, 24);
-            this.txtBoxeEditCardEmail.TabIndex = 36;
-            this.toolTipEditCard.SetToolTip(this.txtBoxeEditCardEmail, "Correo electrónico del titular");
-            // 
             // comboBoxEditCardEmisor
             // 
             this.comboBoxEditCardEmisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEditCardEmisor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.comboBoxEditCardEmisor.FormattingEnabled = true;
-            this.comboBoxEditCardEmisor.Location = new System.Drawing.Point(350, 197);
+            this.comboBoxEditCardEmisor.Location = new System.Drawing.Point(350, 123);
             this.comboBoxEditCardEmisor.Name = "comboBoxEditCardEmisor";
             this.comboBoxEditCardEmisor.Size = new System.Drawing.Size(229, 26);
             this.comboBoxEditCardEmisor.TabIndex = 38;
@@ -203,7 +180,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(347, 178);
+            this.label9.Location = new System.Drawing.Point(347, 104);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(208, 18);
             this.label9.TabIndex = 37;
@@ -213,7 +190,7 @@
             // 
             this.textBoxEditCardCvv.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEditCardCvv.ForeColor = System.Drawing.Color.Black;
-            this.textBoxEditCardCvv.Location = new System.Drawing.Point(350, 276);
+            this.textBoxEditCardCvv.Location = new System.Drawing.Point(350, 199);
             this.textBoxEditCardCvv.Name = "textBoxEditCardCvv";
             this.textBoxEditCardCvv.Size = new System.Drawing.Size(84, 24);
             this.textBoxEditCardCvv.TabIndex = 39;
@@ -260,13 +237,11 @@
             this.Controls.Add(this.textBoxEditCardCvv);
             this.Controls.Add(this.comboBoxEditCardEmisor);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtBoxeEditCardEmail);
             this.Controls.Add(this.txtBoxeEditCardTitular);
             this.Controls.Add(this.dateTimePickerEditCard);
             this.Controls.Add(this.txtBoxeEditCardNumTarjeta);
             this.Controls.Add(this.txtBoxeEditCardCardID);
             this.Controls.Add(this.txtBoxeEditCardUserID);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -291,18 +266,16 @@
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox txtBoxeEditCardUserID;
         public System.Windows.Forms.TextBox txtBoxeEditCardCardID;
         public System.Windows.Forms.TextBox txtBoxeEditCardNumTarjeta;
-        private System.Windows.Forms.DateTimePicker dateTimePickerEditCard;
+        public System.Windows.Forms.DateTimePicker dateTimePickerEditCard;
         public System.Windows.Forms.TextBox txtBoxeEditCardTitular;
-        public System.Windows.Forms.TextBox txtBoxeEditCardEmail;
-        private System.Windows.Forms.ComboBox comboBoxEditCardEmisor;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxEditCardCvv;
+        public System.Windows.Forms.ComboBox comboBoxEditCardEmisor;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.TextBox textBoxEditCardCvv;
         public System.Windows.Forms.Button btn_EliminarEditCard;
         public System.Windows.Forms.Button btn_GuardarEditCard;
-        private System.Windows.Forms.ToolTip toolTipEditCard;
+        public System.Windows.Forms.ToolTip toolTipEditCard;
     }
 }
