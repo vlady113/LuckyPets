@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OfficeOpenXml;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySqlX.XDevAPI;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using OfficeOpenXml;
-using RestSharp;
 
 namespace LuckyPets
 {
@@ -95,6 +93,7 @@ namespace LuckyPets
             var selectedItem = comboBoxPrincipal.SelectedItem.ToString();
             await LoadData(selectedItem);
         }
+
         private async Task LoadData(string tableName)
         {
             var endpoints = new Dictionary<string, string>
@@ -169,6 +168,7 @@ namespace LuckyPets
             }
         }
 
+
         private void ToolStripMenuItemSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -221,185 +221,115 @@ namespace LuckyPets
 
         private async void ToolStripMenuIteModificarDatos_Click(object sender, EventArgs e)
         {
-            if (comboBoxPrincipal.SelectedItem.ToString() == "Usuarios" && dataGridViewPrincipal.SelectedRows.Count > 0)
+            var selectedItem = comboBoxPrincipal.SelectedItem.ToString();
+
+            if (dataGridViewPrincipal.SelectedRows.Count > 0)
             {
                 var selectedRow = dataGridViewPrincipal.SelectedRows[0];
-                EditUser editUserForm = new EditUser();
 
-                editUserForm.TxtBoxeEditUserID.Text = selectedRow.Cells["userID"].Value.ToString();
-                editUserForm.TxtBoxeEditUserDNI.Text = selectedRow.Cells["dni"].Value.ToString();
-                editUserForm.TxtBoxeEditUserNombre.Text = selectedRow.Cells["nombre"].Value.ToString();
-                editUserForm.TxtBoxeEditUserApellidos.Text = selectedRow.Cells["apellidos"].Value.ToString();
-                editUserForm.TxtBoxeEditUserEmail.Text = selectedRow.Cells["email"].Value.ToString();
-                editUserForm.TxtBoxeEditUserPassword.Text = selectedRow.Cells["password"].Value.ToString();
-                editUserForm.TxtBoxeEditUserDireccion.Text = selectedRow.Cells["direccion"].Value.ToString();
-                editUserForm.TxtBoxeEditUserProvincia.Text = selectedRow.Cells["provincia"].Value.ToString();
-                editUserForm.TxtBoxeEditUserCP.Text = selectedRow.Cells["codigoPostal"].Value.ToString();
-                editUserForm.TxtBoxeEditUserTelefono.Text = selectedRow.Cells["telefono"].Value.ToString();
+                Form formToOpen = null;
 
-                string fechaRegistroStr = selectedRow.Cells["fechaRegistro"].Value?.ToString();
-                if (!string.IsNullOrEmpty(fechaRegistroStr))
+                switch (selectedItem)
                 {
-                    DateTime fechaRegistro;
-                    if (DateTime.TryParse(fechaRegistroStr, out fechaRegistro))
-                    {
-                        editUserForm.dateTimePickerEditUserFechaRegistro.Value = fechaRegistro;
-                    }
-                    else
-                    {
-                        MessageBox.Show("El formato de la fecha de registro no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else
-                {
-                    editUserForm.dateTimePickerEditUserFechaRegistro.Value = DateTime.Now;
-                }
-
-                editUserForm.TxtBoxeEditUserSaldo.Text = selectedRow.Cells["saldoCR"].Value.ToString();
-                editUserForm.TxtBoxeEditUserCodRest.Text = selectedRow.Cells["codigo_restablecimiento"].Value.ToString();
-                editUserForm.CheckBoxEditUserAdmin.Checked = Convert.ToBoolean(selectedRow.Cells["esAdministrador"].Value);
-
-                if (editUserForm.ShowDialog() == DialogResult.OK)
-                {
-                    await LoadData("Usuarios");
-                }
-            }
-            else if (comboBoxPrincipal.SelectedItem.ToString() == "Anuncios" && dataGridViewPrincipal.SelectedRows.Count > 0)
-            {
-                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
-                EditPost editPostForm = new EditPost();
-
-                editPostForm.AnuncioID = Convert.ToInt64(selectedRow.Cells["anuncioID"].Value);
-
-                editPostForm.TxtBoxEditPostEmailCliente.Text = selectedRow.Cells["emailCliente"].Value.ToString();
-                editPostForm.TxtBoxEditPostEmailAnunciante.Text = selectedRow.Cells["usuario.email"].Value.ToString();
-
-                if (selectedRow.Cells["fotoAnuncio"].Value != null)
-                {
-                    try
-                    {
-                        string base64String = selectedRow.Cells["fotoAnuncio"].Value.ToString();
-                        if (IsBase64String(base64String))
+                    case "Tarjetas Bancarias":
+                        formToOpen = new EditCard();
+                        (formToOpen as EditCard).CardID = Convert.ToInt64(selectedRow.Cells["id"].Value);
+                        (formToOpen as EditCard).txtBoxeEditCardNumTarjeta.Text = selectedRow.Cells["numeroTarjeta"].Value.ToString();
+                        (formToOpen as EditCard).txtBoxeEditCardTitular.Text = selectedRow.Cells["titularTarjeta"].Value.ToString();
+                        (formToOpen as EditCard).textBoxEditCardCvv.Text = selectedRow.Cells["cvv"].Value.ToString();
+                        (formToOpen as EditCard).txtBoxeEditCardCardID.Text = selectedRow.Cells["id"].Value.ToString();
+                        string emisorTarjeta = selectedRow.Cells["emisorTarjeta"].Value.ToString();
+                        if (!(formToOpen as EditCard).comboBoxEditCardEmisor.Items.Contains(emisorTarjeta))
                         {
-                            byte[] imageBytes = Convert.FromBase64String(base64String);
-                            using (var ms = new MemoryStream(imageBytes))
-                            {
-                                editPostForm.PictureBoxEditPost.Image = Image.FromStream(ms);
-                            }
+                            (formToOpen as EditCard).comboBoxEditCardEmisor.Items.Add(emisorTarjeta);
                         }
-                        else
+                (formToOpen as EditCard).comboBoxEditCardEmisor.SelectedItem = emisorTarjeta;
+
+                        string fechaCaducidadStr = selectedRow.Cells["fechaCaducidad"].Value?.ToString();
+                        if (!string.IsNullOrEmpty(fechaCaducidadStr) && DateTime.TryParse(fechaCaducidadStr, out DateTime fechaCaducidad))
                         {
-                            MessageBox.Show("Los datos de la imagen no son válidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            (formToOpen as EditCard).dateTimePickerEditCard.Value = fechaCaducidad;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al cargar la imagen: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
 
-                editPostForm.DateTimePickerEditPostFechaInicio.Value = DateTime.Parse(selectedRow.Cells["fechaInicio"].Value.ToString());
-                editPostForm.DateTimePickerEditPostFechaFin.Value = DateTime.Parse(selectedRow.Cells["fechaFin"].Value.ToString());
-                editPostForm.TextBoxEditPostCR.Text = selectedRow.Cells["costoCR"].Value.ToString();
-                editPostForm.TextBoxEditPostDescripcion.Text = selectedRow.Cells["descripcion"].Value.ToString();
+                        formToOpen.ShowDialog();
+                        break;
 
-                if (editPostForm.ShowDialog() == DialogResult.OK)
-                {
-                    await LoadData("Anuncios");
-                }
-            }
-            else if (comboBoxPrincipal.SelectedItem.ToString() == "Historial Transacciones" && dataGridViewPrincipal.SelectedRows.Count > 0)
-            {
-                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
-                EditTransaction editTransactionForm = new EditTransaction();
+                    case "Usuarios":
+                        formToOpen = new EditUser();
+                        (formToOpen as EditUser).txtBoxeEditUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserNombre.Text = selectedRow.Cells["nombre"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserApellidos.Text = selectedRow.Cells["apellidos"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserEmail.Text = selectedRow.Cells["email"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserDNI.Text = selectedRow.Cells["dni"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserDireccion.Text = selectedRow.Cells["direccion"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserProvincia.Text = selectedRow.Cells["provincia"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserCP.Text = selectedRow.Cells["codigoPostal"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserTelefono.Text = selectedRow.Cells["telefono"].Value.ToString();
+                        (formToOpen as EditUser).txtBoxeEditUserSaldo.Text = selectedRow.Cells["saldoCR"].Value.ToString();
+                        (formToOpen as EditUser).checkBoxEditUserAdmin.Checked = Convert.ToBoolean(selectedRow.Cells["esAdministrador"].Value);
+                        (formToOpen as EditUser).txtBoxeEditUserCodRest.Text = selectedRow.Cells["codigo_restablecimiento"].Value.ToString();
+                        if (DateTime.TryParse(selectedRow.Cells["fechaRegistro"].Value.ToString(), out DateTime fechaRegistro))
+                        {
+                            (formToOpen as EditUser).dateTimePickerEditUserFechaRegistro.Value = fechaRegistro;
+                        }
+                        break;
 
-                editTransactionForm.txtBoxeEditTransactionID.Text = selectedRow.Cells["transaccionID"].Value.ToString();
-                editTransactionForm.txtBoxeEditTransactionUserID.Text = selectedRow.Cells["usuarioID"].Value.ToString();
-                editTransactionForm.txtBoxeEditTransactionClienteID.Text = selectedRow.Cells["clienteID"].Value.ToString();
-                editTransactionForm.txtBoxeEditTransactionReservaID.Text = selectedRow.Cells["reservaID"].Value.ToString();
-                editTransactionForm.txtBoxeEditTransactionMontoCR.Text = selectedRow.Cells["montoCR"].Value.ToString();
-                editTransactionForm.txtBoxeEditTransactionTipo.Text = selectedRow.Cells["tipo"].Value.ToString();
+                    case "Anuncios":
+                        formToOpen = new EditPost();
+                        (formToOpen as EditPost).AnuncioID = Convert.ToInt64(selectedRow.Cells["anuncioID"].Value);
+                        (formToOpen as EditPost).TxtBoxEditPostEmailCliente.Text = selectedRow.Cells["emailCliente"].Value.ToString();
+                        (formToOpen as EditPost).TxtBoxEditPostEmailAnunciante.Text = selectedRow.Cells["usuario.email"].Value.ToString();
+                        (formToOpen as EditPost).TextBoxEditPostDescripcion.Text = selectedRow.Cells["descripcion"].Value.ToString();
+                        (formToOpen as EditPost).TextBoxEditPostCR.Text = selectedRow.Cells["costoCR"].Value.ToString();
 
-                string fechaStr = selectedRow.Cells["fecha"].Value?.ToString();
-                if (!string.IsNullOrEmpty(fechaStr))
-                {
-                    DateTime fecha;
-                    if (DateTime.TryParse(fechaStr, out fecha))
-                    {
-                        editTransactionForm.dateTimePickerEditTransaction.Value = fecha;
-                    }
-                    else
-                    {
-                        MessageBox.Show("El formato de la fecha no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (DateTime.TryParse(selectedRow.Cells["fechaInicio"].Value.ToString(), out DateTime fechaInicio))
+                        {
+                            (formToOpen as EditPost).DateTimePickerEditPostFechaInicio.Value = fechaInicio;
+                        }
+                        if (DateTime.TryParse(selectedRow.Cells["fechaFin"].Value.ToString(), out DateTime fechaFin))
+                        {
+                            (formToOpen as EditPost).DateTimePickerEditPostFechaFin.Value = fechaFin;
+                        }
+                        break;
+
+
+                    case "Historial Transacciones":
+                        formToOpen = new EditTransaction();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionClienteID.Text = selectedRow.Cells["clienteID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionID.Text = selectedRow.Cells["id"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionReservaID.Text = selectedRow.Cells["reservaID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionMontoCR.Text = selectedRow.Cells["montoCR"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionTipo.Text = selectedRow.Cells["tipo"].Value.ToString();
+                        if (DateTime.TryParse(selectedRow.Cells["fecha"].Value.ToString(), out DateTime fechaTransaccion))
+                        {
+                            (formToOpen as EditTransaction).dateTimePickerEditTransaction.Value = fechaTransaccion;
+                        }
+                        break;
+
+                    case "Valoraciones":
+                        formToOpen = new EditValoration();
+                        (formToOpen as EditValoration).txtBoxeEditValorationValoracionID.Text = selectedRow.Cells["valoracionID"].Value.ToString();
+                        (formToOpen as EditValoration).txtBoxeEditValorationUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                        (formToOpen as EditValoration).txtBoxeEditValorationValoracion.Text = selectedRow.Cells["valoracion"].Value.ToString();
+                        break;
+
+                    default:
+                        MessageBox.Show("Seleccione una categoría válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
-                    }
-                }
-                else
-                {
-                    editTransactionForm.dateTimePickerEditTransaction.Value = DateTime.Now;
                 }
 
-                if (editTransactionForm.ShowDialog() == DialogResult.OK)
+                if (formToOpen != null && formToOpen.ShowDialog() == DialogResult.OK)
                 {
-                    await LoadData("Historial Transacciones");
-                }
-            }
-            else if (comboBoxPrincipal.SelectedItem.ToString() == "Tarjetas Bancarias" && dataGridViewPrincipal.SelectedRows.Count > 0)
-            {
-                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
-                EditCard editCardForm = new EditCard();
-
-                editCardForm.CardID = Convert.ToInt64(selectedRow.Cells["id"].Value);
-
-                editCardForm.txtBoxeEditCardNumTarjeta.Text = selectedRow.Cells["numeroTarjeta"].Value.ToString();
-                editCardForm.txtBoxeEditCardTitular.Text = selectedRow.Cells["titularTarjeta"].Value.ToString();
-                editCardForm.comboBoxEditCardEmisor.Text = selectedRow.Cells["emisorTarjeta"].Value.ToString();
-                editCardForm.textBoxEditCardCvv.Text = selectedRow.Cells["cvv"].Value.ToString();
-
-                string fechaCaducidadStr = selectedRow.Cells["fechaCaducidad"].Value?.ToString();
-                if (!string.IsNullOrEmpty(fechaCaducidadStr))
-                {
-                    DateTime fechaCaducidad;
-                    if (DateTime.TryParse(fechaCaducidadStr, out fechaCaducidad))
-                    {
-                        editCardForm.dateTimePickerEditCard.Value = fechaCaducidad;
-                    }
-                    else
-                    {
-                        MessageBox.Show("El formato de la fecha de caducidad no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else
-                {
-                    editCardForm.dateTimePickerEditCard.Value = DateTime.Now;
-                }
-
-                if (editCardForm.ShowDialog() == DialogResult.OK)
-                {
-                    await LoadData("Tarjetas Bancarias");
-                }
-            }
-            else if (comboBoxPrincipal.SelectedItem.ToString() == "Valoraciones" && dataGridViewPrincipal.SelectedRows.Count > 0)
-            {
-                var selectedRow = dataGridViewPrincipal.SelectedRows[0];
-                EditValoration editValorationForm = new EditValoration();
-
-                editValorationForm.ValorationID = Convert.ToInt64(selectedRow.Cells["valoracionID"].Value);
-                editValorationForm.txtBoxeEditValorationUserID.Text = selectedRow.Cells["userID"].Value.ToString();
-                editValorationForm.txtBoxeEditValorationValoracion.Text = selectedRow.Cells["valoracion"].Value.ToString();
-
-                if (editValorationForm.ShowDialog() == DialogResult.OK)
-                {
-                    await LoadData("Valoraciones");
+                    await LoadData(selectedItem);
                 }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una categoría válida en el comboBox y una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una fila en el DataGridView para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private bool IsBase64String(string base64)
         {
@@ -738,5 +668,4 @@ namespace LuckyPets
             currentSearchValue = string.Empty;
         }
     }
-
 }

@@ -35,8 +35,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtBoxeEditCardUserID = new System.Windows.Forms.TextBox();
             this.txtBoxeEditCardCardID = new System.Windows.Forms.TextBox();
             this.txtBoxeEditCardNumTarjeta = new System.Windows.Forms.TextBox();
             this.dateTimePickerEditCard = new System.Windows.Forms.DateTimePicker();
@@ -54,7 +52,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(37, 104);
+            this.label1.Location = new System.Drawing.Point(33, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(155, 18);
             this.label1.TabIndex = 11;
@@ -65,7 +63,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(37, 178);
+            this.label2.Location = new System.Drawing.Point(33, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 18);
             this.label2.TabIndex = 12;
@@ -76,7 +74,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(37, 251);
+            this.label3.Location = new System.Drawing.Point(33, 176);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(164, 18);
             this.label3.TabIndex = 13;
@@ -104,32 +102,11 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "CVV:";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(37, 29);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 18);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Usuario ID:";
-            // 
-            // txtBoxeEditCardUserID
-            // 
-            this.txtBoxeEditCardUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxeEditCardUserID.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditCardUserID.Location = new System.Drawing.Point(40, 50);
-            this.txtBoxeEditCardUserID.Name = "txtBoxeEditCardUserID";
-            this.txtBoxeEditCardUserID.Size = new System.Drawing.Size(229, 24);
-            this.txtBoxeEditCardUserID.TabIndex = 31;
-            this.toolTipEditCard.SetToolTip(this.txtBoxeEditCardUserID, "Id de usuario");
-            // 
             // txtBoxeEditCardCardID
             // 
             this.txtBoxeEditCardCardID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxeEditCardCardID.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditCardCardID.Location = new System.Drawing.Point(40, 125);
+            this.txtBoxeEditCardCardID.Location = new System.Drawing.Point(36, 50);
             this.txtBoxeEditCardCardID.Name = "txtBoxeEditCardCardID";
             this.txtBoxeEditCardCardID.Size = new System.Drawing.Size(229, 24);
             this.txtBoxeEditCardCardID.TabIndex = 32;
@@ -139,7 +116,7 @@
             // 
             this.txtBoxeEditCardNumTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxeEditCardNumTarjeta.ForeColor = System.Drawing.Color.Black;
-            this.txtBoxeEditCardNumTarjeta.Location = new System.Drawing.Point(40, 199);
+            this.txtBoxeEditCardNumTarjeta.Location = new System.Drawing.Point(36, 124);
             this.txtBoxeEditCardNumTarjeta.Name = "txtBoxeEditCardNumTarjeta";
             this.txtBoxeEditCardNumTarjeta.Size = new System.Drawing.Size(229, 24);
             this.txtBoxeEditCardNumTarjeta.TabIndex = 33;
@@ -148,7 +125,7 @@
             // dateTimePickerEditCard
             // 
             this.dateTimePickerEditCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.dateTimePickerEditCard.Location = new System.Drawing.Point(40, 276);
+            this.dateTimePickerEditCard.Location = new System.Drawing.Point(36, 201);
             this.dateTimePickerEditCard.Name = "dateTimePickerEditCard";
             this.dateTimePickerEditCard.Size = new System.Drawing.Size(229, 24);
             this.dateTimePickerEditCard.TabIndex = 34;
@@ -201,7 +178,7 @@
             this.btn_EliminarEditCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btn_EliminarEditCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_EliminarEditCard.ForeColor = System.Drawing.Color.White;
-            this.btn_EliminarEditCard.Location = new System.Drawing.Point(117, 384);
+            this.btn_EliminarEditCard.Location = new System.Drawing.Point(115, 313);
             this.btn_EliminarEditCard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_EliminarEditCard.Name = "btn_EliminarEditCard";
             this.btn_EliminarEditCard.Size = new System.Drawing.Size(374, 38);
@@ -216,7 +193,7 @@
             this.btn_GuardarEditCard.BackColor = System.Drawing.Color.White;
             this.btn_GuardarEditCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_GuardarEditCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.btn_GuardarEditCard.Location = new System.Drawing.Point(117, 340);
+            this.btn_GuardarEditCard.Location = new System.Drawing.Point(115, 269);
             this.btn_GuardarEditCard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_GuardarEditCard.Name = "btn_GuardarEditCard";
             this.btn_GuardarEditCard.Size = new System.Drawing.Size(374, 38);
@@ -231,7 +208,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(115)))), ((int)(((byte)(111)))));
-            this.ClientSize = new System.Drawing.Size(618, 450);
+            this.ClientSize = new System.Drawing.Size(618, 382);
             this.Controls.Add(this.btn_EliminarEditCard);
             this.Controls.Add(this.btn_GuardarEditCard);
             this.Controls.Add(this.textBoxEditCardCvv);
@@ -241,8 +218,6 @@
             this.Controls.Add(this.dateTimePickerEditCard);
             this.Controls.Add(this.txtBoxeEditCardNumTarjeta);
             this.Controls.Add(this.txtBoxeEditCardCardID);
-            this.Controls.Add(this.txtBoxeEditCardUserID);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -265,8 +240,6 @@
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Label label7;
-        public System.Windows.Forms.TextBox txtBoxeEditCardUserID;
         public System.Windows.Forms.TextBox txtBoxeEditCardCardID;
         public System.Windows.Forms.TextBox txtBoxeEditCardNumTarjeta;
         public System.Windows.Forms.DateTimePicker dateTimePickerEditCard;

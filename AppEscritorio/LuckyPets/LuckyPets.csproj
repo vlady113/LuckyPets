@@ -280,6 +280,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="TarjetaBancariaDTO.cs" />
     <Compile Include="TransaccionDTO.cs" />
+    <Compile Include="UsuarioDTO.cs" />
     <Compile Include="ValoracionDTO.cs" />
     <EmbeddedResource Include="AcercaDe.resx">
       <DependentUpon>AcercaDe.cs</DependentUpon>
