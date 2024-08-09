@@ -295,10 +295,10 @@ namespace LuckyPets
 
                     case "Historial Transacciones":
                         formToOpen = new EditTransaction();
-                        (formToOpen as EditTransaction).txtBoxeEditTransactionUserID.Text = selectedRow.Cells["userID"].Value.ToString();
-                        (formToOpen as EditTransaction).txtBoxeEditTransactionClienteID.Text = selectedRow.Cells["clienteID"].Value.ToString();
-                        (formToOpen as EditTransaction).txtBoxeEditTransactionID.Text = selectedRow.Cells["id"].Value.ToString();
-                        (formToOpen as EditTransaction).txtBoxeEditTransactionReservaID.Text = selectedRow.Cells["reservaID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionUserID.Text = selectedRow.Cells["usuario.userID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionClienteID.Text = selectedRow.Cells["reserva.usuario.userID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionID.Text = selectedRow.Cells["transaccionID"].Value.ToString();
+                        (formToOpen as EditTransaction).txtBoxeEditTransactionReservaID.Text = selectedRow.Cells["reserva.anuncioID"].Value.ToString();
                         (formToOpen as EditTransaction).txtBoxeEditTransactionMontoCR.Text = selectedRow.Cells["montoCR"].Value.ToString();
                         (formToOpen as EditTransaction).txtBoxeEditTransactionTipo.Text = selectedRow.Cells["tipo"].Value.ToString();
                         if (DateTime.TryParse(selectedRow.Cells["fecha"].Value.ToString(), out DateTime fechaTransaccion))
@@ -310,7 +310,7 @@ namespace LuckyPets
                     case "Valoraciones":
                         formToOpen = new EditValoration();
                         (formToOpen as EditValoration).txtBoxeEditValorationValoracionID.Text = selectedRow.Cells["valoracionID"].Value.ToString();
-                        (formToOpen as EditValoration).txtBoxeEditValorationUserID.Text = selectedRow.Cells["userID"].Value.ToString();
+                        (formToOpen as EditValoration).txtBoxeEditValorationUserID.Text = selectedRow.Cells["usuario.userID"].Value.ToString();
                         (formToOpen as EditValoration).txtBoxeEditValorationValoracion.Text = selectedRow.Cells["valoracion"].Value.ToString();
                         break;
 
