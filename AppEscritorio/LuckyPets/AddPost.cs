@@ -11,6 +11,12 @@ namespace LuckyPets
     public partial class AddPost : Form
     {
         public event EventHandler PostAdded;
+        private long _anuncioId;
+
+        public AddPost(long anuncioId) : this()
+        {
+            _anuncioId = anuncioId;
+        }
 
         public AddPost()
         {
@@ -169,7 +175,10 @@ namespace LuckyPets
                 {
                     try
                     {
-                        pictureBoxAddPost.Image = Image.FromFile(openFileDialog.FileName);
+                        Image selectedImage = Image.FromFile(openFileDialog.FileName);
+                        pictureBoxAddPost.Image = selectedImage;
+                        pictureBoxAddPost.SizeMode = PictureBoxSizeMode.Zoom;
+                        pictureBoxAddPost.Refresh();
                     }
                     catch (Exception ex)
                     {
@@ -183,9 +192,62 @@ namespace LuckyPets
         {
             using (var ms = new System.IO.MemoryStream())
             {
-                image.Save(ms, image.RawFormat);
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return ms.ToArray();
             }
+        }
+
+        private async Task LoadAnuncioAsync(long anuncioId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync($"http://localhost:8080/api/anuncios/{anuncioId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        Anuncio anuncio = JsonConvert.DeserializeObject<Anuncio>(jsonResponse);
+
+                        if (anuncio != null && anuncio.FotoAnuncio != null)
+                        {
+                            using (var ms = new System.IO.MemoryStream(anuncio.FotoAnuncio))
+                            {
+                                pictureBoxAddPost.Image = Image.FromStream(ms);
+                                pictureBoxAddPost.SizeMode = PictureBoxSizeMode.Zoom;
+                                pictureBoxAddPost.Refresh();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El anuncio no tiene una imagen asociada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        string errorContent = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Error al obtener el anuncio: {response.StatusCode} - {errorContent}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al cargar el anuncio: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public class Anuncio
+        {
+            public long AnuncioID { get; set; }
+            public Usuarios Usuario { get; set; }
+            public DateTime FechaInicio { get; set; }
+            public DateTime FechaFin { get; set; }
+            public string Descripcion { get; set; }
+            public string Estado { get; set; }
+            public double CostoCR { get; set; }
+            public byte[] FotoAnuncio { get; set; }
+            public string EmailCliente { get; set; }
         }
 
         public class Usuarios
@@ -197,10 +259,14 @@ namespace LuckyPets
             public string Email { get; set; }
         }
 
-        private void AddPost_Load(object sender, EventArgs e)
+        private async void AddPost_Load(object sender, EventArgs e)
         {
-
+            if (_anuncioId > 0)
+            {
+                await LoadAnuncioAsync(_anuncioId);
+            }
         }
+
 
         private void label7_Click(object sender, EventArgs e)
         {

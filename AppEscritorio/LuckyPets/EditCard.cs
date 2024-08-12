@@ -54,7 +54,6 @@ namespace LuckyPets
                         dateTimePickerEditCard.Value = tarjeta.FechaCaducidad;
                         txtBoxeEditCardTitular.Text = tarjeta.TitularTarjeta;
 
-                        // Si el emisor no está en la lista, lo agrega
                         if (!comboBoxEditCardEmisor.Items.Contains(tarjeta.EmisorTarjeta))
                         {
                             comboBoxEditCardEmisor.Items.Add(tarjeta.EmisorTarjeta);
@@ -79,18 +78,43 @@ namespace LuckyPets
         {
             try
             {
+                // Validación de campos antes de proceder
+                if (string.IsNullOrWhiteSpace(txtBoxeEditCardNumTarjeta.Text) ||
+                    string.IsNullOrWhiteSpace(txtBoxeEditCardTitular.Text) ||
+                    string.IsNullOrWhiteSpace(comboBoxEditCardEmisor.SelectedItem?.ToString()) ||
+                    string.IsNullOrWhiteSpace(textBoxEditCardCvv.Text))
+                {
+                    MessageBox.Show("Todos los campos deben estar llenos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!long.TryParse(txtBoxeEditCardNumTarjeta.Text, out long numeroTarjeta))
+                {
+                    MessageBox.Show("El número de tarjeta no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!int.TryParse(textBoxEditCardCvv.Text, out int cvv) || cvv.ToString().Length < 3 || cvv.ToString().Length > 4)
+                {
+                    MessageBox.Show("El CVV debe ser un número de 3 o 4 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var tarjeta = new TarjetaBancariaDTO
                 {
                     Id = CardID,
-                    NumeroTarjeta = long.Parse(txtBoxeEditCardNumTarjeta.Text),
+                    NumeroTarjeta = numeroTarjeta,
                     FechaCaducidad = dateTimePickerEditCard.Value,
                     TitularTarjeta = txtBoxeEditCardTitular.Text,
                     EmisorTarjeta = comboBoxEditCardEmisor.SelectedItem.ToString(),
-                    Cvv = int.Parse(textBoxEditCardCvv.Text)
+                    Cvv = cvv
                 };
 
                 var json = JsonConvert.SerializeObject(tarjeta);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                Console.WriteLine($"Request JSON: {json}");
+
                 HttpResponseMessage response = await client.PutAsync($"/api/tarjetas/{CardID}", content);
                 if (response.IsSuccessStatusCode)
                 {
@@ -101,14 +125,27 @@ namespace LuckyPets
                 else
                 {
                     var errorResponse = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error Response: {errorResponse}");
                     MessageBox.Show($"Error al guardar los datos: {response.ReasonPhrase}. Detalles: {errorResponse}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            catch (JsonSerializationException jsonEx)
+            {
+                Console.WriteLine($"JSON Serialization Error: {jsonEx.Message}");
+                MessageBox.Show($"Error al serializar los datos: {jsonEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Console.WriteLine($"HTTP Request Error: {httpEx.Message}");
+                MessageBox.Show($"Error de conexión: {httpEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
+                Console.WriteLine($"General Exception: {ex.Message}");
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async void btn_EliminarEditCard_Click(object sender, EventArgs e)
         {

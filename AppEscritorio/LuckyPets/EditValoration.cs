@@ -22,6 +22,9 @@ namespace LuckyPets
             };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            btn_GuardarEditValoration.Click += btn_GuardarEditValoration_Click;
+            btn_EliminarEditValoration.Click += btn_EliminarEditValoration_Click;
         }
 
         private async void EditValoration_Load(object sender, EventArgs e)
@@ -59,14 +62,26 @@ namespace LuckyPets
         {
             try
             {
-                var valoracion = new ValoracionDTO
+                if (string.IsNullOrWhiteSpace(txtBoxeEditValorationUserID.Text) || string.IsNullOrWhiteSpace(txtBoxeEditValorationValoracion.Text))
+                {
+                    MessageBox.Show("Todos los campos deben estar llenos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!long.TryParse(txtBoxeEditValorationUserID.Text, out long usuarioID) || !int.TryParse(txtBoxeEditValorationValoracion.Text, out int valoracion))
+                {
+                    MessageBox.Show("Uno o más campos contienen datos inválidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var valoracionDTO = new ValoracionDTO
                 {
                     ValoracionID = ValorationID,
-                    UsuarioID = long.Parse(txtBoxeEditValorationUserID.Text),
-                    Valoracion = int.Parse(txtBoxeEditValorationValoracion.Text)
+                    UsuarioID = usuarioID,
+                    Valoracion = valoracion
                 };
 
-                var json = JsonConvert.SerializeObject(valoracion);
+                var json = JsonConvert.SerializeObject(valoracionDTO);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync($"/api/valoraciones/{ValorationID}", content);
                 if (response.IsSuccessStatusCode)
@@ -77,7 +92,8 @@ namespace LuckyPets
                 }
                 else
                 {
-                    MessageBox.Show($"Error al guardar los datos: {response.ReasonPhrase}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Error al guardar los datos: {response.ReasonPhrase}. Detalles: {errorResponse}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -105,7 +121,8 @@ namespace LuckyPets
                     }
                     else
                     {
-                        MessageBox.Show($"Error al eliminar la valoración: {response.ReasonPhrase}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var errorResponse = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Error al eliminar la valoración: {response.ReasonPhrase}. Detalles: {errorResponse}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
@@ -115,4 +132,5 @@ namespace LuckyPets
             }
         }
     }
+
 }

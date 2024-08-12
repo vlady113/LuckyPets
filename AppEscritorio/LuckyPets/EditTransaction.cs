@@ -22,6 +22,9 @@ namespace LuckyPets
             };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            btn_GuardarEditTransaction.Click += btn_GuardarEditTransaction_Click;
+            btn_EliminarEditTransaction.Click += btn_EliminarEditTransaction_Click;
         }
 
         private async void EditTransaction_Load(object sender, EventArgs e)
@@ -64,20 +67,42 @@ namespace LuckyPets
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(txtBoxeEditTransactionUserID.Text) ||
+                    string.IsNullOrWhiteSpace(txtBoxeEditTransactionClienteID.Text) ||
+                    string.IsNullOrWhiteSpace(txtBoxeEditTransactionReservaID.Text) ||
+                    string.IsNullOrWhiteSpace(txtBoxeEditTransactionMontoCR.Text) ||
+                    string.IsNullOrWhiteSpace(txtBoxeEditTransactionTipo.Text))
+                {
+                    MessageBox.Show("Todos los campos deben estar llenos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!long.TryParse(txtBoxeEditTransactionUserID.Text, out long usuarioID) ||
+                    !long.TryParse(txtBoxeEditTransactionClienteID.Text, out long clienteID) ||
+                    !long.TryParse(txtBoxeEditTransactionReservaID.Text, out long reservaID) ||
+                    !decimal.TryParse(txtBoxeEditTransactionMontoCR.Text, out decimal montoCR))
+                {
+                    MessageBox.Show("Uno o más campos contienen datos inválidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var transaccion = new TransaccionDTO
                 {
-                    TransaccionID = long.Parse(txtBoxeEditTransactionID.Text),
-                    UsuarioID = long.Parse(txtBoxeEditTransactionUserID.Text),
-                    ClienteID = long.Parse(txtBoxeEditTransactionClienteID.Text),
-                    ReservaID = long.Parse(txtBoxeEditTransactionReservaID.Text),
-                    MontoCR = decimal.Parse(txtBoxeEditTransactionMontoCR.Text),
+                    TransaccionID = TransactionID,
+                    UsuarioID = usuarioID,
+                    ClienteID = clienteID,
+                    ReservaID = reservaID,
+                    MontoCR = montoCR,
                     Tipo = txtBoxeEditTransactionTipo.Text,
                     Fecha = dateTimePickerEditTransaction.Value
                 };
 
                 var json = JsonConvert.SerializeObject(transaccion);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"/api/transacciones/{TransactionID}", content);
+
+                Console.WriteLine($"Request JSON: {json}");
+
+                HttpResponseMessage response = await client.PutAsync($"/api/historialtransacciones/{TransactionID}", content);
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Datos guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -86,11 +111,24 @@ namespace LuckyPets
                 }
                 else
                 {
-                    MessageBox.Show($"Error al guardar los datos: {response.ReasonPhrase}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error Response: {errorResponse}");
+                    MessageBox.Show($"Error al guardar los datos: {response.ReasonPhrase}. Detalles: {errorResponse}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (JsonSerializationException jsonEx)
+            {
+                Console.WriteLine($"JSON Serialization Error: {jsonEx.Message}");
+                MessageBox.Show($"Error al serializar los datos: {jsonEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Console.WriteLine($"HTTP Request Error: {httpEx.Message}");
+                MessageBox.Show($"Error de conexión: {httpEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"General Exception: {ex.Message}");
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -105,7 +143,7 @@ namespace LuckyPets
             {
                 try
                 {
-                    HttpResponseMessage response = await client.DeleteAsync($"/api/transacciones/{TransactionID}");
+                    HttpResponseMessage response = await client.DeleteAsync($"/api/historialtransacciones/{TransactionID}");
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Transacción eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -123,5 +161,6 @@ namespace LuckyPets
                 }
             }
         }
+
     }
 }

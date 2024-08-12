@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|c:\\users\\vladyslav\\desktop\\proyecto final\\luckypets\\appescritorio\\luckypets\\addpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:addpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|c:\\users\\vladyslav\\desktop\\proyecto final\\luckypets\\appescritorio\\luckypets\\principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\editcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:editcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|c:\\users\\vladyslav\\desktop\\proyecto final\\luckypets\\appescritorio\\luckypets\\addpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:addpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|c:\\users\\vladyslav\\desktop\\proyecto final\\luckypets\\appescritorio\\luckypets\\principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\editcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7C1A843B-7102-4412-BD84-B201948AB24F}|LuckyPets.csproj|solutionrelative:editcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,50 +34,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EditCard.cs",
-              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\EditCard.cs",
-              "RelativeDocumentMoniker": "EditCard.cs",
-              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\EditCard.cs",
-              "RelativeToolTip": "EditCard.cs",
-              "ViewState": "AQIAAGIAAAAAAAAAAAAwwI4AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-08T15:19:30.295Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EditCard.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\EditCard.cs",
-              "RelativeDocumentMoniker": "EditCard.cs",
-              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\EditCard.cs [Dise\u00F1o]",
-              "RelativeToolTip": "EditCard.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-08T15:19:28.594Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Principal.cs",
-              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs",
-              "RelativeDocumentMoniker": "Principal.cs",
-              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs",
-              "RelativeToolTip": "Principal.cs",
-              "ViewState": "AQIAABcBAAAAAAAAAAAvwDoBAAAeAAAA",
+              "Title": "AddPost.cs",
+              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\AddPost.cs",
+              "RelativeDocumentMoniker": "AddPost.cs",
+              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\AddPost.cs",
+              "RelativeToolTip": "AddPost.cs",
+              "ViewState": "AQIAAO0AAAAAAAAAAAAQwNoAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T12:40:22.833Z",
+              "WhenOpened": "2024-08-12T13:18:39.518Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "AddPost.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\AddPost.cs",
+              "RelativeDocumentMoniker": "AddPost.cs",
+              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\AddPost.cs [Dise\u00F1o]",
+              "RelativeToolTip": "AddPost.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-12T13:18:36.826Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Principal.cs",
+              "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs",
+              "RelativeDocumentMoniker": "Principal.cs",
+              "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs",
+              "RelativeToolTip": "Principal.cs",
+              "ViewState": "AQIAALUAAAAAAAAAAAAUwIcCAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-12T13:18:17.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Principal.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs",
               "RelativeDocumentMoniker": "Principal.cs",
               "ToolTip": "C:\\Users\\Vladyslav\\Desktop\\PROYECTO FINAL\\LuckyPets\\AppEscritorio\\LuckyPets\\Principal.cs [Dise\u00F1o]",
               "RelativeToolTip": "Principal.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T12:40:13.949Z"
+              "WhenOpened": "2024-08-12T10:43:29.027Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }
